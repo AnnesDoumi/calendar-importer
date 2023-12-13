@@ -1,0 +1,150 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="984332CB-31C9-C389-7BDA-3F8A2C3CAF78" name="Bestellposition">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:16:59 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="BID" id="AB9D45A1-2186-2937-B2F6-EEDF402FF01B">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:17:16 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PID" id="E52EB9CD-23BB-93BE-449B-C950BECEF158">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:17:40 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="VID" id="181890EF-3AA6-D37F-62BA-A16449CF2F73">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:18:16 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Menge" id="5E7894B0-5F1E-67DA-2227-4AAC237B4D15">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:18:39 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Einzelpreis" id="424D173F-B977-1440-84E1-A523B4B3E9F7">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:18:52 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="BID1" id="CBF48684-5C2F-F3C2-65D8-C1039AADFBF0">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:10:01 UTC</createdTime>
+<generatorID>B8C98A20-3EF6-6720-8E63-FAAD0E18AC84</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>A6E940E0-8AFB-6197-AC9E-8E72B6F4A66C</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="KID1" id="FAB5C6CB-FA48-C0CE-E1C2-0F607D648F56">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:10:01 UTC</createdTime>
+<generatorID>B8C98A20-3EF6-6720-8E63-FAAD0E18AC84</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>C32EB443-DB99-A465-909F-19114F8112F2</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="VID1" id="9C9483AE-E985-CDB8-D1DC-395ED0B835D9">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:32:24 UTC</createdTime>
+<generatorID>207CDAEA-A122-AFE7-66F0-C656CF9E05CD</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>3FE76E39-0DBB-25FE-919F-EF1EF4355005</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PID1" id="B9CEC541-D2A0-7AD1-C284-C45AE31D08C1">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:58:14 UTC</createdTime>
+<generatorID>B246854B-D26B-83A2-DA0C-54A691FAF202</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>4EA1B376-8AA5-AAC7-3E72-68274DFB720A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="0686F8F7-7EC6-E3B4-7A72-7BFC13DC238D" name="Bestellposition PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:10:01 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>CBF48684-5C2F-F3C2-65D8-C1039AADFBF0</attributeRef>
+<attributeRef>FAB5C6CB-FA48-C0CE-E1C2-0F607D648F56</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

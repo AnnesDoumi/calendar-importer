@@ -1,0 +1,81 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="7526BCD3-9D71-6964-C94A-C9DD5CFBC127" name="Verkaufsgebiet">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:07:05 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="VGID" id="CF867B16-D84C-0417-DCB5-2F945697AFEB">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:07:34 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Obergebiet" id="C2A6D6E9-274C-9CAB-1835-DF05EF023843">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:08:45 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Ebene" id="752EF019-619C-D66E-616A-B762CA07C7E1">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:08:46 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Bez" id="3EA878BB-F2CD-832D-8F7C-4FAADBCB0D82">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:40:48 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="1340C9ED-4935-E94F-E92F-D31663A7E537" name="Verkaufsgebiet PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:07:43 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>CF867B16-D84C-0417-DCB5-2F945697AFEB</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

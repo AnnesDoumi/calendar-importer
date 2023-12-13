@@ -1,0 +1,81 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="6CCDC8AE-EC1D-6B32-8F58-440EFF4CFBEE" name="Produkt">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:16:33 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="PID" id="4EA1B376-8AA5-AAC7-3E72-68274DFB720A">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:16:41 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Bez" id="11328A86-8FC1-63C5-09F3-6479E578A325">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:16:41 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Laenge" id="EFCD1633-99B4-CA28-560C-B65A96679DE6">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:16:41 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Breite" id="4B715E7A-52DD-2A8B-AE82-F380871B73E6">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:16:41 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="48080ECF-5919-70F2-B362-F804AED8B60A" name="Produkt PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:17:21 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>4EA1B376-8AA5-AAC7-3E72-68274DFB720A</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

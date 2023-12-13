@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="CCE58AF6-20F5-2926-EF40-FBB32ABADA5C" containerWithKeyObject="A1409C54-BC23-44E0-8951-2B27CDFE779C" localFKIndex="6BF2F8DF-C378-865A-9B9C-74E384D88932" name="Bestellposition_Produkt_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>B246854B-D26B-83A2-DA0C-54A691FAF202</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<referredTableLongName>Produkt</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>3B5826F3-EBBD-466A-FB36-7AE1B48072AC</referredTableID>
+<keyObject>9CD1B54C-B4E4-5C1B-DCFF-374FFBDA805E</keyObject>
+<referredKeyID>9CD1B54C-B4E4-5C1B-DCFF-374FFBDA805E</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>PID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

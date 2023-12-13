@@ -1,0 +1,96 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D97F300F-8CA2-E912-12BB-49328547B4BE" name="ProduktKategorie">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>26E09395-D588-AEA3-4736-D7E90DEB8F9C</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PID" id="F4F6F159-8F51-5D36-0D74-0840B4BA25AA">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>1D780780-C299-AAC9-C849-35B06D43360B</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="KID" id="4B19D864-158B-FE6B-620A-94F5331BBCBD">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>49731C23-8FF5-A205-4F19-83446566D05B</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HK" id="3898FA1F-2F3D-1483-96F7-EBF9AC7DE3F6">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>26E671C6-D68B-E2B3-E1E9-2F959119C8C7</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Kategorie_KID" id="06881821-E21D-3D3D-85D2-0C9A15D14B5E">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>6E2F3FA4-8903-EC91-0939-5B02DE5C3CE0</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E7D6FCDB-92D1-D355-87BF-7598AD5737A6" referredColumn="522F9FC7-6E4B-33CD-82D8-A0D7F18438CC"/>
+</associations>
+</Column>
+<Column name="ProduktKategorie_ID" id="D2B130D3-CF63-A981-82E6-0E35B637D3D5">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isSurrogateColumn>true</isSurrogateColumn>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="11CF7744-C9F9-DD63-C33A-BDABBAA91DFA" name="ProduktKategorie_PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="D2B130D3-CF63-A981-82E6-0E35B637D3D5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AE3A2810-2336-7808-AB4D-00554D192FCF" name="ProduktKategorie_Kategorie_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>3D8A2BF3-8C07-63ED-CCB7-DF8A24EAE6C6</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="06881821-E21D-3D3D-85D2-0C9A15D14B5E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

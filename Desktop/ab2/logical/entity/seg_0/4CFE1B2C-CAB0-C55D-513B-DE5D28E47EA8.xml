@@ -1,0 +1,55 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="4CFE1B2C-CAB0-C55D-513B-DE5D28E47EA8" name="Preis">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:18:26 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="PLID" id="92027394-A7F6-F637-026E-6E7D1EB76B55">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:18:38 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PID" id="38973DB1-2E75-E124-988D-4080AB63AA95">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:18:38 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Betrag" id="3712A894-DD56-6B34-1E3A-BBB846180B68">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:18:38 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+</Entity>

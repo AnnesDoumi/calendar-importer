@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BusinessInfoDesign class="oracle.dbtools.crest.model.businessinfo.BusinessInfoDesign" name="Business Information" id="741C0AE2-9550-B90A-7267-AA69E850962F">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 20:27:58 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</BusinessInfoDesign>

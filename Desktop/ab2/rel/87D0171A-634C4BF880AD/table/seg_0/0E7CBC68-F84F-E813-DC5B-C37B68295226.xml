@@ -1,0 +1,70 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0E7CBC68-F84F-E813-DC5B-C37B68295226" name="Preis">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>4CFE1B2C-CAB0-C55D-513B-DE5D28E47EA8</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PLID" id="639455D0-0E5B-E173-0CB4-33DC9856D3B1">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>92027394-A7F6-F637-026E-6E7D1EB76B55</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PID" id="50F05D47-6C89-DA67-8D21-E9D878167443">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>38973DB1-2E75-E124-988D-4080AB63AA95</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Betrag" id="56E5E312-9FDD-D7B8-5768-7D1B6C604248">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>3712A894-DD56-6B34-1E3A-BBB846180B68</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Preis_ID" id="95B1BCBC-4DD2-59AC-5FD6-F898AC6925E9">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isSurrogateColumn>true</isSurrogateColumn>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D9C5E3AD-F556-9BC0-0F2D-19E4B43F8B64" name="Preis_PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="95B1BCBC-4DD2-59AC-5FD6-F898AC6925E9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

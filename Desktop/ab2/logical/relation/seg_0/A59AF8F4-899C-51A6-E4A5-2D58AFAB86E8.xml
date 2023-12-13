@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_5" directorySegmentName="seg_0" id="A59AF8F4-899C-51A6-E4A5-2D58AFAB86E8">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 22:44:46 UTC</createdTime>
+<ownerDesignName>ab2</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<sourcePk>1340C9ED-4935-E94F-E92F-D31663A7E537</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>7526BCD3-9D71-6964-C94A-C9DD5CFBC127</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>561AB811-2FE7-ED49-EFE2-A05A9ABD9196</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

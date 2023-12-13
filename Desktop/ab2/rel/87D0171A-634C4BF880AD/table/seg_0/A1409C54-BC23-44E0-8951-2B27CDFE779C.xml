@@ -1,0 +1,176 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A1409C54-BC23-44E0-8951-2B27CDFE779C" name="Bestellposition">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>984332CB-31C9-C389-7BDA-3F8A2C3CAF78</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="BID" id="24ED2374-588A-685E-5105-232C538F96B7">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>AB9D45A1-2186-2937-B2F6-EEDF402FF01B</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PID" id="06E71B54-06DC-5AD8-7E5B-8D0DE8EBC7A9">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>E52EB9CD-23BB-93BE-449B-C950BECEF158</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VID" id="DD93ADAC-BC4B-F439-6D07-4E7B007EA603">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>181890EF-3AA6-D37F-62BA-A16449CF2F73</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Menge" id="6F1AECC7-BAC6-8C63-A8DF-EADC179049B4">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>5E7894B0-5F1E-67DA-2227-4AAC237B4D15</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Einzelpreis" id="3E14E4D4-6889-D8FD-4046-096B4990EA2F">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>424D173F-B977-1440-84E1-A523B4B3E9F7</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Bestellung_BID" id="77905DC5-8290-223A-253C-B7066632FD04">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>CBF48684-5C2F-F3C2-65D8-C1039AADFBF0</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E28E4040-F185-4193-90B4-48A0D5CF78A1" referredColumn="A7F231C8-EE2A-C106-FCE6-FBDBB1A7F07A"/>
+</associations>
+</Column>
+<Column name="Bestellung_KID1" id="F83BDBC3-2829-8AB5-87A6-2BABEEEBAEBF">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>FAB5C6CB-FA48-C0CE-E1C2-0F607D648F56</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E28E4040-F185-4193-90B4-48A0D5CF78A1" referredColumn="1D2D88A6-D5FD-5C98-3CF2-FBF0643C3558"/>
+</associations>
+</Column>
+<Column name="Versand_VID" id="A5DF0CAA-01CB-67FE-6DB2-732675241372">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>9C9483AE-E985-CDB8-D1DC-395ED0B835D9</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FB3A9680-28D0-5640-55EF-AAAEF3A0E26E" referredColumn="4DE9C312-EDC0-E93A-B17B-B10F5C57152C"/>
+</associations>
+</Column>
+<Column name="Produkt_PID" id="EC10A3DC-3564-9C59-60CD-3669A251AA51">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>B9CEC541-D2A0-7AD1-C284-C45AE31D08C1</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CCE58AF6-20F5-2926-EF40-FBB32ABADA5C" referredColumn="4DE2B6A2-B429-9E3C-36FF-30F8634D3AE8"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="728377A2-8915-AD17-BD1B-1B8B5D5B1A04" name="Bestellposition_PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>0686F8F7-7EC6-E3B4-7A72-7BFC13DC238D</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="77905DC5-8290-223A-253C-B7066632FD04"/>
+<colUsage columnID="F83BDBC3-2829-8AB5-87A6-2BABEEEBAEBF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6F68A24E-5E70-B5B4-88A3-7C007B23A02A" name="Bestellposition_Bestellung_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>B8C98A20-3EF6-6720-8E63-FAAD0E18AC84</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="77905DC5-8290-223A-253C-B7066632FD04"/>
+<colUsage columnID="F83BDBC3-2829-8AB5-87A6-2BABEEEBAEBF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E7DC919B-DE14-9658-A0CC-D85491C3421A" name="Bestellposition_Versand_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>207CDAEA-A122-AFE7-66F0-C656CF9E05CD</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A5DF0CAA-01CB-67FE-6DB2-732675241372"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6BF2F8DF-C378-865A-9B9C-74E384D88932" name="Bestellposition_Produkt_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>B246854B-D26B-83A2-DA0C-54A691FAF202</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EC10A3DC-3564-9C59-60CD-3669A251AA51"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

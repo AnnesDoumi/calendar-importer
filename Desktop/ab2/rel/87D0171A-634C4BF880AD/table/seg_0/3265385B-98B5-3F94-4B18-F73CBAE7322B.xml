@@ -1,0 +1,59 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3265385B-98B5-3F94-4B18-F73CBAE7322B" name="Versand">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>111C7189-CA44-AF59-2948-D139DE79474F</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="VID" id="4DE9C312-EDC0-E93A-B17B-B10F5C57152C">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>3FE76E39-0DBB-25FE-919F-EF1EF4355005</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Versanddatum" id="83258329-8C0A-1008-8AF6-04BA42EC8F99">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>F87BBB78-90DB-1E06-B592-79EB2B0D4813</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Lieferdatum" id="A686B5F0-E4A2-3704-047E-1F1B4588BF43">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>3244C57E-1EBD-75E4-AA21-205A2D7A6177</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6942812D-018D-CA4F-8607-3CCAD866753A" name="Versand_PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>E58929C4-C05E-2C22-F4A8-5D8B18ADACFD</generatorID>
+<ownerDesignName>ab2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4DE9C312-EDC0-E93A-B17B-B10F5C57152C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
