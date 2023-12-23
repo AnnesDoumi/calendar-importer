@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Bestellung Kunde FK" directorySegmentName="seg_0" id="9A64082F-D421-0F4C-BD5E-CEB875EC9D10">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:09:33 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<sourcePk>4891A04C-68F4-07C7-31B2-0039FE07B7F0</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>561AB811-2FE7-ED49-EFE2-A05A9ABD9196</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>85DD0C99-7079-A2B8-D0E3-225EAF7410FD</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

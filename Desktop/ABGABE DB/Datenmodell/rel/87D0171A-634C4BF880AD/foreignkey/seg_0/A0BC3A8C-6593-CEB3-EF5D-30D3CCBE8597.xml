@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="A0BC3A8C-6593-CEB3-EF5D-30D3CCBE8597" containerWithKeyObject="D97F300F-8CA2-E912-12BB-49328547B4BE" localFKIndex="5BE07324-1B8E-F0D1-E147-2DB10B2AEBA0" name="ProduktKategorie_Mitarbeiter_FK">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<generatorID>D2100461-D9CC-63F7-15F3-B20C960F2D4E</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<referredTableLongName>Mitarbeiter</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>8D725251-73C7-BA72-1D45-A01D1D6BABB7</referredTableID>
+<keyObject>1F769A43-71B3-5BEA-0006-22D8685F1196</keyObject>
+<referredKeyID>1F769A43-71B3-5BEA-0006-22D8685F1196</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>Mitarbeiter_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

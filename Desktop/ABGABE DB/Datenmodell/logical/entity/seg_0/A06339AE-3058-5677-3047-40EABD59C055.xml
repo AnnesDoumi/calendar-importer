@@ -1,0 +1,121 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="A06339AE-3058-5677-3047-40EABD59C055" name="KategorieBetreuung">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 23:02:47 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="MitarbeiterID" id="F1D4EDC0-98A6-0170-CB9E-C8D409C4A1F8">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 23:03:28 UTC</createdTime>
+<generatorID>F8631E89-6FC7-7D2F-6E24-05EF6800DFEA</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>844E7762-CD97-770F-4444-3A69FBA6E83E</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>38</dataTypePrecision>
+<ownDataTypeParameters>,38,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="KID" id="593053E6-FFF8-4EF7-A121-86E5FFBC4E6E">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 23:05:26 UTC</createdTime>
+<generatorID>74E2F26D-653D-E96B-455E-1B5A2F18E757</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>8CD1388E-B216-F9E0-F74D-66F094E19339</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>38</dataTypePrecision>
+<ownDataTypeParameters>,38,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PID" id="1770FFA0-6C4A-FBBB-D966-545A1DE1DF8E">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 23:05:26 UTC</createdTime>
+<generatorID>74E2F26D-653D-E96B-455E-1B5A2F18E757</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>8AF06D14-CF34-0E58-C186-C0FCCE021506</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>38</dataTypePrecision>
+<ownDataTypeParameters>,38,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DATUM_VON" id="AF907FD5-9CD4-9E20-CDB1-7CA67BD816AB">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 23:05:43 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DATUM_BIS" id="144AD518-557F-D894-EAC2-5A63D97919C6">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 23:06:08 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Provision" id="26BD3D2A-3626-01F9-409F-341EBE53D746">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 23:06:30 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>3</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,3,2</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="9630F247-31D0-512B-34C9-B7F588580923" name="KategorieBetreuung PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 23:03:28 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>F1D4EDC0-98A6-0170-CB9E-C8D409C4A1F8</attributeRef>
+<attributeRef>593053E6-FFF8-4EF7-A121-86E5FFBC4E6E</attributeRef>
+<attributeRef>1770FFA0-6C4A-FBBB-D966-545A1DE1DF8E</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

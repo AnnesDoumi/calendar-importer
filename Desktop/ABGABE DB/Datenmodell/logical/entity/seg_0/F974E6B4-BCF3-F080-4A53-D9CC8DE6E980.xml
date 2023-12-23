@@ -1,0 +1,89 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="F974E6B4-BCF3-F080-4A53-D9CC8DE6E980" name="Mitarbeiter Zuordnung">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 14:59:47 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Zuordnungsbeginn" id="ACE502BA-609F-151F-EB04-19CBD11090BC">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:02:04 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Zuordnungsende" id="1C075B72-948D-A49B-0666-E1C683309290">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:02:21 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MitarbeiterID" id="4A324840-45A2-EB10-997D-7E3088AF6ACB">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-18 15:03:02 UTC</createdTime>
+<generatorID>C86D029F-D3C6-9294-7E40-4B69E0016E57</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>844E7762-CD97-770F-4444-3A69FBA6E83E</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>38</dataTypePrecision>
+<ownDataTypeParameters>,38,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="VorgesetztenID" id="58886E2B-CEDE-D65A-9E7D-7BF88A1847F1">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-18 15:05:03 UTC</createdTime>
+<generatorID>AAC7B909-7076-7442-B8D5-D242C9FB7318</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>844E7762-CD97-770F-4444-3A69FBA6E83E</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>38</dataTypePrecision>
+<ownDataTypeParameters>,38,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="786CD19E-1BD2-199A-90E5-B14CF909200F" name="Mitarbeiter Zuordnung PK">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-18 15:03:15 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>4A324840-45A2-EB10-997D-7E3088AF6ACB</attributeRef>
+<attributeRef>58886E2B-CEDE-D65A-9E7D-7BF88A1847F1</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

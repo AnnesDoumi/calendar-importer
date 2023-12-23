@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="26E09395-D588-AEA3-4736-D7E90DEB8F9C" name="ProduktKategorie">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:19:59 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="KID" id="8CD1388E-B216-F9E0-F74D-66F094E19339">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 22:12:32 UTC</createdTime>
+<generatorID>6F929533-3633-A84F-D301-6029102A10A4</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>9B0FD067-276F-0E1E-8848-05C1A3580BC0</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>38</dataTypePrecision>
+<ownDataTypeParameters>,38,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PID" id="8AF06D14-CF34-0E58-C186-C0FCCE021506">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 22:13:09 UTC</createdTime>
+<generatorID>DBA6710E-6ABD-60E5-10A0-6D64834EDF4B</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>4EA1B376-8AA5-AAC7-3E72-68274DFB720A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>38</dataTypePrecision>
+<ownDataTypeParameters>,38,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="HK" id="67D8283D-8367-921F-366A-331AFFBFE7C0">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 22:13:55 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="49D45D76-8812-8DC4-51A1-C030B6CE5892" name="ProduktKategorie PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-20 22:12:32 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>8CD1388E-B216-F9E0-F74D-66F094E19339</attributeRef>
+<attributeRef>8AF06D14-CF34-0E58-C186-C0FCCE021506</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

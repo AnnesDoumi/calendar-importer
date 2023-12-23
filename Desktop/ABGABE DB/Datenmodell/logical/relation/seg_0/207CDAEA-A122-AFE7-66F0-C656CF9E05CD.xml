@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Bestellposition Versand FK" directorySegmentName="seg_0" id="207CDAEA-A122-AFE7-66F0-C656CF9E05CD">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:32:24 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<sourcePk>E58929C4-C05E-2C22-F4A8-5D8B18ADACFD</sourcePk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>111C7189-CA44-AF59-2948-D139DE79474F</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>984332CB-31C9-C389-7BDA-3F8A2C3CAF78</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

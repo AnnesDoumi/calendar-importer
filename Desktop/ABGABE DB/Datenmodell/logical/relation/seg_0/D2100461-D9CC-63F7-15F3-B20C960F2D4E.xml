@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="ProduktKategorie Mitarbeiter FK" directorySegmentName="seg_0" id="D2100461-D9CC-63F7-15F3-B20C960F2D4E">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:07:21 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useSurrogateKey>true</useSurrogateKey>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>51A4A870-7B8D-D6E7-F803-200F93B08978</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>26E09395-D588-AEA3-4736-D7E90DEB8F9C</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

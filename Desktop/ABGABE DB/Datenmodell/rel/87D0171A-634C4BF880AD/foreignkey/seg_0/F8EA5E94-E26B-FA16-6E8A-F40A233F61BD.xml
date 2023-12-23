@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="F8EA5E94-E26B-FA16-6E8A-F40A233F61BD" containerWithKeyObject="CEB0EEA4-491E-C72C-2DCF-8AEE4C9D9F7E" localFKIndex="A03E2C63-FBF4-6F95-8C4E-32C63E99264F" name="Kunde_Verkaufsgebiet_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>A59AF8F4-899C-51A6-E4A5-2D58AFAB86E8</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<referredTableLongName>Verkaufsgebiet</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>53B74601-A59E-D36E-8CC5-91058CD48D18</referredTableID>
+<keyObject>99947EC0-10D6-D044-E213-1508C744F179</keyObject>
+<referredKeyID>99947EC0-10D6-D044-E213-1508C744F179</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>VGID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

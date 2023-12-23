@@ -1,0 +1,96 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CEB0EEA4-491E-C72C-2DCF-8AEE4C9D9F7E" name="Kunde">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>561AB811-2FE7-ED49-EFE2-A05A9ABD9196</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="KID" id="F9C72BA2-6BE1-DCD4-0FB2-22F033374B13">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>0D54360A-B1A2-4E55-F939-1B19C6EC47F4</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VGID" id="72D0678E-9ED2-2642-1907-CACB2F6F9F3F">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>162D8623-F1CD-4614-B06E-4BE525CDCDAC</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Name" id="5BB74AA1-9A1B-A428-DAA0-AEA520D2A4AD">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>8C27383C-B2E3-088F-3768-E0F5CFBA8869</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Titel" id="CA7E3EC4-86A7-8A58-7143-D202CA69E986">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>436C32B5-163B-E775-98DD-79DC1B22F3B3</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Verkaufsgebiet_VGID" id="3FFFDFBE-C367-6B62-5C4D-AD95CBBC8D38">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>AEBE084F-24E9-C673-3380-40B6BD11B5EF</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F8EA5E94-E26B-FA16-6E8A-F40A233F61BD" referredColumn="CA6354CE-F508-7576-86DC-418DEE006214"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A7761456-740F-D266-035C-87877CAB2F1B" name="Kunde_PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>4891A04C-68F4-07C7-31B2-0039FE07B7F0</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F9C72BA2-6BE1-DCD4-0FB2-22F033374B13"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A03E2C63-FBF4-6F95-8C4E-32C63E99264F" name="Kunde_Verkaufsgebiet_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>A59AF8F4-899C-51A6-E4A5-2D58AFAB86E8</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3FFFDFBE-C367-6B62-5C4D-AD95CBBC8D38"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

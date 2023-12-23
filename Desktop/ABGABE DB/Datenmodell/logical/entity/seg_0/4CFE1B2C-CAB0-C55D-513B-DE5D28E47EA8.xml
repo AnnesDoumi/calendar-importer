@@ -1,0 +1,78 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="4CFE1B2C-CAB0-C55D-513B-DE5D28E47EA8" name="Preis">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:18:26 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="Betrag" id="3712A894-DD56-6B34-1E3A-BBB846180B68">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-12 23:18:38 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>13</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,13,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PLID" id="766D012E-0026-4044-C3AB-FE058CF48CBE">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-18 14:46:11 UTC</createdTime>
+<generatorID>4F6CA91B-D22D-F8D6-5A8B-3878F78C7226</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>C7D88D64-7064-18A3-4B19-8841420FCF42</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>38</dataTypePrecision>
+<ownDataTypeParameters>,38,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PID" id="D1C359C8-4D4D-0DE0-6085-69E6DAF9B239">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-18 14:47:55 UTC</createdTime>
+<generatorID>D3C4FCF9-B806-EF9C-D4FB-9E216BE0BD56</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<referedAttribute>4EA1B376-8AA5-AAC7-3E72-68274DFB720A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>38</dataTypePrecision>
+<ownDataTypeParameters>,38,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="EF425511-F197-DBEC-3375-2F05D5D4BEF2" name="Preis PK">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-18 14:46:11 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<engineerTo>
+<item key="87D0171A-E391-B527-71AF-634C4BF880AD" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>766D012E-0026-4044-C3AB-FE058CF48CBE</attributeRef>
+<attributeRef>D1C359C8-4D4D-0DE0-6085-69E6DAF9B239</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

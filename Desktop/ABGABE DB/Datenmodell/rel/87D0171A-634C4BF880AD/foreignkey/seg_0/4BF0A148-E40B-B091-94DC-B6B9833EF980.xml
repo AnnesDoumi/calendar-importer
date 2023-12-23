@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="4BF0A148-E40B-B091-94DC-B6B9833EF980" containerWithKeyObject="F615629C-0E3E-38F5-C9BE-05E4AF7B2534" localFKIndex="9A2BC29E-C94C-4646-C13B-07C389196502" name="Relation_14_Preis_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>BAE336EC-B056-7427-8C59-D779843BFBF1</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<referredTableLongName>Preis</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>0E7CBC68-F84F-E813-DC5B-C37B68295226</referredTableID>
+<keyObject>D9C5E3AD-F556-9BC0-0F2D-19E4B43F8B64</keyObject>
+<referredKeyID>D9C5E3AD-F556-9BC0-0F2D-19E4B43F8B64</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>Preis_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

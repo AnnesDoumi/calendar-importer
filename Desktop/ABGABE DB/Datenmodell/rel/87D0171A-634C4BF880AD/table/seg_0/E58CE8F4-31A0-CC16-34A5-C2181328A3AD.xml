@@ -1,0 +1,124 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E58CE8F4-31A0-CC16-34A5-C2181328A3AD" name="Bestellung">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>85DD0C99-7079-A2B8-D0E3-225EAF7410FD</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="BID" id="A7F231C8-EE2A-C106-FCE6-FBDBB1A7F07A">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>A6E940E0-8AFB-6197-AC9E-8E72B6F4A66C</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="KID" id="D68A4C39-FC5F-D594-374D-2BC94657B0F6">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>AF531326-8793-F14B-CA22-02F12997B94F</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Bestelldatum" id="5DD2C079-C5B8-BD0E-6BE6-0260A3C82069">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>19E7B5EA-0D9F-3971-1244-41E83041529C</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Gesamtpreis" id="E793F3EE-B837-F346-CACA-372A324F6B8E">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>A4FB93DD-2A73-AB63-930B-A37EE4AA3052</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Kunde_KID" id="1D2D88A6-D5FD-5C98-3CF2-FBF0643C3558">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>C32EB443-DB99-A465-909F-19114F8112F2</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8B8D15FC-C208-82C6-FAB3-F172F1661409" referredColumn="F9C72BA2-6BE1-DCD4-0FB2-22F033374B13"/>
+</associations>
+</Column>
+<Column name="Mitarbeiter_Mitarbeiter_ID" id="2A922F92-D8CF-C599-5672-2F4A51550645">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EB2F406C-1CCB-5E4F-89D7-B3056594B3B0" referredColumn="AE98B8CA-EDB3-ABD9-5ABD-000FCDE8CE2E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="76D3F634-0235-EBA6-0EBC-76C0AC5187C0" name="Bestellung_PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>743487DF-2CDB-CD7F-2AA3-98DD2BBFEBEB</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A7F231C8-EE2A-C106-FCE6-FBDBB1A7F07A"/>
+<colUsage columnID="1D2D88A6-D5FD-5C98-3CF2-FBF0643C3558"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3336DE77-62C9-7A79-7C55-322B28D26FF5" name="Bestellung_Kunde_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>9A64082F-D421-0F4C-BD5E-CEB875EC9D10</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1D2D88A6-D5FD-5C98-3CF2-FBF0643C3558"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2525B1EE-23AF-756A-A01D-22C824771AFA" name="Bestellung_Mitarbeiter_FK">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<generatorID>AF138948-0577-EBBC-2D90-6A3849E0DCD2</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2A922F92-D8CF-C599-5672-2F4A51550645"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

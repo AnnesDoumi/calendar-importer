@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="CDCBF6DA-D6E9-3977-E58F-D54013FC42D9" containerWithKeyObject="8B5C4B3C-CC24-2F90-530E-F0951C29232D" localFKIndex="FB5499B2-C482-0254-6729-DAE956A819E5" name="Vorgesetzter_Mitarbeiter_Zuordnung_FK">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<generatorID>1471BFD3-4D13-EACF-237E-53B5343D49D2</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<referredTableLongName>Mitarbeiter_Zuordnung</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>977CA4FE-D0F7-F26B-A465-2626B39A196B</referredTableID>
+<keyObject>F5D04E79-52D6-9181-1186-89469B4DCA06</keyObject>
+<referredKeyID>F5D04E79-52D6-9181-1186-89469B4DCA06</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>Mitarbeiter_Zuordnung_ID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

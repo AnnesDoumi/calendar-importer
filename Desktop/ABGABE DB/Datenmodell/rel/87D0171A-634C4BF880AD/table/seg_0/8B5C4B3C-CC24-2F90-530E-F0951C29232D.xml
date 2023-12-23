@@ -1,0 +1,110 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8B5C4B3C-CC24-2F90-530E-F0951C29232D" name="Vorgesetzter">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<generatorID>E57F6AC1-D4B2-D943-1F1A-4624E15D86C0</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="VorgesetzterID" id="11E37FDB-4F6C-FE35-FAC9-57D74520E1D0">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<generatorID>355E3E84-E37F-ABD2-94E2-98CA34162D0A</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Vorname" id="6F9165CC-12CF-5D0F-298C-987A269CEAB7">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<generatorID>5165E157-CFAD-6A52-F37F-09EA042200B7</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Nachname" id="F125A97E-1D3C-9393-FB7D-14567219BEBB">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<generatorID>05EFDD7B-5DDD-2206-4BFC-ADC3B2A73C06</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40</dataTypeSize>
+<ownDataTypeParameters>40,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Vorgesetzter_ID" id="17E0F3B8-F0EC-FFDB-1B95-BE86CADC26ED">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<isSurrogateColumn>true</isSurrogateColumn>
+</Column>
+<Column name="Mitarbeiter_Zuordnung_Mitarbeiter_Zuordnung_ID" id="E8107063-B697-CD1E-6733-C276F445ED98">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CDCBF6DA-D6E9-3977-E58F-D54013FC42D9" referredColumn="1EC6BF1C-9F10-3C82-72B1-317923FDF8DD"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7857E44D-20F3-CBA4-9650-E80D9B539F89" name="Vorgesetzter_PK">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="17E0F3B8-F0EC-FFDB-1B95-BE86CADC26ED"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C65054CC-810B-7716-D6B3-36AAA50564ED" name="Vorgesetzter__IDX">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>1471BFD3-4D13-EACF-237E-53B5343D49D2</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="E8107063-B697-CD1E-6733-C276F445ED98"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FB5499B2-C482-0254-6729-DAE956A819E5" name="Vorgesetzter_Mitarbeiter_Zuordnung_FK">
+<createdBy>cedri</createdBy>
+<createdTime>2023-12-16 15:09:23 UTC</createdTime>
+<generatorID>1471BFD3-4D13-EACF-237E-53B5343D49D2</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E8107063-B697-CD1E-6733-C276F445ED98"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

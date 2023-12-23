@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E0D4B7DB-2F90-D28B-49AA-01ED241854D0" name="Relation_15">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Produkt_PID" id="3FC70193-4433-E7C2-01F9-5C87AB5F6448">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0FC35450-A40D-0727-1003-BD7B36FFD372" referredColumn="4DE2B6A2-B429-9E3C-36FF-30F8634D3AE8"/>
+</associations>
+</Column>
+<Column name="ProduktKategorie_ProduktKategorie_ID" id="5B12590F-635C-89A8-683A-2A15FAD8D172">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="AB65B79C-9A4C-52FC-78A8-113DCE7F9B70" referredColumn="D2B130D3-CF63-A981-82E6-0E35B637D3D5"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="879530DB-3CE1-B313-8EB6-CBB466E64ABC" name="Relation_15_PK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3FC70193-4433-E7C2-01F9-5C87AB5F6448"/>
+<colUsage columnID="5B12590F-635C-89A8-683A-2A15FAD8D172"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="63E961FA-A819-F3E0-6BDB-3F2492487FFB" name="Relation_15_Produkt_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>42FB7405-9262-A567-BF6A-94B62D952997</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3FC70193-4433-E7C2-01F9-5C87AB5F6448"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="288230F2-3A59-179E-5CDA-62F276969434" name="Relation_15_ProduktKategorie_FK">
+<createdBy>bani-al-doumian-t2</createdBy>
+<createdTime>2023-12-13 00:07:58 UTC</createdTime>
+<generatorID>42FB7405-9262-A567-BF6A-94B62D952997</generatorID>
+<ownerDesignName>Datenmodell</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5B12590F-635C-89A8-683A-2A15FAD8D172"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
