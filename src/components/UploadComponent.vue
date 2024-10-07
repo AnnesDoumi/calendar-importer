@@ -195,10 +195,12 @@ export default {
     ,
     generateCSV(analysisData) {
       const csvContent =
-          "Subject,Start Date,Start Time,End Date,End Time,Location,Description\n" +
-          analysisData.map(event =>
-              `${event.title},${event.startDate},${event.startTime},${event.endDate},${event.endTime},${event.location},${event.description}`
-          ).join("\n");
+          "Subject,Start Date,Start Time,End Date,End Time,Description\n" +
+          analysisData
+              .map(event =>
+                  `${event.title},${event.startDate},${event.startTime},${event.endDate},${event.endTime},${event.description}`
+              )
+              .join("\n");
 
       const blob = new Blob([csvContent], { type: "text/csv" });
       const url = window.URL.createObjectURL(blob);
@@ -207,9 +209,10 @@ export default {
       a.download = "calendar_events.csv";
       a.click();
       window.URL.revokeObjectURL(url);
-    },
+    }
+    ,
 
-    
+
     generateICS() {
       const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//YourApp//NONSGML v1.0//EN\n" +
           this.analysisData.map(event =>
@@ -231,7 +234,7 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = " <- Analyze this Data, extract it for a (.csv) google calendar output, no addition information or commenting";
+      const prompt = " <-Analyse Data, put it possibly in format for google calendar csv: Subject,Start Date,Start Time,End Date,End Time,Description";
       this.analyzeFile(prompt);
     },
 
