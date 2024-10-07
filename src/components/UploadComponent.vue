@@ -154,27 +154,28 @@ export default {
       }
 
       const cleanedData = apiResponse.trim().split("\n").map(entry => {
-        const [title, date, startTime, endTime, location, description] = entry.split(",");
+        // Die Daten als CSV parsen, wobei jedes Element durch ein Komma getrennt ist
+        const [title, startDate, startTime, endDate, endTime, location, description] = entry.split(",");
 
-        // Daten validieren und formatieren (z.B. für CSV)
-        const formattedDate = this.formatDate(date);
+        // Daten validieren und formatieren
+        const formattedStartDate = this.formatDate(startDate);
+        const formattedEndDate = this.formatDate(endDate || startDate); // Enddatum = Startdatum, falls nicht angegeben
         const formattedStartTime = this.formatTime(startTime);
         const formattedEndTime = this.formatTime(endTime);
 
         return {
           title: title || "No Title",
-          startDate: formattedDate || "",            // Sicherstellen, dass das Startdatum korrekt formatiert ist
-          startTime: formattedStartTime || "",       // Sicherstellen, dass die Startzeit vorhanden und korrekt formatiert ist
-          endDate: formattedDate || "",              // Enddatum = Startdatum (falls keine separate Angabe)
-          endTime: formattedEndTime || "",           // Endzeit sicherstellen
+          startDate: formattedStartDate || "",
+          startTime: formattedStartTime || "",
+          endDate: formattedEndDate || "",
+          endTime: formattedEndTime || "",
           location: location || "",
           description: description || ""
         };
       });
 
       this.analysisData = cleanedData;
-    }
-    ,
+    },
 
     formatDate(date) {
       // Logik, um das Datum in "YYYY-MM-DD" zu konvertieren
@@ -190,14 +191,16 @@ export default {
     }
 
 
+
     ,
-    generateCSV() {
-      const csvContent = "Subject,Start Date,Start Time,End Date,End Time,Location,Description\n" +
-          this.analysisData.map(event =>
+    generateCSV(analysisData) {
+      const csvContent =
+          "Subject,Start Date,Start Time,End Date,End Time,Location,Description\n" +
+          analysisData.map(event =>
               `${event.title},${event.startDate},${event.startTime},${event.endDate},${event.endTime},${event.location},${event.description}`
           ).join("\n");
 
-      const blob = new Blob([csvContent], {type: "text/csv"});
+      const blob = new Blob([csvContent], { type: "text/csv" });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -205,6 +208,7 @@ export default {
       a.click();
       window.URL.revokeObjectURL(url);
     }
+
     ,
     generateICS() {
       const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//YourApp//NONSGML v1.0//EN\n" +
