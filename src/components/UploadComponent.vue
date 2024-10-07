@@ -150,19 +150,35 @@ export default {
       }
 
       const extractedData = apiResponse.trim().split("\n");
-      this.analysisData = extractedData.map((entry) => {
-        // Dies ist ein Beispiel, wie die Daten verarbeitet werden können.
-        const [title, startDate, startTime, endDate, endTime, location, description] = entry.split(",");
 
-        return {
-          title: title.trim(),
-          startDate: startDate.trim(),
-          startTime: startTime.trim(),
-          endDate: endDate ? endDate.trim() : '', // Füge End Date hinzu
-          endTime: endTime ? endTime.trim() : '', // Füge End Time hinzu
-          location: location ? location.trim() : '', // Füge Location hinzu
-          description: description ? description.trim() : '', // Füge Description hinzu
-        };
+      // Überprüfe, ob die Daten tatsächlich extrahiert wurden
+      this.analysisData = extractedData.map((entry) => {
+        // Stelle sicher, dass entry definiert ist und nicht leer
+        if (entry && entry.trim()) {
+          const [title, startDate, startTime, endDate, endTime, location, description] = entry.split(",");
+
+          // Falls keine Daten für ein Feld vorhanden sind, setze es auf einen leeren String
+          return {
+            title: title ? title.trim() : '',
+            startDate: startDate ? startDate.trim() : '',
+            startTime: startTime ? startTime.trim() : '',
+            endDate: endDate ? endDate.trim() : '',
+            endTime: endTime ? endTime.trim() : '',
+            location: location ? location.trim() : '',
+            description: description ? description.trim() : '',
+          };
+        } else {
+          // Gib eine leere Struktur zurück, falls `entry` nicht korrekt definiert ist
+          return {
+            title: '',
+            startDate: '',
+            startTime: '',
+            endDate: '',
+            endTime: '',
+            location: '',
+            description: '',
+          };
+        }
       });
 
       console.log("Processed Data:", this.analysisData);
