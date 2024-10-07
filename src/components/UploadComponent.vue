@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-<h1>
-Calendar Importer
-</h1>
+    <h1>Calendar Importer</h1>
 
     <div class="upload-section">
       <h2>Upload a file or take a photo</h2>
@@ -120,7 +118,7 @@ export default {
 
         // Sende den extrahierten Text an die OpenAI API
         const apiResponse = await this.sendToChatGPT(
-            `Analyze the following text and extract calendar events for ${prompt}: ${extractedText}`
+            `${prompt}: ${extractedText}`
         );
 
         this.processApiResponse(apiResponse);
@@ -133,8 +131,7 @@ export default {
     async sendToChatGPT(promptText) {
       try {
         const response = await axios.post(
-            "https://api.openai.com/v1/chat/completions"
-            ,
+            "https://api.openai.com/v1/completions", // Korrigiere den API-Endpunkt
             {
               model: "text-davinci-003", // Beispielmodell
               prompt: promptText,
@@ -156,7 +153,11 @@ export default {
     // Verarbeite die Antwort von ChatGPT
     processApiResponse(apiResponse) {
       // Verarbeite die Antwort und speichere sie in `analysisData`
-      this.analysisData = apiResponse.choices[0].text; // Passe dies an die Antwortstruktur an
+      const extractedData = apiResponse.choices[0].text.trim().split('\n'); // Beispielhafte Verarbeitung
+      this.analysisData = extractedData.map((entry) => {
+        const [title, date, time] = entry.split(','); // Beispielhafte Aufteilung
+        return { title, date, time };
+      });
       console.log("API Response:", this.analysisData);
     },
 
@@ -166,7 +167,7 @@ export default {
           "Subject,Start Date,Start Time,End Date,End Time\n" +
           analysisData
               .map((event) => {
-                return `${event.title},${event.date},${event.time},${event.date},${event.endTime}`;
+                return `${event.title},${event.date},${event.time},${event.date},${event.time}`;
               })
               .join("\n");
 
@@ -188,7 +189,7 @@ export default {
                 return `BEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${this.formatDateTime(
                     event.date,
                     event.time
-                )}\nDTEND:${this.formatDateTime(event.date, event.endTime)}\nEND:VEVENT\n`;
+                )}\nDTEND:${this.formatDateTime(event.date, event.time)}\nEND:VEVENT\n`;
               })
               .join("") +
           "END:VCALENDAR";
@@ -210,13 +211,17 @@ export default {
     importGoogleCalendar() {
       const prompt =
           "Analyze this text and create a CSV file for Google Calendar import.";
-      this.analyzeFile(prompt);
+      this.analyzeFile(prompt).then(() => {
+        this.generateCSV(this.analysisData); // CSV-Datei generieren nach Analyse
+      });
     },
 
     importAppleCalendar() {
       const prompt =
           "Analyze this text and create an ICS file for Apple Calendar import.";
-      this.analyzeFile(prompt);
+      this.analyzeFile(prompt).then(() => {
+        this.generateICS(this.analysisData); // ICS-Datei generieren nach Analyse
+      });
     },
   },
 };
