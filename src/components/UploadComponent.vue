@@ -6,7 +6,7 @@
       <h2>Upload a file or take a photo</h2>
 
       <!-- Datei-Upload -->
-      <input type="file" accept="image/*" @change="handleFileUpload" />
+      <input type="file" accept="image/*" @change="handleFileUpload"/>
 
       <!-- Kamera Foto aufnehmen -->
       <button @click="openCameraModal">Take Photo</button>
@@ -44,9 +44,9 @@
         </thead>
         <tbody>
         <tr v-for="(entry, index) in analysisData" :key="index">
-          <td><input v-model="entry.title" /></td>
-          <td><input v-model="entry.date" /></td>
-          <td><input v-model="entry.time" /></td>
+          <td><input v-model="entry.title"/></td>
+          <td><input v-model="entry.date"/></td>
+          <td><input v-model="entry.time"/></td>
         </tr>
         </tbody>
       </table>
@@ -56,7 +56,7 @@
 
 <script>
 import Tesseract from "tesseract.js";
-import { sendToGoogleGemini } from './googleGeminiService'; // Neue Datei für API-Call
+import {sendToGroq} from '../services/groqService'; // Ändere den Import auf den GROQ Service
 
 export default {
   data() {
@@ -73,7 +73,7 @@ export default {
     },
     openCameraModal() {
       this.showCamera = true;
-      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+      navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
         this.$refs.video.srcObject = stream;
       });
     },
@@ -102,6 +102,7 @@ export default {
           return;
         }
 
+        // Verwende Tesseract.js für die Texterkennung (bleibt unverändert)
         const file = this.files[0];
         const result = await Tesseract.recognize(file, "eng", {
           logger: (m) => console.log(m),
@@ -110,12 +111,14 @@ export default {
         const extractedText = result.data.text;
         console.log("Extracted text from image:", extractedText);
 
-        const apiResponse = await sendToGoogleGemini(`${prompt}: ${extractedText}`);
+        // Sende die Anfrage an GROQ und verarbeite die Antwort
+        const apiResponse = await sendToGroq(`${prompt}: ${extractedText}`);
         this.processApiResponse(apiResponse);
       } catch (error) {
         console.error("Error analyzing file", error);
       }
     },
+
     processApiResponse(apiResponse) {
       if (!apiResponse || !apiResponse.predictions) {
         console.error("API response is missing 'predictions'");
@@ -125,7 +128,7 @@ export default {
       const extractedData = apiResponse.predictions[0].output.trim().split("\n");
       this.analysisData = extractedData.map((entry) => {
         const [title, date, time] = entry.split(",");
-        return { title, date, time };
+        return {title, date, time};
       });
       console.log("Processed Data:", this.analysisData);
     },
@@ -139,7 +142,7 @@ export default {
               )
               .join("\n");
 
-      const blob = new Blob([csvContent], { type: "text/csv" });
+      const blob = new Blob([csvContent], {type: "text/csv"});
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
