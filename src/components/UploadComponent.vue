@@ -154,28 +154,23 @@ export default {
       }
 
       const cleanedData = apiResponse.trim().split("\n").map(entry => {
-        // Die Daten als CSV parsen, wobei jedes Element durch ein Komma getrennt ist
-        const [title, startDate, startTime, endDate, endTime, location, description] = entry.split(",");
-
-        // Daten validieren und formatieren
-        const formattedStartDate = this.formatDate(startDate);
-        const formattedEndDate = this.formatDate(endDate || startDate); // Enddatum = Startdatum, falls nicht angegeben
-        const formattedStartTime = this.formatTime(startTime);
-        const formattedEndTime = this.formatTime(endTime);
+        // Parse the CSV data correctly
+        const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
 
         return {
           title: title || "No Title",
-          startDate: formattedStartDate || "",
-          startTime: formattedStartTime || "",
-          endDate: formattedEndDate || "",
-          endTime: formattedEndTime || "",
-          location: location || "",
-          description: description || ""
+          startDate: startDate || "",
+          startTime: startTime || "",
+          endDate: endDate || startDate || "", // Use startDate if endDate is missing
+          endTime: endTime || "",
+          location: "", // Set default location or remove if not required
+          description: description || "" // Only set description if it's provided
         };
       });
 
-      this.analysisData = cleanedData;
-    },
+      this.analysisData = cleanedData.filter(entry => entry.title && entry.startDate); // Filter rows with actual data
+    }
+    ,
 
     formatDate(date) {
       // Logik, um das Datum in "YYYY-MM-DD" zu konvertieren
