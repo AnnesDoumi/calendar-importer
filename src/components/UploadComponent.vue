@@ -221,12 +221,12 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = "Analyze this text and create a CSV file for Google Calendar import.";
+      const prompt = " <- Analyze this Data, extract it for a (.csv) google calendar output, no addition information or commenting";
       this.analyzeFile(prompt);
     },
 
     importAppleCalendar() {
-      const prompt = "Analyze this text and create an ICS file for Apple Calendar import.";
+      const prompt = "<- Analyze this Data, extract it for a (.ics) apple calendar output, no addition information or commenting";
       this.analyzeFile(prompt);
     },
   },
