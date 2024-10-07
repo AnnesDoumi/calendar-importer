@@ -234,7 +234,7 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = " <-Analyse this Data, for google calendar csv: (Subject,Start Date,Start Time,End Date,End Time,Description), extract all the dates and figure the right order and put the Information in the Format given in the brackets, no additional information or commenting from you";
+      const prompt = "I need to create a (.csv) for Google Calendar in the following Format: Subject,Start Date,Start Time,End Date,End Time,Description.   Therefore I need you to only give a me response with the Dates you find in the prompt I give you, and leave anything else out, so I can extract your response for my format into a csv for google calendar";
       this.analyzeFile(prompt);
     },
 
