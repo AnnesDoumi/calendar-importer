@@ -49,16 +49,20 @@
         </thead>
         <tbody>
         <tr v-for="(entry, index) in analysisData" :key="index">
-          <td><input v-model="entry.title" /></td>
-          <td><input v-model="entry.startDate" /></td>
-          <td><input v-model="entry.startTime" /></td>
-          <td><input v-model="entry.endDate" /></td>
-          <td><input v-model="entry.endTime" /></td>
-          <td><input v-model="entry.location" /></td>
-          <td><input v-model="entry.description" /></td>
+          <td><input v-model="entry.title"/></td>
+          <td><input v-model="entry.startDate"/></td>
+          <td><input v-model="entry.startTime"/></td>
+          <td><input v-model="entry.endDate"/></td>
+          <td><input v-model="entry.endTime"/></td>
+          <td><input v-model="entry.location"/></td>
+          <td><input v-model="entry.description"/></td>
         </tr>
         </tbody>
       </table>
+      <div>
+        <button @click="exportToCSV">Export to Google Calendar CSV</button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -191,7 +195,7 @@ export default {
               `${event.title},${event.startDate},${event.startTime},${event.endDate},${event.endTime},${event.location},${event.description}`
           ).join("\n");
 
-      const blob = new Blob([csvContent], { type: "text/csv" });
+      const blob = new Blob([csvContent], {type: "text/csv"});
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -207,7 +211,7 @@ export default {
           ).join("") +
           "END:VCALENDAR";
 
-      const blob = new Blob([icsContent], { type: "text/calendar" });
+      const blob = new Blob([icsContent], {type: "text/calendar"});
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -229,6 +233,46 @@ export default {
       const prompt = "<- Analyze this Data, extract it for a (.ics) apple calendar output, no addition information or commenting";
       this.analyzeFile(prompt);
     },
+
+    exportToCSV() {
+      // CSV-Kopfzeile
+      const header = [
+        "Subject", "Start Date", "Start Time", "End Date", "End Time", "All Day Event", "Description", "Location", "Private"
+      ];
+
+      // Daten aus der Tabelle extrahieren und in das CSV-Format umwandeln
+      const csvRows = this.analysisData.map(event => {
+        return [
+          event.title || "",                    // Subject
+          event.date || "",                     // Start Date
+          event.startTime || "",                // Start Time
+          event.endDate || event.date || "",    // End Date (falls nicht vorhanden, nehmen wir Start Date)
+          event.endTime || "",                  // End Time
+          "False",                              // All Day Event (wir nehmen an, dass es keine Ganztagstermine sind)
+          event.description || "",              // Description
+          event.location || "",                 // Location
+          "False"                               // Private (kann hier nach Bedarf gesetzt werden)
+        ].join(","); // Komma-getrennte Werte für CSV
+      });
+
+      // Komplette CSV-Daten zusammenstellen
+      const csvContent = [
+        header.join(","), // Kopfzeile hinzufügen
+        ...csvRows        // Datenzeilen hinzufügen
+      ].join("\n");
+
+      // CSV-Datei generieren und zum Download anbieten
+      const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.setAttribute('download', 'calendar_events.csv');
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+
   },
 };
 </script>
