@@ -6,7 +6,7 @@
       <h2>Upload a file or take a photo</h2>
 
       <!-- Datei-Upload -->
-      <input type="file" accept="image/*" @change="handleFileUpload"/>
+      <input type="file" accept="image/*" @change="handleFileUpload" />
 
       <!-- Kamera Foto aufnehmen -->
       <button @click="openCameraModal">Take Photo</button>
@@ -44,9 +44,9 @@
         </thead>
         <tbody>
         <tr v-for="(entry, index) in analysisData" :key="index">
-          <td><input v-model="entry.title"/></td>
-          <td><input v-model="entry.date"/></td>
-          <td><input v-model="entry.time"/></td>
+          <td><input v-model="entry.title" /></td>
+          <td><input v-model="entry.date" /></td>
+          <td><input v-model="entry.time" /></td>
         </tr>
         </tbody>
       </table>
@@ -56,7 +56,7 @@
 
 <script>
 import Tesseract from "tesseract.js";
-import {sendToGroq} from '../services/groqService'; // Ändere den Import auf den GROQ Service
+import { sendToGroq } from "../services/groqService";
 
 export default {
   data() {
@@ -68,12 +68,11 @@ export default {
   },
   methods: {
     handleFileUpload(event) {
-      const files = Array.from(event.target.files);
-      this.files = files;
+      this.files = Array.from(event.target.files);
     },
     openCameraModal() {
       this.showCamera = true;
-      navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
+      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         this.$refs.video.srcObject = stream;
       });
     },
@@ -96,13 +95,11 @@ export default {
       this.closeCameraModal();
     },
     async analyzeFile(prompt) {
+      if (this.files.length === 0) {
+        console.error("No files uploaded");
+        return;
+      }
       try {
-        if (this.files.length === 0) {
-          console.error("No files uploaded");
-          return;
-        }
-
-        // Verwende Tesseract.js für die Texterkennung (bleibt unverändert)
         const file = this.files[0];
         const result = await Tesseract.recognize(file, "eng", {
           logger: (m) => console.log(m),
@@ -111,94 +108,40 @@ export default {
         const extractedText = result.data.text;
         console.log("Extracted text from image:", extractedText);
 
-        // Sende die Anfrage an GROQ und verarbeite die Antwort
         const apiResponse = await sendToGroq(`${prompt}: ${extractedText}`);
         this.processApiResponse(apiResponse);
       } catch (error) {
         console.error("Error analyzing file", error);
       }
     },
-
     processApiResponse(apiResponse) {
-      if (!apiResponse || !apiResponse.predictions) {
-        console.error("API response is missing 'predictions'");
+      if (!apiResponse) {
+        console.error("API response is missing");
         return;
       }
-
-      const extractedData = apiResponse.predictions[0].output.trim().split("\n");
+      const extractedData = apiResponse.trim().split("\n");
       this.analysisData = extractedData.map((entry) => {
         const [title, date, time] = entry.split(",");
-        return {title, date, time};
+        return { title, date, time };
       });
-      console.log("Processed Data:", this.analysisData);
-    },
-    generateCSV(analysisData) {
-      const csvContent =
-          "Subject,Start Date,Start Time,End Date,End Time\n" +
-          analysisData
-              .map(
-                  (event) =>
-                      `${event.title},${event.date},${event.time},${event.date},${event.time}`
-              )
-              .join("\n");
-
-      const blob = new Blob([csvContent], {type: "text/csv"});
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "calendar_events.csv";
-      a.click();
-      window.URL.revokeObjectURL(url);
-    },
-    generateICS(analysisData) {
-      const icsContent =
-          "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//YourApp//NONSGML v1.0//EN\n" +
-          analysisData
-              .map(
-                  (event) =>
-                      `BEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${this.formatDateTime(
-                          event.date,
-                          event.time
-                      )}\nDTEND:${this.formatDateTime(
-                          event.date,
-                          event.time
-                      )}\nEND:VEVENT\n`
-              )
-              .join("") +
-          "END:VCALENDAR";
-
-      const blob = new Blob([icsContent], {type: "text/calendar"});
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "calendar_events.ics";
-      a.click();
-      window.URL.revokeObjectURL(url);
-    },
-    formatDateTime(date, time) {
-      return date.replace(/-/g, "") + "T" + time.replace(/:/g, "") + "00Z";
     },
     importGoogleCalendar() {
-      const prompt = "Analyze this text and create a CSV file for Google Calendar import.";
-      this.analyzeFile(prompt);
+      this.analyzeFile("Create a CSV file for Google Calendar import");
     },
     importAppleCalendar() {
-      const prompt = "Analyze this text and create an ICS file for Apple Calendar import.";
-      this.analyzeFile(prompt);
+      this.analyzeFile("Create an ICS file for Apple Calendar import");
     },
   },
 };
 </script>
 
 <style scoped>
-/* Globales Layout */
 #app {
   font-family: Arial, sans-serif;
   text-align: center;
   margin-top: 40px;
 }
 
-/* Upload-Sektion */
 .upload-section {
   background-color: #f9f9f9;
   padding: 20px;
@@ -217,7 +160,7 @@ button {
 }
 
 .google-button {
-  background-color: #4285F4;
+  background-color: #4285f4;
   color: white;
   border: none;
 }
@@ -228,7 +171,6 @@ button {
   border: none;
 }
 
-/* Modal für Kamera */
 .modal {
   position: fixed;
   top: 0;

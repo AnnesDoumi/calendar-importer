@@ -1,25 +1,26 @@
-import axios from 'axios';
+// src/services/groqService.js
+import Groq from "groq-sdk";
+
+// Initialisiere die GROQ API mit dem API-Key aus der .env Datei
+const groq = new Groq({ apiKey: process.env.VUE_APP_GROQ_API_KEY });
 
 async function sendToGroq(promptText) {
     try {
-        const response = await axios.post(
-            'https://api.groq.com/openai/v1/chat/completions', // Ersetze durch den tatsächlichen GROQ-Endpunkt
-            {
-                model: 'llama3-8b-8192', // Das Modell, das du verwenden möchtest
-                prompt: promptText,
-                temperature: 0.7,
-                max_tokens: 1000
-            },
-            {
-                headers: {
-                    'Authorization': `Bearer YOUR_GROQ_API_KEY`, // Setze deinen API-Schlüssel ein
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
-        return response.data;
+        // Verwende den API-Call zur Modellgenerierung
+        const completion = await groq.chat.completions.create({
+            messages: [
+                {
+                    role: "user",
+                    content: promptText,  // Verwende den vom Benutzer eingegebenen Text
+                },
+            ],
+            model: "mixtral-8x7b-32768",  // Beispielmodell, ändere es nach Bedarf
+        });
+
+        // Rückgabe des Inhalts der Antwort
+        return completion.choices[0]?.message?.content || "";
     } catch (error) {
-        console.error('Error sending data to GROQ', error);
+        console.error("Error sending data to GROQ:", error);
         return null;
     }
 }
