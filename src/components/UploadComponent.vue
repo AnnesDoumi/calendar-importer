@@ -29,6 +29,27 @@
     </div>
 
   </div>
+
+  <!-- Analyzierte Daten anzeigen und bearbeiten -->
+  <div v-if="analysisData.length > 0">
+    <h2>Analyzed Data</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(entry, index) in analysisData" :key="index">
+        <td><input v-model="entry.title" /></td>
+        <td><input v-model="entry.date" /></td>
+        <td><input v-model="entry.time" /></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -39,7 +60,8 @@ export default {
       importType: '', // 'csv' oder 'ics'
       files: [], // Dateien, die hochgeladen wurden
       isGoogleActive: false, // Aktiviert, wenn CSV ausgewählt und Datei hochgeladen wurde
-      isAppleActive: false // Aktiviert, wenn ICS ausgewählt und Datei hochgeladen wurde
+      isAppleActive: false, // Aktiviert, wenn ICS ausgewählt und Datei hochgeladen wurde
+      analysisData: [] // Hier werden die analysierten Daten gespeichert
     };
   },
   methods: {
@@ -70,8 +92,10 @@ export default {
           }
         });
 
-        console.log(response.data); // Hier kommt die Analyse zurück
-        // Nutze die Analyse, um die Kalenderdatei zu generieren (CSV oder ICS)
+        // Angenommen, die API liefert ein Array von Events zurück (z.B. { title, date, time })
+        this.analysisData = response.data.analyzedEvents; // Speichere die analysierten Daten
+
+        console.log(this.analysisData); // Zu Debug-Zwecken
       } catch (error) {
         console.error('Error analyzing file', error);
       }
@@ -108,10 +132,13 @@ export default {
 };
 </script>
 
+
 <style scoped>
+/* Button Styling */
 .active-button {
   background-color: #4285F4; /* Google Blau */
 }
+
 button:disabled {
   background-color: #ccc; /* Deaktiviert */
 }

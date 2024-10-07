@@ -1,26 +1,38 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <header>
+      <h1>Calendar Importer App</h1>
+    </header>
+
+    <!-- Binde das UploadComponent hier ein -->
+    <UploadComponent />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/UploadComponent.vue'
+// Importiere das UploadComponent
+import UploadComponent from './components/UploadComponent.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    UploadComponent // Registriere das Component
   }
-}
+};
 </script>
 
 <style>
+/* Optionale globale Stile für die App */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+header {
+  background-color: #f3f3f3;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 </style>
