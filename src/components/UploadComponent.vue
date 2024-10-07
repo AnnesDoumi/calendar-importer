@@ -127,27 +127,27 @@ export default {
     ,
 
     // API-Aufruf an ChatGPT
-    async sendToChatGPT(promptText) {
+    async sendToChatGPT(filteredText) {
       try {
         const response = await axios.post(
-            "https://api.openai.com/v1/chat/completions",  // Korrekt für ChatGPT-3.5 Turbo
+            "https://api.openai.com/v1/chat/completions",
             {
-              model: "gpt-3.5-turbo", // Verwende ChatGPT-3.5 Turbo Modell
+              model: "gpt-3.5-turbo",
               messages: [
                 {
-                  role: "system", // Optional: Systemnachricht, die den Chat-Rahmen festlegt
-                  content: "You are a helpful assistant that generates calendar events."
+                  role: "system",
+                  content: "You extract calendar events from text and generate CSV/ICS."
                 },
                 {
-                  role: "user", // Der Nutzerprompt, der den Kalendertext enthält
-                  content: promptText
+                  role: "user",
+                  content: filteredText // Vorverarbeiteter, kürzerer Text
                 }
               ],
-              max_tokens: 1000,
+              max_tokens: 500, // Limitiere die Antwortlänge
             },
             {
               headers: {
-                Authorization: `Bearer ${process.env.VUE_APP_OPENAI_API_KEY}`, // Stelle sicher, dass der API-Key korrekt ist
+                Authorization: `Bearer ${process.env.VUE_APP_OPENAI_API_KEY}`,
                 "Content-Type": "application/json",
               }
             }
@@ -156,7 +156,8 @@ export default {
       } catch (error) {
         console.error("Error sending data to ChatGPT", error);
       }
-    },
+    }
+    ,
 
     // Verarbeite die Antwort von ChatGPT
     processApiResponse(apiResponse) {
