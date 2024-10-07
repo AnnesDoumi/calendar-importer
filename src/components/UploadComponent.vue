@@ -116,14 +116,15 @@ export default {
         const extractedText = result.data.text;
         console.log("Extracted text from image:", extractedText);
 
-        // Sende den extrahierten Text an die OpenAI API
-        const apiResponse = await this.sendToChatGPT(`Analyze the following text and extract calendar events: ${extractedText}`);
+        // Hier wird der prompt-Text jetzt korrekt genutzt
+        const apiResponse = await this.sendToChatGPT(`${prompt}: ${extractedText}`);
 
         this.processApiResponse(apiResponse);
       } catch (error) {
         console.error("Error analyzing file", error);
       }
-    },
+    }
+    ,
 
     // API-Aufruf an ChatGPT
     async sendToChatGPT(promptText) {
