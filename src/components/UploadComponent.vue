@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <header>
-      <h1>Calendar Importer App</h1>
-    </header>
 
     <div class="upload-section">
       <h2>Upload a file or take a photo</h2>
@@ -113,13 +110,13 @@ export default {
       }
     },
     importGoogleCalendar() {
-      const prompt = "Analyze this image and extract calendar events for Google Calendar.";
+      const prompt = "Analyze this image and extract calendar events for Google Calendar and make an csv file which suits an import for Google Calendar.";
       this.analyzeFile(prompt);
       // Weitere Logik für den Google Calendar API-Import
       console.log("Import to Google Calendar");
     },
     importAppleCalendar() {
-      const prompt = "Analyze this image and extract calendar events for Apple Calendar.";
+      const prompt = "Analyze this image and extract calendar events for Apple Calendar and make an ics file which suits an import in Apple Calendar.";
       this.analyzeFile(prompt);
       // Weitere Logik für den Apple Calendar API-Import
       console.log("Import to Apple Calendar");
