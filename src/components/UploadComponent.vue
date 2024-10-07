@@ -22,6 +22,7 @@
 
       <!-- Kalender Optionen -->
       <div class="calendar-buttons">
+        <!-- Korrektes Aufrufen der Methode analyzeFile beim Klicken -->
         <button @click="importGoogleCalendar" class="google-button">
           Import to Google Calendar
         </button>
@@ -56,26 +57,32 @@
 
 <script>
 import Tesseract from "tesseract.js";
+import { sendToGroq } from '../services/groqService'; // Stelle sicher, dass der API-Call korrekt bleibt
 
 export default {
   data() {
     return {
-      files: [],
-      showCamera: false,
-      analysisData: [],
+      files: [], // Dateien die hochgeladen oder fotografiert werden
+      showCamera: false, // Steuert das Anzeigen des Kameramodals
+      analysisData: [], // Ergebnis nach Texterkennung
     };
   },
   methods: {
+    // Datei-Upload-Logik
     handleFileUpload(event) {
       const files = Array.from(event.target.files);
       this.files = files;
     },
+
+    // Open Camera Modal
     openCameraModal() {
       this.showCamera = true;
       navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         this.$refs.video.srcObject = stream;
       });
     },
+
+    // Kamera schließen
     closeCameraModal() {
       this.showCamera = false;
       const video = this.$refs.video;
@@ -84,6 +91,8 @@ export default {
       tracks.forEach((track) => track.stop());
       video.srcObject = null;
     },
+
+    // Methode zum Fotografieren
     takePhoto() {
       const canvas = document.createElement("canvas");
       const video = this.$refs.video;
@@ -92,16 +101,18 @@ export default {
       canvas.getContext("2d").drawImage(video, 0, 0, 320, 240);
       const dataURL = canvas.toDataURL("image/png");
       this.files.push(dataURL);
-      this.closeCameraModal();
+      this.closeCameraModal(); // Kamera schließen nach dem Foto
     },
-    async analyzeFile() {
+
+    // Texterkennung mit Tesseract und Analyse
+    async analyzeFile(prompt) {
       try {
         if (this.files.length === 0) {
           console.error("No files uploaded");
           return;
         }
 
-        // OCR-Verarbeitung
+        // Texterkennung mit Tesseract.js
         const file = this.files[0];
         const result = await Tesseract.recognize(file, "eng", {
           logger: (m) => console.log(m),
@@ -110,50 +121,53 @@ export default {
         const extractedText = result.data.text;
         console.log("Extracted text from image:", extractedText);
 
-        // Sende Anfrage an Backend, um GROQ zu verwenden
-        const response = await fetch('/api/extract-calendar-data', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ prompt: `Extract calendar data: ${extractedText}` }),
-        });
-
-        const { entries } = await response.json();
-        this.analysisData = entries;
+        // Sende den extrahierten Text an die API und verarbeite die Antwort
+        const apiResponse = await sendToGroq(`${prompt}: ${extractedText}`);
+        this.processApiResponse(apiResponse);
       } catch (error) {
         console.error("Error analyzing file", error);
       }
     },
 
-    async generateFiles() {
-      try {
-        const response = await fetch('/api/generate-files', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ entries: this.analysisData }),
-        });
-
-        const result = await response.json();
-        console.log(result.message);
-      } catch (error) {
-        console.error('Error generating files:', error);
+    // API Antwort verarbeiten
+    processApiResponse(apiResponse) {
+      if (!apiResponse) {
+        console.error("API response is missing");
+        return;
       }
+
+      const extractedData = apiResponse.trim().split("\n");
+      this.analysisData = extractedData.map((entry) => {
+        const [title, date, time] = entry.split(",");
+        return { title, date, time };
+      });
+      console.log("Processed Data:", this.analysisData);
+    },
+
+    // Importiere die Daten als CSV-Datei für Google Calendar
+    importGoogleCalendar() {
+      const prompt = "Extract calendar data and create a CSV file for Google Calendar";
+      this.analyzeFile(prompt); // Korrektes Aufrufen der analyzeFile Methode
+    },
+
+    // Importiere die Daten als ICS-Datei für Apple Calendar
+    importAppleCalendar() {
+      const prompt = "Extract calendar data and create an ICS file for Apple Calendar";
+      this.analyzeFile(prompt); // Korrektes Aufrufen der analyzeFile Methode
     },
   },
 };
 </script>
 
-
 <style scoped>
+/* Globales Layout */
 #app {
   font-family: Arial, sans-serif;
   text-align: center;
   margin-top: 40px;
 }
 
+/* Upload-Sektion */
 .upload-section {
   background-color: #f9f9f9;
   padding: 20px;
@@ -172,7 +186,7 @@ button {
 }
 
 .google-button {
-  background-color: #4285f4;
+  background-color: #4285F4;
   color: white;
   border: none;
 }
@@ -183,6 +197,7 @@ button {
   border: none;
 }
 
+/* Modal für Kamera */
 .modal {
   position: fixed;
   top: 0;
