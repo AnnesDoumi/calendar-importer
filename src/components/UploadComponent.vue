@@ -60,7 +60,7 @@
         </tbody>
       </table>
       <div>
-        <button @click="exportToCSV">Export to Google Calendar CSV</button>
+        <button @click="generateCSV(analysisData)">Export to Google Calendar CSV</button>
       </div>
 
     </div>
@@ -207,9 +207,9 @@ export default {
       a.download = "calendar_events.csv";
       a.click();
       window.URL.revokeObjectURL(url);
-    }
+    },
 
-    ,
+    
     generateICS() {
       const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//YourApp//NONSGML v1.0//EN\n" +
           this.analysisData.map(event =>
