@@ -54,10 +54,9 @@
     </div>
   </div>
 </template>
-
 <script>
 import Tesseract from "tesseract.js";
-import axios from "axios"; // Korrekte Platzierung des axios Imports
+import axios from 'axios';  // Korrekte Platzierung des axios Imports
 
 export default {
   data() {
@@ -104,7 +103,7 @@ export default {
       this.closeCameraModal(); // Kamera schließen nach dem Foto
     },
 
-    // Texterkennung mit Tesseract und API-Aufruf
+    // Texterkennung mit Tesseract und Aufruf der API
     async analyzeFile(prompt) {
       try {
         if (this.files.length === 0) {
@@ -112,17 +111,24 @@ export default {
           return;
         }
 
-        // Verwende Tesseract.js für Texterkennung
+        // Verwende Tesseract.js für die Texterkennung
         const file = this.files[0];
         const result = await Tesseract.recognize(file, "eng", {
           logger: (m) => console.log(m),
         });
 
+        // Extrahiere den Text aus dem Bild
         const extractedText = result.data.text;
         console.log("Extracted text from image:", extractedText);
 
-        // Sende den Text an deine neue serverseitige API
-        const apiResponse = await axios.post('/api/groq', { text: `${prompt}: ${extractedText}` });
+        // Erstelle den vollständigen Prompt, der an die Groq-API gesendet wird
+        const completePrompt = `${prompt}: ${extractedText}`;
+        console.log("Complete prompt:", completePrompt);
+
+        // Sende den Text an deine serverseitige API (Groq-API-Handler)
+        const apiResponse = await axios.post('/api/groq', { prompt: completePrompt });
+
+        // Verarbeite die Antwort der API
         this.processApiResponse(apiResponse.data.completion);
       } catch (error) {
         console.error("Error analyzing file", error);
@@ -136,6 +142,7 @@ export default {
         return;
       }
 
+      // Beispiel: Bearbeitung der API-Antwort (Annahme, dass die API eine formatierte Liste zurückgibt)
       const extractedData = apiResponse.trim().split("\n");
       this.analysisData = extractedData.map((entry) => {
         const [title, date, time] = entry.split(",");
@@ -144,12 +151,11 @@ export default {
       console.log("Processed Data:", this.analysisData);
     },
 
-     importGoogleCalendar() {
-      const prompt = "Analyze this text and create an ICS file for Google Calendar import.";
+    // Methoden zum Import in Kalender (Google/Apple)
+    importGoogleCalendar() {
+      const prompt = "Analyze this text and create a CSV file for Google Calendar import.";
       this.analyzeFile(prompt);
-      }
-
-    ,
+    },
 
     importAppleCalendar() {
       const prompt = "Analyze this text and create an ICS file for Apple Calendar import.";
@@ -158,6 +164,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 /* Globales Layout */
