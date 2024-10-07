@@ -6,7 +6,7 @@
       <h2>Upload a file or take a photo</h2>
 
       <!-- Datei-Upload -->
-      <input type="file" accept="image/*" @change="handleFileUpload"/>
+      <input type="file" accept="image/*" @change="handleFileUpload" />
 
       <!-- Kamera Foto aufnehmen -->
       <button @click="openCameraModal">Take Photo</button>
@@ -22,8 +22,12 @@
 
       <!-- Kalender Optionen -->
       <div class="calendar-buttons">
-        <button @click="importGoogleCalendar" class="google-button">Import to Google Calendar</button>
-        <button @click="importAppleCalendar" class="apple-button">Import to Apple Calendar</button>
+        <button @click="importGoogleCalendar" class="google-button">
+          Import to Google Calendar
+        </button>
+        <button @click="importAppleCalendar" class="apple-button">
+          Import to Apple Calendar
+        </button>
       </div>
     </div>
 
@@ -40,9 +44,9 @@
         </thead>
         <tbody>
         <tr v-for="(entry, index) in analysisData" :key="index">
-          <td><input v-model="entry.title"/></td>
-          <td><input v-model="entry.date"/></td>
-          <td><input v-model="entry.time"/></td>
+          <td><input v-model="entry.title" /></td>
+          <td><input v-model="entry.date" /></td>
+          <td><input v-model="entry.time" /></td>
         </tr>
         </tbody>
       </table>
@@ -51,28 +55,34 @@
 </template>
 
 <script>
-import axios from 'axios';
+// Importiere den Google Prediction Service Client
+const { PredictionServiceClient } = require('@google-cloud/aiplatform').v1;
 import Tesseract from "tesseract.js";
+
+// Initialisiere den PredictionServiceClient mit deinem Google Cloud-Schlüssel
+const client = new PredictionServiceClient({
+  keyFilename: 'config/google-cloud-key.json', // Pfad zur Google Cloud JSON-Schlüsseldatei
+});
 
 export default {
   data() {
     return {
-      files: [], // Dateien, die hochgeladen wurden
+      files: [], // Hochgeladene Dateien
       showCamera: false, // Steuert das Anzeigen des Kameramodals
       analysisData: [], // Speichert die analysierten Daten
     };
   },
   methods: {
-    // Datei-Upload-Logik bleibt gleich
+    // Datei-Upload-Logik
     handleFileUpload(event) {
       const files = Array.from(event.target.files);
       this.files = files;
     },
 
-    // Open Camera Modal bleibt gleich
+    // Open Camera Modal
     openCameraModal() {
       this.showCamera = true;
-      navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
+      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         this.$refs.video.srcObject = stream;
       });
     },
@@ -87,7 +97,7 @@ export default {
       video.srcObject = null;
     },
 
-    // Methode zum Fotografieren (bleibt gleich)
+    // Methode zum Fotografieren
     takePhoto() {
       const canvas = document.createElement("canvas");
       const video = this.$refs.video;
@@ -99,7 +109,7 @@ export default {
       this.closeCameraModal(); // Kamera schließen nach dem Foto
     },
 
-    // OCR-Logik zur Textextraktion und Weiterleitung an ChatGPT API
+    // OCR-Logik zur Textextraktion und Weiterleitung an Google Gemini API
     async analyzeFile(prompt) {
       try {
         if (this.files.length === 0) {
@@ -108,83 +118,69 @@ export default {
         }
 
         // Verwende Tesseract.js für OCR
-        const file = this.files[0]; // Nur das erste Bild verarbeiten
+        const file = this.files[0];
         const result = await Tesseract.recognize(file, "eng", {
-          logger: (m) => console.log(m), // Fortschrittsanzeige in der Konsole
+          logger: (m) => console.log(m),
         });
 
         const extractedText = result.data.text;
         console.log("Extracted text from image:", extractedText);
 
-        // Hier wird der prompt-Text jetzt korrekt genutzt
-        const apiResponse = await this.sendToChatGPT(`${prompt}: ${extractedText}`);
-
+        // Sende die Anfrage an Google Gemini und verarbeite die Antwort
+        const apiResponse = await this.sendToGoogleGemini(
+            `${prompt}: ${extractedText}`
+        );
         this.processApiResponse(apiResponse);
       } catch (error) {
         console.error("Error analyzing file", error);
       }
-    }
-    ,
+    },
 
-    // API-Aufruf an ChatGPT
-    async sendToChatGPT(filteredText) {
+    // API-Aufruf an Google Gemini
+    async sendToGoogleGemini(promptText) {
       try {
-        const response = await axios.post(
-            "https://api.openai.com/v1/chat/completions",
-            {
-              model: "gpt-3.5-turbo",
-              messages: [
-                {
-                  role: "system",
-                  content: "You extract calendar events from text and generate CSV/ICS."
-                },
-                {
-                  role: "user",
-                  content: filteredText // Vorverarbeiteter, kürzerer Text
-                }
-              ],
-              max_tokens: 500, // Limitiere die Antwortlänge
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${process.env.VUE_APP_OPENAI_API_KEY}`,
-                "Content-Type": "application/json",
-              }
-            }
-        );
-        return response.data;
+        const response = await client.predict({
+          endpoint:
+              'projects/YOUR_PROJECT_ID/locations/YOUR_LOCATION/publishers/YOUR_PUBLISHER_ID/models/YOUR_MODEL_ID', // Anpassen
+          instances: [{ prompt: promptText }],
+          parameters: { temperature: 0.7, maxOutputTokens: 1000 },
+        });
+        return response;
       } catch (error) {
-        console.error("Error sending data to ChatGPT", error);
+        console.error("Error sending data to Google Gemini", error);
       }
-    }
-    ,
+    },
 
-    // Verarbeite die Antwort von ChatGPT
+    // Verarbeite die Antwort von Google Gemini
     processApiResponse(apiResponse) {
-      if (!apiResponse || !apiResponse.choices) {
-        console.error("API response is missing 'choices'");
+      if (!apiResponse || !apiResponse.predictions) {
+        console.error("API response is missing 'predictions'");
         return;
       }
 
-      // Verarbeite die Antwort von ChatGPT
-      const extractedData = apiResponse.choices[0].message.content.trim().split('\n'); // Beispielhafte Verarbeitung
+      // Verarbeite die Antwort von Google Gemini
+      const extractedData = apiResponse.predictions[0].output
+          .trim()
+          .split("\n");
       this.analysisData = extractedData.map((entry) => {
-        const [title, date, time] = entry.split(','); // Passe die Struktur an, je nachdem wie die Antwort aussieht
-        return {title, date, time};
+        const [title, date, time] = entry.split(","); // Passe die Struktur an
+        return { title, date, time };
       });
       console.log("Processed Data:", this.analysisData);
-    }
-    ,
+    },
 
     // CSV generieren und zum Download bereitstellen
     generateCSV(analysisData) {
       const csvContent =
           "Subject,Start Date,Start Time,End Date,End Time\n" +
           analysisData
-              .map((event) => `${event.title},${event.date},${event.time},${event.date},${event.time}`)
+              .map(
+                  (event) =>
+                      `${event.title},${event.date},${event.time},${event.date},${event.time}`
+              )
               .join("\n");
 
-      const blob = new Blob([csvContent], {type: "text/csv"});
+      const blob = new Blob([csvContent], { type: "text/csv" });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -198,19 +194,27 @@ export default {
       const icsContent =
           "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//YourApp//NONSGML v1.0//EN\n" +
           analysisData
-              .map((event) => `BEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${this.formatDateTime(event.date, event.time)}\nDTEND:${this.formatDateTime(event.date, event.time)}\nEND:VEVENT\n`)
+              .map(
+                  (event) =>
+                      `BEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${this.formatDateTime(
+                          event.date,
+                          event.time
+                      )}\nDTEND:${this.formatDateTime(
+                          event.date,
+                          event.time
+                      )}\nEND:VEVENT\n`
+              )
               .join("") +
           "END:VCALENDAR";
 
-      const blob = new Blob([icsContent], {type: "text/calendar"});
+      const blob = new Blob([icsContent], { type: "text/calendar" });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
       a.download = "calendar_events.ics";
       a.click();
       window.URL.revokeObjectURL(url);
-    }
-    ,
+    },
 
     formatDateTime(date, time) {
       // Formatierung von Datum und Zeit für ICS (z.B. "20221010T090000Z")
@@ -218,17 +222,17 @@ export default {
     },
 
     importGoogleCalendar() {
-      const prompt = "Analyze this text and create a CSV file for Google Calendar import.";
+      const prompt =
+          "Analyze this text and create a CSV file for Google Calendar import.";
       this.analyzeFile(prompt);
-    }
-    ,
+    },
 
-  importAppleCalendar() {
-      const prompt = "Analyze this text and create an ICS file for Apple Calendar import.";
+    importAppleCalendar() {
+      const prompt =
+          "Analyze this text and create an ICS file for Apple Calendar import.";
       this.analyzeFile(prompt);
-    }
-  }
-
+    },
+  },
 };
 </script>
 
@@ -304,7 +308,8 @@ input[type="file"] {
   border-collapse: collapse;
 }
 
-.data-table th, .data-table td {
+.data-table th,
+.data-table td {
   border: 1px solid #ddd;
   padding: 8px;
 }
@@ -313,5 +318,4 @@ input[type="file"] {
   background-color: #f2f2f2;
   font-weight: bold;
 }
-
 </style>
