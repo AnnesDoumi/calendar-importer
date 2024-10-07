@@ -109,6 +109,8 @@ export default {
       this.closeCameraModal(); // Kamera schließen nach dem Foto
     },
 
+
+
     // OCR-Logik zur Textextraktion und Weiterleitung an Google Gemini API
     async analyzeFile(prompt) {
       try {
