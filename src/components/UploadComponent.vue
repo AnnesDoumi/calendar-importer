@@ -129,18 +129,18 @@ export default {
           logger: (m) => console.log(m),
         });
 
+        // Extrahiere den Text aus dem Bild
         const extractedText = result.data.text;
         console.log("Extracted text from image:", extractedText);
 
-        // Sende die Anfrage an deine serverseitige API
-        const apiResponse = await axios.post('/api/groq', { text: `${prompt}: ${extractedText}` });
+        // Erstelle den vollständigen Prompt, der an die Groq-API gesendet wird
+        const completePrompt = `${prompt}: ${extractedText}`;
+        console.log("Complete prompt:", completePrompt);
 
-        // **Hier den Response in der Konsole anzeigen**
-        console.log("Prompt:", prompt);
-        console.log("Extracted Text:", extractedText);
+        // Sende den Text an deine serverseitige API (Groq-API-Handler)
+        const apiResponse = await axios.post('/api/groq', {prompt: completePrompt});
 
-
-
+        // Verarbeite die Antwort der API
         this.processApiResponse(apiResponse.data.completion);
       } catch (error) {
         console.error("Error analyzing file", error);
