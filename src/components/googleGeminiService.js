@@ -2,10 +2,8 @@
 
 const { PredictionServiceClient } = require('@google-cloud/aiplatform').v1;
 
-// Initialisiere den PredictionServiceClient mit deinem Google Cloud-Schlüssel
-const client = new PredictionServiceClient({
-    keyFilename: 'path/to/your-google-cloud-key.json', // Stelle sicher, dass der Pfad korrekt ist
-});
+// Initialisiere den PredictionServiceClient mit deinem Google Cloud-Schlüssel aus der Umgebungsvariablen
+const client = new PredictionServiceClient();
 
 async function sendToGoogleGemini(promptText) {
     try {
@@ -22,7 +20,7 @@ async function sendToGoogleGemini(promptText) {
         return response;
     } catch (error) {
         console.error('Error sending data to Google Gemini', error);
-        return null;  // Gib null zurück, um Fehler sicher zu behandeln
+        return null;
     }
 }
 
