@@ -153,39 +153,39 @@ export default {
         return;
       }
 
-      const extractedData = apiResponse.trim().split("\n");
+      const cleanedData = apiResponse.trim().split("\n").map(entry => {
+        const [title, date, startTime, endTime, location, description] = entry.split(",");
 
-      // Überprüfe, ob die Daten tatsächlich extrahiert wurden
-      this.analysisData = extractedData.map((entry) => {
-        // Stelle sicher, dass entry definiert ist und nicht leer
-        if (entry && entry.trim()) {
-          const [title, startDate, startTime, endDate, endTime, location, description] = entry.split(",");
+        // Daten validieren und formatieren (z.B. für CSV)
+        const formattedDate = this.formatDate(date);
+        const formattedStartTime = this.formatTime(startTime);
+        const formattedEndTime = this.formatTime(endTime);
 
-          // Falls keine Daten für ein Feld vorhanden sind, setze es auf einen leeren String
-          return {
-            title: title ? title.trim() : '',
-            startDate: startDate ? startDate.trim() : '',
-            startTime: startTime ? startTime.trim() : '',
-            endDate: endDate ? endDate.trim() : '',
-            endTime: endTime ? endTime.trim() : '',
-            location: location ? location.trim() : '',
-            description: description ? description.trim() : '',
-          };
-        } else {
-          // Gib eine leere Struktur zurück, falls `entry` nicht korrekt definiert ist
-          return {
-            title: '',
-            startDate: '',
-            startTime: '',
-            endDate: '',
-            endTime: '',
-            location: '',
-            description: '',
-          };
-        }
+        return {
+          title: title || "No Title",
+          startDate: formattedDate || "",            // Hier sicherstellen, dass das Startdatum korrekt formatiert ist
+          startTime: formattedStartTime || "",       // Sicherstellen, dass die Startzeit vorhanden und korrekt formatiert ist
+          endDate: formattedDate || "",              // Enddatum = Startdatum (falls keine separate Angabe)
+          endTime: formattedEndTime || "",           // Endzeit sicherstellen
+          location: location || "",
+          description: description || ""
+        };
       });
 
-      console.log("Processed Data:", this.analysisData);
+      this.analysisData = cleanedData;
+    },
+
+    formatDate(date) {
+      // Logik, um das Datum in "YYYY-MM-DD" zu konvertieren
+      const dateObj = new Date(date);
+      return isNaN(dateObj) ? "" : dateObj.toISOString().split("T")[0];
+    },
+
+    formatTime(time) {
+      // Logik, um die Uhrzeit im Format "HH:MM" zu konvertieren
+      const [hours, minutes] = time.split(":");
+      if (!hours || !minutes) return "";
+      return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
     }
 
     ,
@@ -235,33 +235,33 @@ export default {
     },
 
     exportToCSV() {
-      // CSV-Kopfzeile
+      // Google Calendar CSV-Spalten
       const header = [
         "Subject", "Start Date", "Start Time", "End Date", "End Time", "All Day Event", "Description", "Location", "Private"
       ];
 
-      // Daten aus der Tabelle extrahieren und in das CSV-Format umwandeln
+      // Daten aus der Tabelle extrahieren und für CSV formatieren
       const csvRows = this.analysisData.map(event => {
         return [
           event.title || "",                    // Subject
-          event.date || "",                     // Start Date
+          event.startDate || "",                // Start Date
           event.startTime || "",                // Start Time
-          event.endDate || event.date || "",    // End Date (falls nicht vorhanden, nehmen wir Start Date)
+          event.endDate || event.startDate || "", // End Date
           event.endTime || "",                  // End Time
-          "False",                              // All Day Event (wir nehmen an, dass es keine Ganztagstermine sind)
+          "False",                              // All Day Event
           event.description || "",              // Description
           event.location || "",                 // Location
-          "False"                               // Private (kann hier nach Bedarf gesetzt werden)
+          "False"                               // Private
         ].join(","); // Komma-getrennte Werte für CSV
       });
 
-      // Komplette CSV-Daten zusammenstellen
+      // CSV-Zeilen generieren
       const csvContent = [
-        header.join(","), // Kopfzeile hinzufügen
-        ...csvRows        // Datenzeilen hinzufügen
+        header.join(","), // Kopfzeile
+        ...csvRows        // Zeilen
       ].join("\n");
 
-      // CSV-Datei generieren und zum Download anbieten
+      // CSV-Datei erstellen und zum Download anbieten
       const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
