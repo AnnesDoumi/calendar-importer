@@ -56,7 +56,6 @@
 
 <script>
 import Tesseract from "tesseract.js";
-import { sendToGroq } from "../services/groqService";
 
 export default {
   data() {
@@ -68,7 +67,8 @@ export default {
   },
   methods: {
     handleFileUpload(event) {
-      this.files = Array.from(event.target.files);
+      const files = Array.from(event.target.files);
+      this.files = files;
     },
     openCameraModal() {
       this.showCamera = true;
@@ -95,11 +95,13 @@ export default {
       this.closeCameraModal();
     },
     async analyzeFile(prompt) {
-      if (this.files.length === 0) {
-        console.error("No files uploaded");
-        return;
-      }
       try {
+        if (this.files.length === 0) {
+          console.error("No files uploaded");
+          return;
+        }
+
+        // OCR-Verarbeitung
         const file = this.files[0];
         const result = await Tesseract.recognize(file, "eng", {
           logger: (m) => console.log(m),
@@ -108,32 +110,42 @@ export default {
         const extractedText = result.data.text;
         console.log("Extracted text from image:", extractedText);
 
-        const apiResponse = await sendToGroq(`${prompt}: ${extractedText}`);
-        this.processApiResponse(apiResponse);
+        // Sende Anfrage an Backend, um GROQ zu verwenden
+        const response = await fetch('/api/extract-calendar-data', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ prompt: `Extract calendar data: ${extractedText}` }),
+        });
+
+        const { entries } = await response.json();
+        this.analysisData = entries;
       } catch (error) {
         console.error("Error analyzing file", error);
       }
     },
-    processApiResponse(apiResponse) {
-      if (!apiResponse) {
-        console.error("API response is missing");
-        return;
+
+    async generateFiles() {
+      try {
+        const response = await fetch('/api/generate-files', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ entries: this.analysisData }),
+        });
+
+        const result = await response.json();
+        console.log(result.message);
+      } catch (error) {
+        console.error('Error generating files:', error);
       }
-      const extractedData = apiResponse.trim().split("\n");
-      this.analysisData = extractedData.map((entry) => {
-        const [title, date, time] = entry.split(",");
-        return { title, date, time };
-      });
-    },
-    importGoogleCalendar() {
-      this.analyzeFile("Create a CSV file for Google Calendar import");
-    },
-    importAppleCalendar() {
-      this.analyzeFile("Create an ICS file for Apple Calendar import");
     },
   },
 };
 </script>
+
 
 <style scoped>
 #app {
