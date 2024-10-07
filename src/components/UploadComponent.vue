@@ -94,7 +94,7 @@ export default {
       this.files.push(dataURL);
       this.closeCameraModal();
     },
-    async analyzeFile(prompt) {
+    async analyzeFile() {
       try {
         if (this.files.length === 0) {
           console.error("No files uploaded");
