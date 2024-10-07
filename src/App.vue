@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <header>
-      <h1>Calendar Importer App</h1>
-    </header>
-
     <!-- Binde das UploadComponent hier ein -->
     <UploadComponent />
   </div>
