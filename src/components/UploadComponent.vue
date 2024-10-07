@@ -123,31 +123,29 @@ export default {
           return;
         }
 
-        // Verwende Tesseract.js für die Texterkennung
         const file = this.files[0];
         const result = await Tesseract.recognize(file, "eng", {
           logger: (m) => console.log(m),
         });
 
-        // Extrahiere den Text aus dem Bild
-        const extractedText = result.data.text;
-        console.log("Extracted text from image:", extractedText);
+        let extractedText = result.data.text;
+        console.log("Extracted text before cleaning:", extractedText);
 
-        // Erstelle den vollständigen Prompt, der an die Groq-API gesendet wird
-        const completePrompt = `${prompt}: ${extractedText}`;
-        console.log("Complete prompt:", completePrompt);
+        // Clean the extracted text to remove unwanted characters
+        extractedText = this.cleanExtractedText(extractedText);
+        console.log("Cleaned extracted text:", extractedText);
 
-        // Sende den Text an deine serverseitige API (Groq-API-Handler)
-        const apiResponse = await axios.post('/api/groq', {prompt: completePrompt});
+        // Send the cleaned text to the API
+        const apiResponse = await axios.post('/api/groq', { prompt: `${prompt}: ${extractedText}` });
 
-        // Verarbeite die Antwort der API
         console.log("API Full Response:", apiResponse);
 
         this.processApiResponse(apiResponse.data.completion);
       } catch (error) {
         console.error("Error analyzing file", error);
       }
-    },
+    }
+    ,
 
     processApiResponse(apiResponse) {
       if (!apiResponse) {
@@ -193,7 +191,6 @@ export default {
     }
 
 
-
     ,
     generateCSV(analysisData) {
       const csvContent =
@@ -204,7 +201,7 @@ export default {
               )
               .join("\n");
 
-      const blob = new Blob([csvContent], { type: "text/csv" });
+      const blob = new Blob([csvContent], {type: "text/csv"});
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -214,6 +211,14 @@ export default {
     }
     ,
 
+    cleanExtractedText(extractedText) {
+      // Remove unwanted characters such as special symbols, stray brackets, and extra spaces
+      return extractedText
+          .replace(/[‘@[\]m]/g, '')  // Removes special characters
+          .replace(/\s+/g, ' ')      // Collapses multiple spaces into one
+          .trim();
+    }
+    ,
 
     generateICS() {
       const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//YourApp//NONSGML v1.0//EN\n" +
