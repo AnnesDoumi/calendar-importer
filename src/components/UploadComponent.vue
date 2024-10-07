@@ -54,77 +54,170 @@ Calendar Importer
 
 <script>
 import axios from 'axios';
+import Tesseract from "tesseract.js";
 
 export default {
   data() {
     return {
       files: [], // Dateien, die hochgeladen wurden
       showCamera: false, // Steuert das Anzeigen des Kameramodals
-      analysisData: [] // Speichert die analysierten Daten
+      analysisData: [], // Speichert die analysierten Daten
     };
   },
   methods: {
+    // Datei-Upload-Logik bleibt gleich
     handleFileUpload(event) {
       const files = Array.from(event.target.files);
       this.files = files;
     },
+
+    // Open Camera Modal bleibt gleich
     openCameraModal() {
       this.showCamera = true;
       navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         this.$refs.video.srcObject = stream;
       });
     },
+
+    // Schließt das Kamera-Modul
     closeCameraModal() {
       this.showCamera = false;
       const video = this.$refs.video;
       const stream = video.srcObject;
       const tracks = stream.getTracks();
-      tracks.forEach(track => track.stop());
+      tracks.forEach((track) => track.stop());
       video.srcObject = null;
     },
+
+    // Methode zum Fotografieren (bleibt gleich)
     takePhoto() {
-      const canvas = document.createElement('canvas');
+      const canvas = document.createElement("canvas");
       const video = this.$refs.video;
       canvas.width = 320;
       canvas.height = 240;
-      canvas.getContext('2d').drawImage(video, 0, 0, 320, 240);
-      const dataURL = canvas.toDataURL('image/png');
+      canvas.getContext("2d").drawImage(video, 0, 0, 320, 240);
+      const dataURL = canvas.toDataURL("image/png");
       this.files.push(dataURL);
-      this.closeCameraModal();
+      this.closeCameraModal(); // Kamera schließen nach dem Foto
     },
+
+    // OCR-Logik zur Textextraktion und Weiterleitung an ChatGPT API
     async analyzeFile(prompt) {
       try {
-        const formData = new FormData();
-        this.files.forEach(file => {
-          formData.append('file', file);
-        });
-        formData.append('prompt', prompt); // Senden des Prompts an die API
+        if (this.files.length === 0) {
+          console.error("No files uploaded");
+          return;
+        }
 
-        const response = await axios.post('https://api.openai.com/v1/chat/completions', formData, {
-          headers: {
-            'Authorization': `Bearer ${process.env.VUE_APP_OPENAI_API_KEY}`, // In .env Datei definiert
-            'Content-Type': 'multipart/form-data'
-          }
+        // Verwende Tesseract.js für OCR
+        const file = this.files[0]; // Nur das erste Bild verarbeiten
+        const result = await Tesseract.recognize(file, "eng", {
+          logger: (m) => console.log(m), // Fortschrittsanzeige in der Konsole
         });
 
-        this.analysisData = response.data.analyzedEvents; // Beispielhafte Struktur
+        const extractedText = result.data.text;
+        console.log("Extracted text from image:", extractedText);
+
+        // Sende den extrahierten Text an die OpenAI API
+        const apiResponse = await this.sendToChatGPT(
+            `Analyze the following text and extract calendar events for ${prompt}: ${extractedText}`
+        );
+
+        this.processApiResponse(apiResponse);
       } catch (error) {
-        console.error('Error analyzing file', error);
+        console.error("Error analyzing file", error);
       }
     },
-    importGoogleCalendar() {
-      const prompt = "Analyze this image and extract calendar events for Google Calendar and make an csv file which suits an import for Google Calendar.";
-      this.analyzeFile(prompt);
-      // Weitere Logik für den Google Calendar API-Import
-      console.log("Import to Google Calendar");
+
+    // API-Aufruf an ChatGPT
+    async sendToChatGPT(promptText) {
+      try {
+        const response = await axios.post(
+            "https://api.openai.com/v1/completions",
+            {
+              model: "text-davinci-003", // Beispielmodell
+              prompt: promptText,
+              max_tokens: 1000,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${process.env.VUE_APP_OPENAI_API_KEY}`,
+                "Content-Type": "application/json",
+              }
+            }
+        );
+        return response.data;
+      } catch (error) {
+        console.error("Error sending data to ChatGPT", error);
+      }
     },
-    importAppleCalendar() {
-      const prompt = "Analyze this image and extract calendar events for Apple Calendar and make an ics file which suits an import in Apple Calendar.";
+
+    // Verarbeite die Antwort von ChatGPT
+    processApiResponse(apiResponse) {
+      // Verarbeite die Antwort und speichere sie in `analysisData`
+      this.analysisData = apiResponse.choices[0].text; // Passe dies an die Antwortstruktur an
+      console.log("API Response:", this.analysisData);
+    },
+
+    // CSV generieren und zum Download bereitstellen
+    generateCSV(analysisData) {
+      const csvContent =
+          "Subject,Start Date,Start Time,End Date,End Time\n" +
+          analysisData
+              .map((event) => {
+                return `${event.title},${event.date},${event.time},${event.date},${event.endTime}`;
+              })
+              .join("\n");
+
+      const blob = new Blob([csvContent], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "calendar_events.csv";
+      a.click();
+      window.URL.revokeObjectURL(url);
+    },
+
+    // ICS-Datei generieren und zum Download bereitstellen
+    generateICS(analysisData) {
+      const icsContent =
+          "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//YourApp//NONSGML v1.0//EN\n" +
+          analysisData
+              .map((event) => {
+                return `BEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${this.formatDateTime(
+                    event.date,
+                    event.time
+                )}\nDTEND:${this.formatDateTime(event.date, event.endTime)}\nEND:VEVENT\n`;
+              })
+              .join("") +
+          "END:VCALENDAR";
+
+      const blob = new Blob([icsContent], { type: "text/calendar" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "calendar_events.ics";
+      a.click();
+      window.URL.revokeObjectURL(url);
+    },
+
+    formatDateTime(date, time) {
+      // Formatierung von Datum und Zeit für ICS (z.B. "20221010T090000Z")
+      return date.replace(/-/g, "") + "T" + time.replace(/:/g, "") + "00Z";
+    },
+
+    importGoogleCalendar() {
+      const prompt =
+          "Analyze this text and create a CSV file for Google Calendar import.";
       this.analyzeFile(prompt);
-      // Weitere Logik für den Apple Calendar API-Import
-      console.log("Import to Apple Calendar");
-    }
-  }
+    },
+
+    importAppleCalendar() {
+      const prompt =
+          "Analyze this text and create an ICS file for Apple Calendar import.";
+      this.analyzeFile(prompt);
+    },
+  },
 };
 </script>
 
