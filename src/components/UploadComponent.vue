@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <header>
@@ -9,7 +8,7 @@
       <h2>Upload a file or take a photo</h2>
 
       <!-- Datei-Upload -->
-      <input type="file" accept=".txt, image/*" multiple @change="handleFileUpload" />
+      <input type="file" accept="image/*" @change="handleFileUpload" />
 
       <!-- Kamera Foto aufnehmen -->
       <button @click="openCameraModal">Take Photo</button>
@@ -27,18 +26,6 @@
       <div class="calendar-buttons">
         <button @click="importGoogleCalendar" class="google-button">Import to Google Calendar</button>
         <button @click="importAppleCalendar" class="apple-button">Import to Apple Calendar</button>
-      </div>
-
-      <!-- Auswahl zwischen CSV und ICS -->
-      <div class="import-options">
-        <label>
-          <input type="radio" id="csv" value="csv" v-model="importType">
-          Google Calendar (CSV)
-        </label>
-        <label>
-          <input type="radio" id="ics" value="ics" v-model="importType">
-          Apple Calendar (ICS)
-        </label>
       </div>
     </div>
 
@@ -71,7 +58,6 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      importType: '', // 'csv' oder 'ics'
       files: [], // Dateien, die hochgeladen wurden
       showCamera: false, // Steuert das Anzeigen des Kameramodals
       analysisData: [] // Speichert die analysierten Daten
@@ -81,11 +67,9 @@ export default {
     handleFileUpload(event) {
       const files = Array.from(event.target.files);
       this.files = files;
-      // Hier könntest du die Upload-Logik erweitern
     },
     openCameraModal() {
       this.showCamera = true;
-      // Starte den Kamerazugriff nur, wenn das Modal geöffnet wird
       navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         this.$refs.video.srcObject = stream;
       });
@@ -95,8 +79,8 @@ export default {
       const video = this.$refs.video;
       const stream = video.srcObject;
       const tracks = stream.getTracks();
-      tracks.forEach(track => track.stop()); // Stoppe die Kamera
-      video.srcObject = null; // Kameraausgabe entfernen
+      tracks.forEach(track => track.stop());
+      video.srcObject = null;
     },
     takePhoto() {
       const canvas = document.createElement('canvas');
@@ -106,14 +90,15 @@ export default {
       canvas.getContext('2d').drawImage(video, 0, 0, 320, 240);
       const dataURL = canvas.toDataURL('image/png');
       this.files.push(dataURL);
-      this.closeCameraModal(); // Kamera schließen nach dem Foto
+      this.closeCameraModal();
     },
-    async analyzeFile() {
+    async analyzeFile(prompt) {
       try {
         const formData = new FormData();
         this.files.forEach(file => {
           formData.append('file', file);
         });
+        formData.append('prompt', prompt); // Senden des Prompts an die API
 
         const response = await axios.post('https://api.openai.com/v1/chat/completions', formData, {
           headers: {
@@ -128,17 +113,20 @@ export default {
       }
     },
     importGoogleCalendar() {
-      console.log("Import to Google Calendar selected");
-      // Integration der Google Calendar API
+      const prompt = "Analyze this image and extract calendar events for Google Calendar.";
+      this.analyzeFile(prompt);
+      // Weitere Logik für den Google Calendar API-Import
+      console.log("Import to Google Calendar");
     },
     importAppleCalendar() {
-      console.log("Import to Apple Calendar selected");
-      // Integration der Apple Calendar API
+      const prompt = "Analyze this image and extract calendar events for Apple Calendar.";
+      this.analyzeFile(prompt);
+      // Weitere Logik für den Apple Calendar API-Import
+      console.log("Import to Apple Calendar");
     }
   }
 };
 </script>
-
 
 <style scoped>
 /* Globales Layout */
