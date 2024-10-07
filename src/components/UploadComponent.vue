@@ -241,7 +241,7 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = "Extract the date, start time, end time, and title (e.g., position) from the following data. Return it in a CSV format with the following columns: Subject, Start Date, Start Time, End Date, End Time, Description. The response should not include any additional text, comments, or explanations. Only provide the data in this format for use in Google Calendar.";
+      const prompt = "Extract the following data into a clean CSV format with the columns: Subject, Start Date, Start Time, End Date, End Time, Description. Remove any headers, and only include the actual schedule data (Subject, Start Date, Start Time, End Date, End Time, Description). Do not include any additional commentary or information.";
       this.analyzeFile(prompt);
     },
 
