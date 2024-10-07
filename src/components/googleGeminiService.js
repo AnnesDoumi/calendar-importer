@@ -1,29 +1,27 @@
 // src/services/googleGeminiService.js
-
-const { PredictionServiceClient } = require('@google-cloud/aiplatform').v1;
-
-// Initialisiere den PredictionServiceClient mit deinem Google Cloud-Schlüssel aus der Umgebungsvariablen
-const client = new PredictionServiceClient();
+import axios from 'axios';
 
 async function sendToGoogleGemini(promptText) {
     try {
-        // Konfiguriere deinen Google Gemini API-Endpunkt
-        const endpoint = 'projects/YOUR_PROJECT_ID/locations/YOUR_LOCATION/publishers/YOUR_PUBLISHER_ID/models/YOUR_MODEL_ID';
-
-        // API-Anfrage an Google Gemini
-        const [response] = await client.predict({
-            endpoint,
-            instances: [{ prompt: promptText }],
-            parameters: { temperature: 0.7, maxOutputTokens: 1000 }
-        });
-
-        return response;
+        const response = await axios.post(
+            'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBofgOF_zsANFPi-gjBB19pyQbx1bn1zPY', // Ersetze dies durch den korrekten Google Gemini API-Endpunkt
+            {
+                prompt: promptText,
+                temperature: 0.7,
+                max_tokens: 1000
+            },
+            {
+                headers: {
+                    Authorization: `Bearer YOUR_GOOGLE_GEMINI_API_KEY`, // Verwende deinen API-Schlüssel hier
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        return response.data;
     } catch (error) {
         console.error('Error sending data to Google Gemini', error);
-        return null;
+        return null;  // Gib null zurück, um Fehler sicher zu behandeln
     }
 }
 
-module.exports = {
-    sendToGoogleGemini,
-};
+export { sendToGoogleGemini };
