@@ -148,7 +148,7 @@ export default {
       const prompt = "Analyze this text and create an ICS file for Google Calendar import.";
       this.analyzeFile(prompt);
       }
-    
+
     ,
 
     importAppleCalendar() {
