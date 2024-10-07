@@ -130,9 +130,9 @@ export default {
     async sendToChatGPT(filteredText) {
       try {
         const response = await axios.post(
-            "https://api.openai.com/v1/chat/completions",
+            "https://api.openai.com/v1/completions",
             {
-              model: "gpt-3.5-turbo",
+              model: "text-davinci-003",
               messages: [
                 {
                   role: "system",
