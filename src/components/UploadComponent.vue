@@ -58,7 +58,7 @@
 <script>
 import Tesseract from "tesseract.js";
 import axios from "axios"; // Korrekte Platzierung des axios Imports
-import { sendToGroq } from '../services/groqService'; // Stelle sicher, dass der API-Call korrekt bleibt
+import { sendToGroq } from '../services/groqService';
 
 export default {
   data() {
@@ -145,10 +145,13 @@ export default {
       console.log("Processed Data:", this.analysisData);
     },
 
-    importGoogleCalendar() {
-      const prompt = "Analyze this text and create a CSV file for Google Calendar import.";
-      this.analyzeFile(prompt);
-    },
+    async importGoogleCalendar() {
+      const prompt = "Extract calendar data for Google Calendar import.";
+      const extractedText = await this.analyzeFile(prompt);  // Extrahiere den Text aus dem Bild
+      const apiResponse = await sendToGroq(extractedText);  // Sende den Text an Groq und erhalte die Antwort
+      this.processApiResponse(apiResponse);  // Verarbeite die Antwort und zeige die Daten an
+    }
+    ,
 
     importAppleCalendar() {
       const prompt = "Analyze this text and create an ICS file for Apple Calendar import.";
