@@ -136,7 +136,10 @@ export default {
         const apiResponse = await axios.post('/api/groq', { text: `${prompt}: ${extractedText}` });
 
         // **Hier den Response in der Konsole anzeigen**
-        console.log("API Response:", apiResponse.data);
+        console.log("Prompt:", prompt);
+        console.log("Extracted Text:", extractedText);
+
+
 
         this.processApiResponse(apiResponse.data.completion);
       } catch (error) {
