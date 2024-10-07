@@ -131,15 +131,24 @@ export default {
     async sendToChatGPT(promptText) {
       try {
         const response = await axios.post(
-            "https://api.openai.com/v1/completions", // Korrigiere den API-Endpunkt
+            "https://api.openai.com/v1/chat/completions",  // Korrekt für ChatGPT-3.5 Turbo
             {
-              model: "text-davinci-003", // Beispielmodell
-              prompt: promptText,
+              model: "gpt-3.5-turbo", // Verwende ChatGPT-3.5 Turbo Modell
+              messages: [
+                {
+                  role: "system", // Optional: Systemnachricht, die den Chat-Rahmen festlegt
+                  content: "You are a helpful assistant that generates calendar events."
+                },
+                {
+                  role: "user", // Der Nutzerprompt, der den Kalendertext enthält
+                  content: promptText
+                }
+              ],
               max_tokens: 1000,
             },
             {
               headers: {
-                Authorization: `Bearer ${process.env.VUE_APP_OPENAI_API_KEY}`,
+                Authorization: `Bearer ${process.env.VUE_APP_OPENAI_API_KEY}`, // Stelle sicher, dass der API-Key korrekt ist
                 "Content-Type": "application/json",
               }
             }
