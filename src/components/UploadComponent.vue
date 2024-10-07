@@ -57,6 +57,7 @@
 
 <script>
 import Tesseract from "tesseract.js";
+import axios from "axios"; // Korrekte Platzierung des axios Imports
 import { sendToGroq } from '../services/groqService'; // Stelle sicher, dass der API-Call korrekt bleibt
 
 export default {
@@ -104,7 +105,7 @@ export default {
       this.closeCameraModal(); // Kamera schließen nach dem Foto
     },
 
-    // Texterkennung mit Tesseract und Analyse
+    // Texterkennung mit Tesseract und API-Aufruf
     async analyzeFile(prompt) {
       try {
         if (this.files.length === 0) {
@@ -112,7 +113,7 @@ export default {
           return;
         }
 
-        // Texterkennung mit Tesseract.js
+        // Verwende Tesseract.js für Texterkennung
         const file = this.files[0];
         const result = await Tesseract.recognize(file, "eng", {
           logger: (m) => console.log(m),
@@ -121,15 +122,15 @@ export default {
         const extractedText = result.data.text;
         console.log("Extracted text from image:", extractedText);
 
-        // Sende den extrahierten Text an die API und verarbeite die Antwort
-        const apiResponse = await sendToGroq(`${prompt}: ${extractedText}`);
-        this.processApiResponse(apiResponse);
+        // Sende den Text an deine neue serverseitige API
+        const apiResponse = await axios.post('/api/groq', { text: `${prompt}: ${extractedText}` });
+        this.processApiResponse(apiResponse.data.completion);
       } catch (error) {
         console.error("Error analyzing file", error);
       }
     },
 
-    // API Antwort verarbeiten
+    // Methode zur Verarbeitung der API-Antwort
     processApiResponse(apiResponse) {
       if (!apiResponse) {
         console.error("API response is missing");
@@ -144,16 +145,14 @@ export default {
       console.log("Processed Data:", this.analysisData);
     },
 
-    // Importiere die Daten als CSV-Datei für Google Calendar
     importGoogleCalendar() {
-      const prompt = "Extract calendar data and create a CSV file for Google Calendar";
-      this.analyzeFile(prompt); // Korrektes Aufrufen der analyzeFile Methode
+      const prompt = "Analyze this text and create a CSV file for Google Calendar import.";
+      this.analyzeFile(prompt);
     },
 
-    // Importiere die Daten als ICS-Datei für Apple Calendar
     importAppleCalendar() {
-      const prompt = "Extract calendar data and create an ICS file for Apple Calendar";
-      this.analyzeFile(prompt); // Korrektes Aufrufen der analyzeFile Methode
+      const prompt = "Analyze this text and create an ICS file for Apple Calendar import.";
+      this.analyzeFile(prompt);
     },
   },
 };
