@@ -6,7 +6,7 @@
       <h2>Upload a file or take a photo</h2>
 
       <!-- Datei-Upload -->
-      <input type="file" accept="image/*" @change="handleFileUpload" />
+      <input type="file" accept="image/*" @change="handleFileUpload"/>
 
       <!-- Kamera Foto aufnehmen -->
       <button @click="openCameraModal">Take Photo</button>
@@ -40,9 +40,9 @@
         </thead>
         <tbody>
         <tr v-for="(entry, index) in analysisData" :key="index">
-          <td><input v-model="entry.title" /></td>
-          <td><input v-model="entry.date" /></td>
-          <td><input v-model="entry.time" /></td>
+          <td><input v-model="entry.title"/></td>
+          <td><input v-model="entry.date"/></td>
+          <td><input v-model="entry.time"/></td>
         </tr>
         </tbody>
       </table>
@@ -72,7 +72,7 @@ export default {
     // Open Camera Modal bleibt gleich
     openCameraModal() {
       this.showCamera = true;
-      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+      navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
         this.$refs.video.srcObject = stream;
       });
     },
@@ -117,9 +117,7 @@ export default {
         console.log("Extracted text from image:", extractedText);
 
         // Sende den extrahierten Text an die OpenAI API
-        const apiResponse = await this.sendToChatGPT(
-            `${prompt}: ${extractedText}`
-        );
+        const apiResponse = await this.sendToChatGPT(`Analyze the following text and extract calendar events: ${extractedText}`);
 
         this.processApiResponse(apiResponse);
       } catch (error) {
@@ -161,26 +159,30 @@ export default {
 
     // Verarbeite die Antwort von ChatGPT
     processApiResponse(apiResponse) {
-      // Verarbeite die Antwort und speichere sie in `analysisData`
-      const extractedData = apiResponse.choices[0].text.trim().split('\n'); // Beispielhafte Verarbeitung
+      if (!apiResponse || !apiResponse.choices) {
+        console.error("API response is missing 'choices'");
+        return;
+      }
+
+      // Verarbeite die Antwort von ChatGPT
+      const extractedData = apiResponse.choices[0].message.content.trim().split('\n'); // Beispielhafte Verarbeitung
       this.analysisData = extractedData.map((entry) => {
-        const [title, date, time] = entry.split(','); // Beispielhafte Aufteilung
-        return { title, date, time };
+        const [title, date, time] = entry.split(','); // Passe die Struktur an, je nachdem wie die Antwort aussieht
+        return {title, date, time};
       });
-      console.log("API Response:", this.analysisData);
-    },
+      console.log("Processed Data:", this.analysisData);
+    }
+    ,
 
     // CSV generieren und zum Download bereitstellen
     generateCSV(analysisData) {
       const csvContent =
           "Subject,Start Date,Start Time,End Date,End Time\n" +
           analysisData
-              .map((event) => {
-                return `${event.title},${event.date},${event.time},${event.date},${event.time}`;
-              })
+              .map((event) => `${event.title},${event.date},${event.time},${event.date},${event.time}`)
               .join("\n");
 
-      const blob = new Blob([csvContent], { type: "text/csv" });
+      const blob = new Blob([csvContent], {type: "text/csv"});
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -194,23 +196,19 @@ export default {
       const icsContent =
           "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//YourApp//NONSGML v1.0//EN\n" +
           analysisData
-              .map((event) => {
-                return `BEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${this.formatDateTime(
-                    event.date,
-                    event.time
-                )}\nDTEND:${this.formatDateTime(event.date, event.time)}\nEND:VEVENT\n`;
-              })
+              .map((event) => `BEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${this.formatDateTime(event.date, event.time)}\nDTEND:${this.formatDateTime(event.date, event.time)}\nEND:VEVENT\n`)
               .join("") +
           "END:VCALENDAR";
 
-      const blob = new Blob([icsContent], { type: "text/calendar" });
+      const blob = new Blob([icsContent], {type: "text/calendar"});
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
       a.download = "calendar_events.ics";
       a.click();
       window.URL.revokeObjectURL(url);
-    },
+    }
+    ,
 
     formatDateTime(date, time) {
       // Formatierung von Datum und Zeit für ICS (z.B. "20221010T090000Z")
@@ -218,21 +216,17 @@ export default {
     },
 
     importGoogleCalendar() {
-      const prompt =
-          "Analyze this text and create a CSV file for Google Calendar import.";
-      this.analyzeFile(prompt).then(() => {
-        this.generateCSV(this.analysisData); // CSV-Datei generieren nach Analyse
-      });
-    },
+      const prompt = "Analyze this text and create a CSV file for Google Calendar import.";
+      this.analyzeFile(prompt);
+    }
+    ,
 
-    importAppleCalendar() {
-      const prompt =
-          "Analyze this text and create an ICS file for Apple Calendar import.";
-      this.analyzeFile(prompt).then(() => {
-        this.generateICS(this.analysisData); // ICS-Datei generieren nach Analyse
-      });
-    },
-  },
+  importAppleCalendar() {
+      const prompt = "Analyze this text and create an ICS file for Apple Calendar import.";
+      this.analyzeFile(prompt);
+    }
+  }
+
 };
 </script>
 
