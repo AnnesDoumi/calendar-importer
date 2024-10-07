@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+<h1>
+Calendar Importer
+</h1>
 
     <div class="upload-section">
       <h2>Upload a file or take a photo</h2>
