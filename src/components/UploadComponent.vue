@@ -153,24 +153,33 @@ export default {
         return;
       }
 
-      const cleanedData = apiResponse.trim().split("\n").map(entry => {
-        // Parse the CSV data correctly
+      // Entferne die erste Zeile (Spaltennamen) aus der API-Antwort
+      const rows = apiResponse.trim().split("\n");
+      const dataWithoutHeaders = rows.slice(1); // Entferne die erste Zeile
+
+      const cleanedData = dataWithoutHeaders.map(entry => {
         const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
+
+        // Daten validieren und formatieren
+        const formattedStartDate = this.formatDate(startDate);
+        const formattedEndDate = this.formatDate(endDate || startDate); // Enddatum = Startdatum, falls nicht angegeben
+        const formattedStartTime = this.formatTime(startTime);
+        const formattedEndTime = this.formatTime(endTime);
 
         return {
           title: title || "No Title",
-          startDate: startDate || "",
-          startTime: startTime || "",
-          endDate: endDate || startDate || "", // Use startDate if endDate is missing
-          endTime: endTime || "",
-          location: "", // Set default location or remove if not required
-          description: description || "" // Only set description if it's provided
+          startDate: formattedStartDate || "",
+          startTime: formattedStartTime || "",
+          endDate: formattedEndDate || "",
+          endTime: formattedEndTime || "",
+          location: "", // Leer lassen, da es von der API nicht geliefert wird
+          description: description || ""
         };
       });
 
-      this.analysisData = cleanedData.filter(entry => entry.title && entry.startDate); // Filter rows with actual data
-    }
-    ,
+      this.analysisData = cleanedData;
+    },
+
 
     formatDate(date) {
       // Logik, um das Datum in "YYYY-MM-DD" zu konvertieren
