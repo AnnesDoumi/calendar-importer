@@ -163,7 +163,7 @@ export default {
 
         return {
           title: title || "No Title",
-          startDate: formattedDate || "",            // Hier sicherstellen, dass das Startdatum korrekt formatiert ist
+          startDate: formattedDate || "",            // Sicherstellen, dass das Startdatum korrekt formatiert ist
           startTime: formattedStartTime || "",       // Sicherstellen, dass die Startzeit vorhanden und korrekt formatiert ist
           endDate: formattedDate || "",              // Enddatum = Startdatum (falls keine separate Angabe)
           endTime: formattedEndTime || "",           // Endzeit sicherstellen
@@ -173,7 +173,8 @@ export default {
       });
 
       this.analysisData = cleanedData;
-    },
+    }
+    ,
 
     formatDate(date) {
       // Logik, um das Datum in "YYYY-MM-DD" zu konvertieren
@@ -182,11 +183,12 @@ export default {
     },
 
     formatTime(time) {
-      // Logik, um die Uhrzeit im Format "HH:MM" zu konvertieren
-      const [hours, minutes] = time.split(":");
-      if (!hours || !minutes) return "";
-      return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
+      if (!time) return "";  // Wenn die Zeit undefiniert ist, gib einen leeren String zurück
+      const [hours, minutes] = time.split(":");  // Zeit in Stunden und Minuten aufteilen
+      if (!hours || !minutes) return "";  // Wenn das Format nicht stimmt, gib ebenfalls einen leeren String zurück
+      return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;  // Formatiere die Zeit richtig
     }
+
 
     ,
     generateCSV() {
