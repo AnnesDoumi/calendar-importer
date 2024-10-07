@@ -141,6 +141,8 @@ export default {
         const apiResponse = await axios.post('/api/groq', {prompt: completePrompt});
 
         // Verarbeite die Antwort der API
+        console.log("API Full Response:", apiResponse);
+
         this.processApiResponse(apiResponse.data.completion);
       } catch (error) {
         console.error("Error analyzing file", error);
