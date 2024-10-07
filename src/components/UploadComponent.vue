@@ -6,7 +6,7 @@
       <h2>Upload a file or take a photo</h2>
 
       <!-- Datei-Upload -->
-      <input type="file" accept="image/*" @change="handleFileUpload" />
+      <input type="file" accept="image/*" @change="handleFileUpload"/>
 
       <!-- Kamera Foto aufnehmen -->
       <button @click="openCameraModal">Take Photo</button>
@@ -39,15 +39,23 @@
         <thead>
         <tr>
           <th>Title</th>
-          <th>Date</th>
-          <th>Time</th>
+          <th>Start Date</th>
+          <th>Start Time</th>
+          <th>End Date</th>
+          <th>End Time</th>
+          <th>Location</th>
+          <th>Description</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="(entry, index) in analysisData" :key="index">
           <td><input v-model="entry.title" /></td>
-          <td><input v-model="entry.date" /></td>
-          <td><input v-model="entry.time" /></td>
+          <td><input v-model="entry.startDate" /></td>
+          <td><input v-model="entry.startTime" /></td>
+          <td><input v-model="entry.endDate" /></td>
+          <td><input v-model="entry.endTime" /></td>
+          <td><input v-model="entry.location" /></td>
+          <td><input v-model="entry.description" /></td>
         </tr>
         </tbody>
       </table>
@@ -76,7 +84,7 @@ export default {
     // Open Camera Modal
     openCameraModal() {
       this.showCamera = true;
-      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+      navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
         this.$refs.video.srcObject = stream;
       });
     },
@@ -126,7 +134,7 @@ export default {
         console.log("Complete prompt:", completePrompt);
 
         // Sende den Text an deine serverseitige API (Groq-API-Handler)
-        const apiResponse = await axios.post('/api/groq', { prompt: completePrompt });
+        const apiResponse = await axios.post('/api/groq', {prompt: completePrompt});
 
         // Verarbeite die Antwort der API
         this.processApiResponse(apiResponse.data.completion);
@@ -135,21 +143,65 @@ export default {
       }
     },
 
-    // Methode zur Verarbeitung der API-Antwort
     processApiResponse(apiResponse) {
       if (!apiResponse) {
         console.error("API response is missing");
         return;
       }
 
-      // Beispiel: Bearbeitung der API-Antwort (Annahme, dass die API eine formatierte Liste zurückgibt)
       const extractedData = apiResponse.trim().split("\n");
       this.analysisData = extractedData.map((entry) => {
-        const [title, date, time] = entry.split(",");
-        return { title, date, time };
+        // Dies ist ein Beispiel, wie die Daten verarbeitet werden können.
+        const [title, startDate, startTime, endDate, endTime, location, description] = entry.split(",");
+
+        return {
+          title: title.trim(),
+          startDate: startDate.trim(),
+          startTime: startTime.trim(),
+          endDate: endDate ? endDate.trim() : '', // Füge End Date hinzu
+          endTime: endTime ? endTime.trim() : '', // Füge End Time hinzu
+          location: location ? location.trim() : '', // Füge Location hinzu
+          description: description ? description.trim() : '', // Füge Description hinzu
+        };
       });
+
       console.log("Processed Data:", this.analysisData);
-    },
+    }
+
+    ,
+    generateCSV() {
+      const csvContent = "Subject,Start Date,Start Time,End Date,End Time,Location,Description\n" +
+          this.analysisData.map(event =>
+              `${event.title},${event.startDate},${event.startTime},${event.endDate},${event.endTime},${event.location},${event.description}`
+          ).join("\n");
+
+      const blob = new Blob([csvContent], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "calendar_events.csv";
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+    ,
+    generateICS() {
+      const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//YourApp//NONSGML v1.0//EN\n" +
+          this.analysisData.map(event =>
+              `BEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${this.formatDateTime(event.startDate, event.startTime)}\nDTEND:${this.formatDateTime(event.endDate, event.endTime)}\nLOCATION:${event.location}\nDESCRIPTION:${event.description}\nEND:VEVENT\n`
+          ).join("") +
+          "END:VCALENDAR";
+
+      const blob = new Blob([icsContent], { type: "text/calendar" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "calendar_events.ics";
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+
+    ,
+
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
