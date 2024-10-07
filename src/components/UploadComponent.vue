@@ -133,7 +133,7 @@ export default {
     async sendToChatGPT(promptText) {
       try {
         const response = await axios.post(
-            "https://api.openai.com/v1/completions"
+            "https://api.openai.com/v1/chat/completions"
             ,
             {
               model: "text-davinci-003", // Beispielmodell
