@@ -3,7 +3,7 @@ import axios from 'axios';
 async function sendToGroq(promptText) {
     try {
         const response = await axios.post(
-            'https://groq.api.url/your-endpoint', // Ersetze durch den tatsächlichen GROQ-Endpunkt
+            'https://api.groq.com/openai/v1/chat/completions', // Ersetze durch den tatsächlichen GROQ-Endpunkt
             {
                 model: 'llama3-8b-8192', // Das Modell, das du verwenden möchtest
                 prompt: promptText,
