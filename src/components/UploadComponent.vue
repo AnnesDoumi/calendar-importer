@@ -283,7 +283,7 @@ export default {
    - Do **not** assign descriptions where they are not specified.
 
 ### 4. **Handling Invalid or Missing Times**:
-   - If a time is missing or unclear, leave the Start Time and End Time fields blank.
+   - If time stamps for a date is missing, leave the Start Time and End Time fields blank.
    - Do **not** infer times that are not explicitly present in the text.
 
 ### 5. **Date and Time Formatting**:
@@ -299,8 +299,8 @@ export default {
 
 ## Example Output Structure (for reference):
 Subject,Start Date,Start Time,End Date,End Time,Description
-Event,2024-10-29,,2024-10-29,,"Here comes, whatever OCR gives Information for this date"
-Event,2024-10-21,06:24,2024-10-21,14:51,"Here comes, whatever OCR gives Information for this date"
+Event,2024-10-29,,2024-10-29,,"Here comes, whatever OCR gives Information after a date is given ,for this date"
+Event,2024-10-21,06:24,2024-10-21,14:51,"Here comes, whatever OCR gives Information after a date is given ,for this date"
 
 ## OCR Text:
 `;
