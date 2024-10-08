@@ -230,10 +230,9 @@ export default {
     // Bereinigen des extrahierten Textes
     cleanExtractedText(extractedText) {
       return extractedText
-          .replace(/[‘@[\]m\u2018\u2019]/g, "")  // Removes unwanted special characters, quotes, etc.
-          .replace(/[^a-zA-Z0-9äöüÄÖÜß\s:,-]/g, "")  // Removes additional special characters (except times and letters)
-          .replace(/\s+/g, " ")  // Collapses multiple spaces into a single space
-          .trim();
+          .replace(/[^\w\säöüÄÖÜß:,-.]/g, "")  // Remove only unwanted special characters but keep dates, times, and letters
+          .replace(/\s+/g, " ")  // Collapse multiple spaces into a single space
+          .trim();  // Trim any extra spaces at the start and end
     }
 
     ,
