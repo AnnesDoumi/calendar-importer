@@ -245,27 +245,33 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = `Please analyze the following text and extract the schedule information. Format the extracted data as a CSV with the following columns:
+      const prompt = `Please analyze the following text and extract the work schedule data. Format the extracted data as a CSV with the following columns:
 Subject, Start Date, Start Time, End Date, End Time, and Description.
 
-Instructions:
-1. Extract the **Subject** (e.g., "Barista", "Montag", or any other relevant role or day).
-2. Identify the **Start Date** and **End Date** in the format YYYY-MM-DD. If no end date is provided, use the start date for both.
-3. Extract the **Start Time** and **End Time** in the format HH:MM. If only a start time is provided, leave the end time blank.
-4. Include any relevant **Description** if present, such as shift details or additional notes. If no description is available, leave it blank.
-5. Ignore any irrelevant text, symbols, or headers, and ensure that the data is consistently formatted for CSV output.
+### Important:
+- The following example is only to illustrate the structure of the output and should not be used as actual content. The content should only come from the provided OCR data.
 
-The final result should look like this:
+### Instructions:
+1. **Subject**: Extract the role (e.g., "Barista", "Montag") or any other relevant role. If you find single characters (e.g., "F", "Ll"), use them as additional context in the Description field unless they are part of a day name.
+2. **Start Date and End Date**: Identify the date in the format YYYY-MM-DD. If no end date is provided, use the start date for both.
+3. **Start Time and End Time**: Extract times in HH:MM format. If only the start time is present, leave the end time blank.
+4. **Description**: Include additional relevant details such as shift remarks or special duties in the Description field.
+5. **Common Typos**: Detect and correct any typos such as "Sastag" (assumed to be "Samstag").
+6. **Ignore irrelevant characters**: Disregard irrelevant characters, symbols, or unnecessary data.
 
-Subject, Start Date, Start Time, End Date, End Time, Description
+### Example Output Structure (do not use this content in the final output):
+Subject,Start Date,Start Time,End Date,End Time,Description
 Barista,2024-10-31,15:00,2024-10-31,20:00,
 Montag,2024-10-21,06:24,2024-10-21,14:51,F
 Dienstag,2024-10-22,06:24,2024-10-22,14:51,F
+Freitag,2024-10-25,14:09,2024-10-25,22:56,
+Stabidienst,2024-10-28,,,"Combined shift for multiple days"
+
+Please extract and format the actual schedule data based solely on the following OCR data:
 `;
 
       this.analyzeFile(prompt);
 
-      this.analyzeFile(prompt);
     },
 
     importAppleCalendar() {
