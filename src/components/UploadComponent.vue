@@ -158,15 +158,14 @@ export default {
 
       const cleanedData = dataWithoutHeaders
           .filter(entry => {
-            // Teile den Eintrag in seine Bestandteile
-            const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
+            const entryFields = entry.split(",");
 
-            // Filtern von leeren Einträgen oder solchen mit unerwünschtem Text
-            const hasValidData = title.trim() !== "" || startDate.trim() !== "" || startTime.trim() !== "";
-            const isNotReset = title.trim() !== "(Session reset)" && title.trim() !== "No Title";
+            // Überprüfen, ob alle relevanten Felder existieren
+            const hasValidData = entryFields.some(field => field.trim() !== ""); // Prüfe auf Nicht-Leerzeichen
+            const title = entryFields[0] ? entryFields[0].trim() : "";
 
-            // Rückgabe nur gültiger Einträge, die Daten enthalten
-            return hasValidData && isNotReset;
+            // Rückgabe nur gültiger Einträge, die Daten enthalten und keinen Reset darstellen
+            return hasValidData && title !== "(Session reset)" && title !== "No Title";
           })
           .map(entry => {
             const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
@@ -190,6 +189,7 @@ export default {
 
       this.analysisData = cleanedData; // Aktualisiere die analysierten Daten
     }
+
 
     ,
 
