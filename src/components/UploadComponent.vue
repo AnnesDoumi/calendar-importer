@@ -236,4 +236,116 @@ export default {
       const prompt = `You are given text extracted from OCR. Your task is to extract only the data present in the text, interpreting dates and times as follows:
 
 ## Important Instructions:
-1. **Date Recognition**: If a date
+1. **Date Recognition**: If a date appears and is followed by one or more time entries, treat this as the **Start Date** and **End Date** for those times, unless otherwise specified. If only one date is present, assume the **Start Date** and **End Date** are the same.
+2. **Start and End Time Handling**: Use the earliest time as the **Start Time** and the latest time as the **End Time** for each date. If only one time is present, treat it as both the **Start Time** and **End Time**.
+3. **Strict Extraction**: Extract the data exactly as it appears without making assumptions about missing fields unless clearly indicated in the text.
+4. **Missing Dates**: If no date is provided but there is a time, leave the date field blank.
+5. **Format**:
+   - **Date**: Extract in \`YYYY-MM-DD\` format.
+   - **Time**: Extract in \`HH:MM\` format.
+6. **No Content Modification**: Do not alter or infer content that is not explicitly present in the text. Only extract exactly what is given, with the interpretation rules for dates and times as explained.
+7. **Session Reset**: After you have given your response, I want you to do a session reset, so there is no confusion between different datasets.
+
+## Example Output Structure (this is for structure reference only):
+Subject,Start Date,Start Time,End Date,End Time,Description
+Event,2024-10-31,15:00,2024-10-31,20:00,Description (if applicable)
+Event,2024-10-21,06:24,2024-10-21,14:51,F
+
+## OCR Text:
+
+`;
+      this.analyzeFile(prompt);
+    },
+
+    // Methode zum Importieren in den Apple-Kalender
+    importAppleCalendar() {
+      const prompt = "<- Analyze this Data, extract it for a (.ics) apple calendar output, no addition information or commenting";
+      this.analyzeFile(prompt);
+    },
+  },
+};
+</script>
+
+<style scoped>
+/* Globales Layout */
+#app {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* Upload-Sektion */
+.upload-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.google-button {
+  background-color: #4285F4;
+  color: white;
+  border: none;
+}
+
+.apple-button {
+  background-color: #000;
+  color: white;
+  border: none;
+}
+
+/* Modal für Kamera */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 10px auto;
+}
+
+.data-table {
+  margin-top: 30px;
+}
+
+.data-table table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.data-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+</style>
