@@ -49,14 +49,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(entry, index) in analysisData" :key="index" @mouseover="hoverIndex = index" @mouseleave="hoverIndex = -1">
+        <tr v-for="(entry, index) in analysisData" :key="index" @mouseover="entry.showDelete = true" @mouseleave="entry.showDelete = false">
           <td>
-            <input v-model="entry.title" />
-            <button
-                v-if="hoverIndex === index"
-                @click="removeRow(index)"
-                class="delete-button"
-            >-</button>
+            <div class="row">
+              <input v-model="entry.title" />
+              <button v-if="entry.showDelete" class="delete-button" @click="removeRow(index)">-</button>
+            </div>
           </td>
           <td><input v-model="entry.startDate" /></td>
           <td><input v-model="entry.startTime" /></td>
@@ -67,15 +65,12 @@
         </tr>
         </tbody>
       </table>
-
-      <!-- Add new row button -->
-      <div class="add-row">
-        <button @click="addRow" class="add-button">+</button>
-      </div>
-
       <div>
         <button @click="generateCSV(analysisData)">Export to Google Calendar CSV</button>
       </div>
+
+      <!-- Add Row Button -->
+      <button class="add-button" @click="addRow">+</button>
     </div>
   </div>
 </template>
@@ -90,7 +85,6 @@ export default {
       files: [], // Hochgeladene Dateien
       showCamera: false, // Steuert die Anzeige des Kameramodals
       analysisData: [], // Ergebnis nach Texterkennung
-      hoverIndex: -1, // To track which row is hovered for delete button
     };
   },
   methods: {
@@ -103,7 +97,7 @@ export default {
     // Open Camera Modal
     openCameraModal() {
       this.showCamera = true;
-      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+      navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
         this.$refs.video.srcObject = stream;
       });
     },
@@ -151,7 +145,7 @@ export default {
         console.log("Cleaned extracted text:", extractedText);
 
         // API-Aufruf mit bereinigtem Text
-        const apiResponse = await axios.post("/api/groq", { prompt: `${prompt}: ${extractedText}` });
+        const apiResponse = await axios.post("/api/groq", {prompt: `${prompt}: ${extractedText}`});
 
         console.log("API Full Response:", apiResponse);
 
@@ -208,24 +202,6 @@ export default {
     }
     ,
 
-    // Method to add a new row
-    addRow() {
-      this.analysisData.push({
-        title: "Event", // Default values for the new row
-        startDate: "",
-        startTime: "",
-        endDate: "",
-        endTime: "",
-        location: "",
-        description: "",
-      });
-    },
-
-    // Method to remove a row
-    removeRow(index) {
-      this.analysisData.splice(index, 1);
-    },
-
     // Datum formatieren
     formatDate(date) {
       const dateObj = new Date(date);
@@ -265,9 +241,7 @@ export default {
           .replace(/[^\w\säöüÄÖÜß:,-.]/g, "")  // Remove only unwanted special characters but keep dates, times, and letters
           .replace(/\s+/g, " ")  // Collapse multiple spaces into a single space
           .trim();  // Trim any extra spaces at the start and end
-    }
-
-    ,
+    },
 
     // Methode zum Importieren in den Google-Kalender
     importGoogleCalendar() {
@@ -301,7 +275,7 @@ export default {
 Subject,Start Date,Start Time,End Date,End Time,Description
 Event,2024-10-29,,2024-10-29,,
 Event,2024-10-30,,2024-10-30,,
-Event,2024-10-31,,2024-10-31,,`
+Event,2024-10-31,,2024-10-31,,`;
 
       this.analyzeFile(prompt);
     },
@@ -316,14 +290,12 @@ Event,2024-10-31,,2024-10-31,,`
 </script>
 
 <style scoped>
-/* Globales Layout */
 #app {
   font-family: Arial, sans-serif;
   text-align: center;
   margin-top: 40px;
 }
 
-/* Upload-Sektion */
 .upload-section {
   background-color: #f9f9f9;
   padding: 20px;
@@ -342,7 +314,7 @@ button {
 }
 
 .google-button {
-  background-color: #4285F4;
+  background-color: #4285f4;
   color: white;
   border: none;
 }
@@ -353,7 +325,6 @@ button {
   border: none;
 }
 
-/* Modal für Kamera */
 .modal {
   position: fixed;
   top: 0;
@@ -398,41 +369,46 @@ input[type="file"] {
   font-weight: bold;
 }
 
-/* Delete button on row hover */
+.row {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .delete-button {
-  display: inline-block;
+  position: absolute;
+  right: -30px;
   background-color: red;
-  color: white;
   border: none;
+  color: white;
   border-radius: 50%;
-  font-size: 16px;
-  width: 24px;
-  height: 24px;
-  text-align: center;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.add-row {
-  margin-top: 20px;
-  text-align: left;
-}
-
-/* Add row button */
 .add-button {
   background-color: green;
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 24px;
-  width: 36px;
-  height: 36px;
-  text-align: center;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Hide delete button until hover */
-td:hover .delete-button {
-  display: inline-block;
+.add-button:hover,
+.delete-button:hover {
+  opacity: 0.8;
 }
 </style>
