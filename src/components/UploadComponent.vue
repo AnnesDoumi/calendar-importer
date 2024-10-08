@@ -172,7 +172,7 @@ export default {
             const formattedEndTime = this.formatTime(endTime);
 
             return {
-              title: title.trim() || "No Title",
+              title: title.trim() || "Work", // Setze Titel auf "Work" falls leer
               startDate: formattedStartDate || "",
               startTime: formattedStartTime || "",
               endDate: formattedEndDate || "",
@@ -182,7 +182,8 @@ export default {
             };
           });
 
-      this.analysisData = cleanedData;
+      // Filtere nochmals alle unerwünschten Einträge wie "(Session Reset)" aus der Datenstruktur
+      this.analysisData = cleanedData.filter(row => row.title !== "(Session Reset)");
     }
 
     ,
