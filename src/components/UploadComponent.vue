@@ -296,7 +296,10 @@ export default {
 Subject,Start Date,Start Time,End Date,End Time,Description
 Event,2024-10-29,,2024-10-29,,
 Event,2024-10-30,,2024-10-30,,
-Event,2024-10-31,,2024-10-31,,`;
+Event,2024-10-31,,2024-10-31,,
+
+
+OCR TEXT :  `;
 
       this.analyzeFile(prompt);
     },
