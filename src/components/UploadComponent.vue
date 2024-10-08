@@ -52,8 +52,8 @@
         <tr v-for="(entry, index) in analysisData" :key="index" @mouseover="entry.showDelete = true" @mouseleave="entry.showDelete = false">
           <td>
             <div class="row">
-              <input v-model="entry.title" />
               <button v-if="entry.showDelete" class="delete-button" @click="removeRow(index)">-</button>
+              <input v-model="entry.title" class="centered-input" />
             </div>
           </td>
           <td><input v-model="entry.startDate" /></td>
@@ -199,8 +199,25 @@ export default {
 
       // Setze analysierte Daten, nur Zeilen mit einem Startdatum werden übernommen
       this.analysisData = cleanedData.filter(entry => entry.startDate);
-    }
-    ,
+    },
+
+    // Zeile hinzufügen
+    addRow() {
+      this.analysisData.push({
+        title: "Event",
+        startDate: "",
+        startTime: "",
+        endDate: "",
+        endTime: "",
+        location: "",
+        description: "",
+      });
+    },
+
+    // Zeile entfernen
+    removeRow(index) {
+      this.analysisData.splice(index, 1);
+    },
 
     // Datum formatieren
     formatDate(date) {
@@ -375,23 +392,28 @@ input[type="file"] {
   align-items: center;
 }
 
+.centered-input {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .delete-button {
-  position: absolute;
-  right: -30px;
-  background-color: red;
-  border: none;
+  background-color: #d9534f;
   color: white;
+  border: none;
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  cursor: pointer;
+  font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 .add-button {
-  background-color: green;
+  background-color: #5cb85c;
   color: white;
   border: none;
   border-radius: 50%;
