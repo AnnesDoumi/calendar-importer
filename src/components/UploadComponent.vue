@@ -279,7 +279,7 @@ export default {
 
 ### 3. **Description Assignment Based on Context**:
    - Use descriptions like "Arbeitszeit", "Stabidienst", or "Urlaub" only when they are explicitly stated.
-   - Ensure that the description is assigned correctly. For example, if the OCR states "Urlaub", the entry should reflect this without overwriting it with "Arbeitszeit".
+   - Ensure that the description is assigned correctly. For example, if the OCR states a date, the structure of the whole OCR should be analyzed and the text assigned to the date, should be put as description.
    - Do **not** assign descriptions where they are not specified.
 
 ### 4. **Handling Invalid or Missing Times**:
