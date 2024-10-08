@@ -237,16 +237,29 @@ export default {
       const prompt = `You are given text extracted from OCR. Your task is to extract only the data present in the text, interpreting dates and times as follows:
 
 ## Important Instructions:
-1. **Date Recognition**: If a date appears and is followed by one or more time entries, treat this as the **Start Date** and **End Date** for those times, unless otherwise specified. If only one date is present, assume the **Start Date** and **End Date** are the same.
-2. **Missing Date Handling**: Ensure no dates are skipped or missed, even if a single line or entry contains multiple dates.
-3. **Start and End Time Handling**: Use the earliest time as the **Start Time** and the latest time as the **End Time** for each date. If only one time is present, treat it as both the **Start Time** and **End Time**.
-4. **Strict Extraction**: Extract the data exactly as it appears without making assumptions about missing fields unless clearly indicated in the text.
-5. **Format**:
-   - **Date**: Extract in \`YYYY-MM-DD\` format.
-   - **Time**: Extract in \`HH:MM\` format.
-6. **Session Reset**: After you have given your response, I want you to do a session reset, so there is no confusion between different datasets.
+1. **Date Recognition**:
+   - If a date appears, it should be used as both the **Start Date** and **End Date** for that entry, unless otherwise specified in the text.
+   - Ignore any irrelevant or clearly incorrect times if present (e.g., times that do not match realistic work hours or have formatting issues).
+2. **Strict Extraction**:
+   - Extract the data exactly as it appears in the text. Do not make any assumptions about missing fields unless clearly indicated.
+3. **Handling of Missing Times**:
+   - If the time is missing or seems invalid, leave the **Start Time** and **End Time** fields blank.
+4. **Data Formatting**:
+   - **Date**: Always format dates as \`YYYY-MM-DD\` (ISO format).
+   - **Time**: Format times as \`HH:MM\` (24-hour format) if valid; otherwise, leave the field blank.
+5. **No Content Modification**:
+   - Do not alter or infer content. Only extract what is explicitly present in the text.
+6. **Session Reset**:
+   - After providing your response, reset the session to avoid confusion between datasets and start afresh for the next set of OCR text.
+
+## Example Output Structure (this is for structure reference only):
+Subject,Start Date,Start Time,End Date,End Time,Description
+Urlaub,2024-10-29,,2024-10-29,,
+Urlaub,2024-10-30,,2024-10-30,,
+Urlaub,2024-10-31,,2024-10-31,,
 
 ## OCR Text:
+
 
 `;
       this.analyzeFile(prompt);
