@@ -245,18 +245,19 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = `You are given data extracted from OCR. Your task is to extract only the data present in the OCR and format it into a CSV structure compatible with Google Calendar.
+      const prompt = `You are given a new, independent set of text extracted from OCR. This text is separate from any previous input. Extract only the data present in the OCR text and format it into a CSV structure compatible with Google Calendar.
 
 Important Rules:
-1. No assumptions: Extract data exactly as it appears in the OCR. Do not infer or correct missing, partial, or incorrect data.
-2. Strict extraction: Do not add any extra text, context, or assumptions (e.g., do not fill missing fields with inferred data). Leave them blank if necessary.
-3. Correct CSV Structure: Output data into the following columns:
+1. Do not use any previous context or input. Only extract data from the OCR text provided below. This is a new and independent task.
+2. No assumptions: Extract data exactly as it appears in the OCR. Do not infer or correct missing, partial, or incorrect data.
+3. Strict extraction: Do not add any extra text, context, or assumptions (e.g., do not fill missing fields with inferred data). Leave them blank if necessary.
+4. Correct CSV Structure: Output data into the following columns:
    - Subject: Use the role or event name exactly as it appears. If missing, leave blank.
    - Start Date, End Date: Extract in YYYY-MM-DD format.
    - Start Time, End Time: Extract in HH:MM format.
    - Description: If additional information such as remarks, shift details, or context is provided, extract it; otherwise, leave blank.
-4. Handle missing data properly: If any field (like dates, times, or description) is missing in the OCR text, leave that field blank in the CSV output.
-5. Do not modify content: Ensure you don't modify roles, titles, dates, times, or descriptions. Extract them exactly as they appear.
+5. Handle missing data properly: If any field (like dates, times, or description) is missing in the OCR text, leave that field blank in the CSV output.
+6. Do not modify content: Ensure you don't modify roles, titles, dates, times, or descriptions. Extract them exactly as they appear.
 
 Example Output Structure (for reference only, do not use this data):
 Subject,Start Date,Start Time,End Date,End Time,Description
@@ -264,11 +265,10 @@ Barista,2024-10-31,15:00,2024-10-31,20:00,
 Montag,2024-10-21,06:24,2024-10-21,14:51,F
 Dienstag,2024-10-22,06:24,2024-10-22,14:51,F
 
-OCR Data:
+OCR Text:
 `;
 
       this.analyzeFile(prompt);
-
 
     },
 
