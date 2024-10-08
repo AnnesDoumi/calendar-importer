@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
             // Sende den Prompt an das Groq-Modell
             const completion = await groq.chat.completions.create({
-                messages: [{ role: 'You are in expert to clean data for an successful creation of (.csv) File for Google Calendar', content: prompt }],
+                messages: [{ role: 'user', content: prompt }],
                 model: 'mixtral-8x7b-32768',  // Das Modell, das du verwenden möchtest
             });
 
