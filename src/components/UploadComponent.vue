@@ -49,8 +49,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(entry, index) in analysisData" :key="index">
-          <td><input v-model="entry.title" /></td>
+        <tr v-for="(entry, index) in analysisData" :key="index" @mouseover="hoverIndex = index" @mouseleave="hoverIndex = -1">
+          <td>
+            <input v-model="entry.title" />
+            <button
+                v-if="hoverIndex === index"
+                @click="removeRow(index)"
+                class="delete-button"
+            >-</button>
+          </td>
           <td><input v-model="entry.startDate" /></td>
           <td><input v-model="entry.startTime" /></td>
           <td><input v-model="entry.endDate" /></td>
@@ -60,6 +67,12 @@
         </tr>
         </tbody>
       </table>
+
+      <!-- Add new row button -->
+      <div class="add-row">
+        <button @click="addRow" class="add-button">+</button>
+      </div>
+
       <div>
         <button @click="generateCSV(analysisData)">Export to Google Calendar CSV</button>
       </div>
@@ -77,6 +90,7 @@ export default {
       files: [], // Hochgeladene Dateien
       showCamera: false, // Steuert die Anzeige des Kameramodals
       analysisData: [], // Ergebnis nach Texterkennung
+      hoverIndex: -1, // To track which row is hovered for delete button
     };
   },
   methods: {
@@ -194,6 +208,24 @@ export default {
     }
     ,
 
+    // Method to add a new row
+    addRow() {
+      this.analysisData.push({
+        title: "Event", // Default values for the new row
+        startDate: "",
+        startTime: "",
+        endDate: "",
+        endTime: "",
+        location: "",
+        description: "",
+      });
+    },
+
+    // Method to remove a row
+    removeRow(index) {
+      this.analysisData.splice(index, 1);
+    },
+
     // Datum formatieren
     formatDate(date) {
       const dateObj = new Date(date);
@@ -218,7 +250,7 @@ export default {
               )
               .join("\n");
 
-      const blob = new Blob([csvContent], { type: "text/csv" });
+      const blob = new Blob([csvContent], {type: "text/csv"});
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -269,13 +301,9 @@ export default {
 Subject,Start Date,Start Time,End Date,End Time,Description
 Event,2024-10-29,,2024-10-29,,
 Event,2024-10-30,,2024-10-30,,
-Event,2024-10-31,,2024-10-31,,
-
-## OCR Text:`;
-
+Event,2024-10-31,,2024-10-31,,`
 
       this.analyzeFile(prompt);
-
     },
 
     // Methode zum Importieren in den Apple-Kalender
@@ -368,5 +396,43 @@ input[type="file"] {
 .data-table th {
   background-color: #f2f2f2;
   font-weight: bold;
+}
+
+/* Delete button on row hover */
+.delete-button {
+  display: inline-block;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.add-row {
+  margin-top: 20px;
+  text-align: left;
+}
+
+/* Add row button */
+.add-button {
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Hide delete button until hover */
+td:hover .delete-button {
+  display: inline-block;
 }
 </style>
