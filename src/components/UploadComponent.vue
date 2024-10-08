@@ -6,7 +6,7 @@
       <h2>Upload a file or take a photo</h2>
 
       <!-- Datei-Upload -->
-      <input type="file" accept="image/*" @change="handleFileUpload"/>
+      <input type="file" accept="image/*" @change="handleFileUpload" />
 
       <!-- Kamera Foto aufnehmen -->
       <button @click="openCameraModal">Take Photo</button>
@@ -22,10 +22,11 @@
 
       <!-- Kalender Optionen -->
       <div class="calendar-buttons">
-        <!-- Korrektes Aufrufen der Methode analyzeFile beim Klicken -->
+        <!-- Google Calendar Import -->
         <button @click="importGoogleCalendar" class="google-button">
           Import to Google Calendar
         </button>
+        <!-- Apple Calendar Import -->
         <button @click="importAppleCalendar" class="apple-button">
           Import to Apple Calendar
         </button>
@@ -49,32 +50,32 @@
         </thead>
         <tbody>
         <tr v-for="(entry, index) in analysisData" :key="index">
-          <td><input v-model="entry.title"/></td>
-          <td><input v-model="entry.startDate"/></td>
-          <td><input v-model="entry.startTime"/></td>
-          <td><input v-model="entry.endDate"/></td>
-          <td><input v-model="entry.endTime"/></td>
-          <td><input v-model="entry.location"/></td>
-          <td><input v-model="entry.description"/></td>
+          <td><input v-model="entry.title" /></td>
+          <td><input v-model="entry.startDate" /></td>
+          <td><input v-model="entry.startTime" /></td>
+          <td><input v-model="entry.endDate" /></td>
+          <td><input v-model="entry.endTime" /></td>
+          <td><input v-model="entry.location" /></td>
+          <td><input v-model="entry.description" /></td>
         </tr>
         </tbody>
       </table>
       <div>
         <button @click="generateCSV(analysisData)">Export to Google Calendar CSV</button>
       </div>
-
     </div>
   </div>
 </template>
+
 <script>
 import Tesseract from "tesseract.js";
-import axios from 'axios';  // Korrekte Platzierung des axios Imports
+import axios from "axios";
 
 export default {
   data() {
     return {
-      files: [], // Dateien die hochgeladen oder fotografiert werden
-      showCamera: false, // Steuert das Anzeigen des Kameramodals
+      files: [], // Hochgeladene Dateien
+      showCamera: false, // Steuert die Anzeige des Kameramodals
       analysisData: [], // Ergebnis nach Texterkennung
     };
   },
@@ -88,7 +89,7 @@ export default {
     // Open Camera Modal
     openCameraModal() {
       this.showCamera = true;
-      navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
+      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         this.$refs.video.srcObject = stream;
       });
     },
@@ -131,12 +132,12 @@ export default {
         let extractedText = result.data.text;
         console.log("Extracted text before cleaning:", extractedText);
 
-        // Clean the extracted text to remove unwanted characters
+        // Bereinigen des extrahierten Textes
         extractedText = this.cleanExtractedText(extractedText);
         console.log("Cleaned extracted text:", extractedText);
 
-        // Send the cleaned text to the API
-        const apiResponse = await axios.post('/api/groq', { prompt: `${prompt}: ${extractedText}` });
+        // API-Aufruf mit bereinigtem Text
+        const apiResponse = await axios.post("/api/groq", { prompt: `${prompt}: ${extractedText}` });
 
         console.log("API Full Response:", apiResponse);
 
@@ -144,8 +145,9 @@ export default {
       } catch (error) {
         console.error("Error analyzing file", error);
       }
-    }
-    ,
+    },
+
+    // API Response verarbeiten
     processApiResponse(apiResponse) {
       if (!apiResponse) {
         console.error("API response is missing");
@@ -157,15 +159,15 @@ export default {
       const dataWithoutHeaders = rows.slice(1); // Entferne die erste Zeile (die Header-Zeile)
 
       const cleanedData = dataWithoutHeaders
-          .filter(entry => {
+          .filter((entry) => {
             const entryFields = entry.split(",");
-            const hasValidData = entryFields.some(field => field.trim() !== "");
+            const hasValidData = entryFields.some((field) => field.trim() !== "");
 
-            // Überprüfe, ob der Eintrag (Session reset) oder Variationen davon (z.B. mit Text danach) vorhanden sind
+            // Überprüfe, ob der Eintrag (Session reset) oder Variationen davon vorhanden sind
             const title = entryFields[0] ? entryFields[0].trim() : "";
             return hasValidData && !title.toLowerCase().includes("session reset");
           })
-          .map(entry => {
+          .map((entry) => {
             // Spalten zuordnen und extrahieren
             const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
 
@@ -182,238 +184,56 @@ export default {
               endDate: formattedEndDate || "",
               endTime: formattedEndTime || "",
               location: "", // Leer lassen, da es von der API nicht geliefert wird
-              description: description ? description.trim() : "" // Bereinige Beschreibung, falls vorhanden
+              description: description ? description.trim() : "", // Bereinige Beschreibung, falls vorhanden
             };
           })
-          .filter(entry => entry !== null && entry.title !== "(Session reset)"); // Entferne leere oder "Session reset"-Einträge
+          .filter((entry) => entry !== null && entry.title !== "(Session reset)"); // Entferne leere oder "Session reset"-Einträge
 
       // Setze analysierte Daten
       this.analysisData = cleanedData;
-    }
+    },
 
-
-    ,
-
-
+    // Datum formatieren
     formatDate(date) {
-      // Logik, um das Datum in "YYYY-MM-DD" zu konvertieren
       const dateObj = new Date(date);
       return isNaN(dateObj) ? "" : dateObj.toISOString().split("T")[0];
     },
 
+    // Zeit formatieren
     formatTime(time) {
-      if (!time) return "";  // Wenn die Zeit undefiniert ist, gib einen leeren String zurück
-      const [hours, minutes] = time.split(":");  // Zeit in Stunden und Minuten aufteilen
-      if (!hours || !minutes) return "";  // Wenn das Format nicht stimmt, gib ebenfalls einen leeren String zurück
-      return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;  // Formatiere die Zeit richtig
-    }
+      if (!time) return ""; // Wenn die Zeit undefiniert ist, gib einen leeren String zurück
+      const [hours, minutes] = time.split(":");
+      if (!hours || !minutes) return ""; // Wenn das Format nicht stimmt, gib ebenfalls einen leeren String zurück
+      return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}`; // Formatiere die Zeit richtig
+    },
 
-
-    ,
+    // CSV für Google Calendar generieren
     generateCSV(analysisData) {
       const csvContent =
           "Subject,Start Date,Start Time,End Date,End Time,Description\n" +
           analysisData
-              .map(event =>
+              .map((event) =>
                   `${event.title},${event.startDate},${event.startTime},${event.endDate},${event.endTime},${event.description}`
               )
               .join("\n");
 
-      const blob = new Blob([csvContent], {type: "text/csv"});
+      const blob = new Blob([csvContent], { type: "text/csv" });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
       a.download = "calendar_events.csv";
       a.click();
       window.URL.revokeObjectURL(url);
-    }
-    ,
+    },
 
+    // Bereinigen des extrahierten Textes
     cleanExtractedText(extractedText) {
-      // Remove unwanted characters such as special symbols, stray brackets, and extra spaces
-      return extractedText
-          .replace(/[‘@[\]m]/g, '')  // Removes special characters
-          .replace(/\s+/g, ' ')      // Collapses multiple spaces into one
-          .trim();
-    }
-    ,
+      return extractedText.replace(/[‘@[\]m]/g, "").replace(/\s+/g, " ").trim();
+    },
 
-    generateICS() {
-      const icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//YourApp//NONSGML v1.0//EN\n" +
-          this.analysisData.map(event =>
-              `BEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${this.formatDateTime(event.startDate, event.startTime)}\nDTEND:${this.formatDateTime(event.endDate, event.endTime)}\nLOCATION:${event.location}\nDESCRIPTION:${event.description}\nEND:VEVENT\n`
-          ).join("") +
-          "END:VCALENDAR";
-
-      const blob = new Blob([icsContent], {type: "text/calendar"});
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "calendar_events.ics";
-      a.click();
-      window.URL.revokeObjectURL(url);
-    }
-
-    ,
-
-
-    // Methoden zum Import in Kalender (Google/Apple)
+    // Methode zum Importieren in den Google-Kalender
     importGoogleCalendar() {
       const prompt = `You are given text extracted from OCR. Your task is to extract only the data present in the text, interpreting dates and times as follows:
 
 ## Important Instructions:
-1. **Date Recognition**: If a date appears and is followed by one or more time entries, treat this as the **Start Date** and **End Date** for those times, unless otherwise specified. If only one date is present, assume the **Start Date** and **End Date** are the same.
-2. **Start and End Time Handling**: Use the earliest time as the **Start Time** and the latest time as the **End Time** for each date. If only one time is present, treat it as both the **Start Time** and **End Time**.
-3. **Strict Extraction**: Extract the data exactly as it appears without making assumptions about missing fields unless clearly indicated in the text.
-4. **Missing Dates**: If no date is provided but there is a time, leave the date field blank.
-5. **Format**:
-   - **Date**: Extract in \`YYYY-MM-DD\` format.
-   - **Time**: Extract in \`HH:MM\` format.
-6. **No Content Modification**: Do not alter or infer content that is not explicitly present in the text. Only extract exactly what is given, with the interpretation rules for dates and times as explained.
-7. **Session Reset**: After you have given your response, I want you to do a session reset, so there is no confusion between different datasets.
-
-## Example Output Structure (this is for structure reference only):
-Subject,Start Date,Start Time,End Date,End Time,Description
-Event,2024-10-31,15:00,2024-10-31,20:00,Description (if applicable)
-Event,2024-10-21,06:24,2024-10-21,14:51,F
-
-## OCR Text:
-
-`;
-
-      this.analyzeFile(prompt);
-
-    },
-
-    importAppleCalendar() {
-      const prompt = "<- Analyze this Data, extract it for a (.ics) apple calendar output, no addition information or commenting";
-      this.analyzeFile(prompt);
-    },
-
-    exportToCSV() {
-      // Google Calendar CSV-Spalten
-      const header = [
-        "Subject", "Start Date", "Start Time", "End Date", "End Time", "All Day Event", "Description", "Location", "Private"
-      ];
-
-      // Daten aus der Tabelle extrahieren und für CSV formatieren
-      const csvRows = this.analysisData.map(event => {
-        return [
-          event.title || "",                    // Subject
-          event.startDate || "",                // Start Date
-          event.startTime || "",                // Start Time
-          event.endDate || event.startDate || "", // End Date
-          event.endTime || "",                  // End Time
-          "False",                              // All Day Event
-          event.description || "",              // Description
-          event.location || "",                 // Location
-          "False"                               // Private
-        ].join(","); // Komma-getrennte Werte für CSV
-      });
-
-      // CSV-Zeilen generieren
-      const csvContent = [
-        header.join(","), // Kopfzeile
-        ...csvRows        // Zeilen
-      ].join("\n");
-
-      // CSV-Datei erstellen und zum Download anbieten
-      const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.setAttribute('download', 'calendar_events.csv');
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-
-
-  },
-};
-</script>
-
-
-<style scoped>
-/* Globales Layout */
-#app {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin-top: 40px;
-}
-
-/* Upload-Sektion */
-.upload-section {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.google-button {
-  background-color: #4285F4;
-  color: white;
-  border: none;
-}
-
-.apple-button {
-  background-color: #000;
-  color: white;
-  border: none;
-}
-
-/* Modal für Kamera */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-input[type="file"] {
-  display: block;
-  margin: 10px auto;
-}
-
-.data-table {
-  margin-top: 30px;
-}
-
-.data-table table {
-  width: 100%;
-  margin: 0 auto;
-  border-collapse: collapse;
-}
-
-.data-table th,
-.data-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-.data-table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-</style>
+1. **Date Recognition**: If a date
