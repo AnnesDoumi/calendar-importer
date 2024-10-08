@@ -273,45 +273,41 @@ export default {
    - Assume no prior knowledge of any previous datasets when extracting and interpreting the current text.
 
 ### 2. **Date and Time Recognition**:
-   - If a date appears in the text, use it as both the **Start Date** and **End Date** for that entry, unless otherwise clearly specified in the text.
-   - **Multiple Times on the Same Date**:
-      - Extract the **earliest valid Start Time** and the **latest valid End Time** for the same day.
-      - If multiple time ranges overlap or repeat (e.g., "14:09-22:56 14:09-18:00"), ignore redundant segments and prioritize the longest valid range (14:09-22:56 in this case).
-   - **Missing or Inconsistent Times**: If start or end times seem invalid or are missing, leave the **Start Time** and **End Time** blank.
+   - **Start Date** and **End Date**: If a date appears in the text, use it as both the **Start Date** and **End Date** for that entry, unless otherwise specified.
+   - **Multiple Time Ranges**: If multiple valid time ranges exist for the same day, extract each range as a separate entry. For example, if a date shows both "06:24 - 11:00" and "11:30 - 14:51", create two separate rows for that date. Ensure that each row has distinct time ranges.
+   - **Redundant or Overlapping Times**: If multiple time ranges overlap or seem redundant, prioritize the longest and most inclusive range (e.g., "14:09 - 22:56" over "14:09 - 18:00").
+   - **Handling Invalid or Missing Times**: If the time is missing or seems invalid, leave the **Start Time** and **End Time** blank. Do not attempt to infer times.
 
-### 3. **Segmentation by Date**:
-   - Process each date entry as a separate **block**. For example, if a block starts with "Montag 21.10.2024," treat all times and descriptions beneath this as relevant to that specific date.
-   - **Never mix or infer** information from one date block to another. Keep each date's data self-contained.
+### 3. **Strict Segmentation by Date**:
+   - Process each date entry as a distinct block. For example, if the text mentions "Montag 21.10.2024", treat all time ranges and descriptions beneath this as relevant to that specific date.
+   - Ensure that **no information** is carried over between dates. Each date must be processed independently of the others.
 
-### 4. **Pattern Recognition and Description Handling**:
-   - Recognize recurring terms like "Arbeitszeit" or "Stabidienst" in each date block and apply them to the relevant entries, but **only within the context** of that specific date.
-   - **Do not overwrite descriptions** or infer content that is not explicitly present. If a description like "Arbeitszeit" repeats, ensure it's applied consistently **within each relevant block**.
+### 4. **Pattern Recognition for Descriptions**:
+   - If specific terms like "Arbeitszeit" or "Stabidienst" repeat across a block, apply them only within the context of that specific block.
+   - **No Overwriting of Descriptions**: Do not overwrite descriptions unnecessarily. If a description like "Arbeitszeit" or "Stabidienst" appears, apply it once per relevant entry, but avoid overwriting if other specific descriptions (e.g., "Stabidienst") exist.
 
 ### 5. **Handling Redundant Data**:
-   - Ignore redundant or repeated rows that offer no meaningful information, such as rows with placeholders or missing data without valid dates or descriptions.
-   - If a date has no valid times or descriptions, omit it from the output.
+   - Ignore rows that provide no meaningful information, such as rows with placeholders or missing data without valid times, descriptions, or dates.
+   - If a date entry has no valid time or description, omit it from the output.
 
-### 6. **Handling of Missing Times**:
-   - If the time is missing or invalid, leave the **Start Time** and **End Time** blank. Do not attempt to infer or copy times from other rows or segments.
-
-### 7. **Data Formatting**:
+### 6. **Data Formatting**:
    - **Date**: Always format dates as \`YYYY-MM-DD\` (ISO format).
    - **Time**: Format times as \`HH:MM\` (24-hour format) if valid; otherwise, leave the field blank.
 
-### 8. **No Content Modification**:
+### 7. **No Content Modification**:
    - Do not alter or infer content that is not explicitly present. Only extract exactly what is provided in the text.
-   - Avoid adding notes like "description provided" or changing subject names unless clearly stated in the text.
 
-### 9. **Session Reset**:
+### 8. **Session Reset**:
    - After providing your response, reset the session to avoid confusion between datasets and start afresh for the next set of OCR text.
 
 ## Example Output Structure (this is for structure reference only):
 Subject,Start Date,Start Time,End Date,End Time,Description
-Event,2024-10-29,,2024-10-29,,"Urlaub"
-Event,2024-10-30,,2024-10-30,,"Urlaub"
+Event,2024-10-29,,2024-10-29,,"Arbeitszeit"
+Event,2024-10-30,,2024-10-30,,"Arbeitszeit"
 Event,2024-10-31,,2024-10-31,,"Urlaub"
 
 ## OCR Text:`;
+
 
 
 
