@@ -267,7 +267,7 @@ Dienstag,2024-10-22,06:24,2024-10-22,14:51,F
 
 this.analyzeFile(prompt);
 
-`;
+
 
       this.analyzeFile(prompt);
 
