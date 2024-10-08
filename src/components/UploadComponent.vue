@@ -229,8 +229,13 @@ export default {
 
     // Bereinigen des extrahierten Textes
     cleanExtractedText(extractedText) {
-      return extractedText.replace(/[‘@[\]m]/g, "").replace(/\s+/g, " ").trim();
-    },
+      return extractedText
+          .replace(/[‘@[\]m]|[\.\u2018\u2019]/g, "")  // Removes unwanted special characters, quotes, etc.
+          .replace(/[^a-zA-Z0-9äöüÄÖÜß\s:,-]/g, "")  // Removes any additional special characters (except times and letters)
+          .replace(/\s+/g, " ")  // Collapses multiple spaces into a single space
+          .trim();
+    }
+,
 
     // Methode zum Importieren in den Google-Kalender
     importGoogleCalendar() {
@@ -240,11 +245,12 @@ export default {
 
 1. **Date Recognition:**
    - If a date appears in the text, use it as both the **Start Date** and **End Date** for that entry, unless otherwise clearly specified in the text.
-   - **Multiple Times on the Same Date**: If multiple times are given for the same date, treat the earliest time as the **Start Time** and the latest time as the **End Time**. If times seem irrelevant or invalid, leave them out.
-   - **Day-Dependent Time**: Ensure that times extracted are valid for the specific date. For instance, morning and afternoon times should follow logical order, and times that are clearly out of realistic work hours or incorrectly formatted should be ignored.
+   - **Multiple Times on the Same Date**: If multiple times are given for the same date, treat the earliest time as the **Start Time** and the latest time as the **End Time**. For example, if you see "Freitag 11.10.2024 14:09-22:56 14:09 - 18:00 18:30 - 22:56", take the time range 14:09-22:56 for that date and ignore the other times.
+   - **Invalid or Redundant Times**: Ignore times that are redundant, irrelevant, or incorrectly formatted. Prioritize clearly valid time ranges that follow morning to evening patterns.
 
 2. **Strict Extraction:**
-   - Extract the data exactly as it appears in the text. Do not make assumptions about missing fields unless clearly indicated.
+   - Extract the data exactly as it appears in the text, but ignore meaningless characters like ". u <" or repeated symbols.
+   - Only extract significant content. For example, "Dienstag 15.10.2024 Stabidienst 9 St-Nacht capusiibergreifend . u <" should extract "Dienstag 15.10.2024" as the date, and "Stabidienst 9 St-Nacht capusiibergreifend" as the description, ignoring ". u <".
 
 3. **Handling of Missing Times:**
    - If the time is missing or seems invalid, leave the **Start Time** and **End Time** fields blank.
@@ -266,6 +272,7 @@ Event,2024-10-30,,2024-10-30,,
 Event,2024-10-31,,2024-10-31,,
 
 ## OCR Text:`;
+
 
       this.analyzeFile(prompt);
 
