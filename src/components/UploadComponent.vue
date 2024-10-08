@@ -245,31 +245,30 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = `You are given the following text extracted from OCR. Your task is to extract the data and format it into a CSV structure that is compatible with Google Calendar.
+      const prompt = `You are given text extracted from OCR. Extract the data exactly as it appears in the text and format it into a CSV compatible with Google Calendar.
 
-### Important:
-- Extract only the information present in the OCR data. Do not make any assumptions or corrections, and do not add any additional information.
-- The output should only be based on the text provided below.
-- The structure of the CSV should follow these columns:
-  **Subject**, **Start Date**, **Start Time**, **End Date**, **End Time**, and **Description**.
-- If any field is missing in the OCR data (e.g., End Date or Description), leave it blank in the CSV.
-- Do not modify any roles, titles, or dates.
-- Only extract the data as it appears and follow the CSV format strictly.
+### Critical Instructions:
+1. **Do not make any assumptions or changes**. Extract only the exact text provided in the OCR output.
+2. **No title, date, or time corrections**: Do not modify, guess, or assume missing or incorrect data. If something is missing, leave the field blank.
+3. **No assumptions about roles**: If the role (e.g., "Barista", "Montag") is not explicitly mentioned, do not infer or insert one.
+4. **No assumptions about dates or times**: Use exactly what is provided. If a date or time is missing, leave it blank.
+5. **Leave fields blank** if any data is missing (e.g., end time or description).
+6. **Format the CSV** using these columns:
+   - **Subject**, **Start Date**, **Start Time**, **End Date**, **End Time**, **Description**
+7. **Do not modify the output structure or content**. Your output should only contain data from the OCR text.
 
-### Example Output Structure (for format reference only):
+### Example Output Structure (for structure reference only, do not use content):
 Subject,Start Date,Start Time,End Date,End Time,Description
 Barista,2024-10-31,15:00,2024-10-31,20:00,
 Montag,2024-10-21,06:24,2024-10-21,14:51,F
 Dienstag,2024-10-22,06:24,2024-10-22,14:51,F
 
-### OCR text:
+###OCR text:
+
 `;
 
-this.analyzeFile(prompt);
-
-
-
       this.analyzeFile(prompt);
+
 
     },
 
