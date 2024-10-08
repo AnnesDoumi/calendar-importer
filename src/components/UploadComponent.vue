@@ -245,14 +245,26 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = "Extract the work schedule data into a clean CSV format with the columns: Subject, Start Date, Start Time, End Date, End Time, and Description. Ensure:\n" +
-          "- For each day, take the first start time and the latest end time, even if there are breaks in between.\n" +
-          "- If a shift spans multiple days, correctly assign the start and end times across those days.\n" +
-          "- Single letters that are adjacent to time or date entries (e.g., 'F', 'S') should be used as additional context for the Subject or Description field.\n" +
-          "- Ignore any single, isolated letters or irrelevant characters that do not contribute to the schedule.\n" +
-          "- Include only relevant information in the Description field, such as special duties or remarks.\n" +
-          "- Remove any redundant or repeated headers.\n" +
-          "- Format the dates and times in a manner suitable for Google Calendar CSV import.\n";
+      const prompt = `Please analyze the following text and extract the schedule information. Format the extracted data as a CSV with the following columns:
+Subject, Start Date, Start Time, End Date, End Time, and Description.
+
+Instructions:
+1. Extract the **Subject** (e.g., "Barista", "Montag", or any other relevant role or day).
+2. Identify the **Start Date** and **End Date** in the format YYYY-MM-DD. If no end date is provided, use the start date for both.
+3. Extract the **Start Time** and **End Time** in the format HH:MM. If only a start time is provided, leave the end time blank.
+4. Include any relevant **Description** if present, such as shift details or additional notes. If no description is available, leave it blank.
+5. Ignore any irrelevant text, symbols, or headers, and ensure that the data is consistently formatted for CSV output.
+
+The final result should look like this:
+
+Subject, Start Date, Start Time, End Date, End Time, Description
+Barista,2024-10-31,15:00,2024-10-31,20:00,
+Montag,2024-10-21,06:24,2024-10-21,14:51,F
+Dienstag,2024-10-22,06:24,2024-10-22,14:51,F
+`;
+
+      this.analyzeFile(prompt);
+
       this.analyzeFile(prompt);
     },
 
