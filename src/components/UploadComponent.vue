@@ -233,28 +233,30 @@ export default {
 
     // Methode zum Importieren in den Google-Kalender
     importGoogleCalendar() {
-      const prompt = `You are given text extracted from OCR. Your task is to extract only the data present in the text, interpreting dates and times as follows:
+      const prompt = `You are given text extracted from OCR. Your task is to extract only the data present in the text, interpreting dates as follows:
 
 ## Important Instructions:
-1. **Date Recognition**: If a date appears and is followed by one or more time entries, treat this as the **Start Date** and **End Date** for those times, unless otherwise specified. If only one date is present, assume the **Start Date** and **End Date** are the same.
-2. **Start and End Time Handling**: Use the earliest time as the **Start Time** and the latest time as the **End Time** for each date. If only one time is present, treat it as both the **Start Time** and **End Time**.
-3. **Strict Extraction**: Extract the data exactly as it appears without making assumptions about missing fields unless clearly indicated in the text.
-4. **Missing Dates**: If no date is provided but there is a time, leave the date field blank.
-5. **Format**:
+1. **Date Recognition**: If a date appears, it should be used as both the **Start Date** and **End Date** for that entry, unless otherwise specified. Ignore times if they are irrelevant or clearly incorrect (like 0:32).
+2. **Strict Extraction**: Extract the data exactly as it appears without making assumptions about missing fields unless clearly indicated in the text.
+3. **Missing Times**: If no time is provided, leave the time fields blank.
+4. **Format**:
    - **Date**: Extract in \`YYYY-MM-DD\` format.
-   - **Time**: Extract in \`HH:MM\` format.
-6. **No Content Modification**: Do not alter or infer content that is not explicitly present in the text. Only extract exactly what is given, with the interpretation rules for dates and times as explained.
-7. **Session Reset**: After you have given your response, I want you to do a session reset, so there is no confusion between different datasets.
+   - **Time**: If valid times are present, extract in \`HH:MM\` format, otherwise leave blank.
+5. **No Content Modification**: Do not alter or infer content that is not explicitly present in the text.
+6. **Session Reset**: After you have given your response, reset the session to avoid confusion between different datasets.
 
 ## Example Output Structure (this is for structure reference only):
 Subject,Start Date,Start Time,End Date,End Time,Description
-Event,2024-10-31,15:00,2024-10-31,20:00,Description (if applicable)
-Event,2024-10-21,06:24,2024-10-21,14:51,F
+Urlaub,2024-10-29,,2024-10-29,,
+Urlaub,2024-10-30,,2024-10-30,,
+Urlaub,2024-10-31,,2024-10-31,,
 
 ## OCR Text:
 
 `;
+
       this.analyzeFile(prompt);
+
     },
 
     // Methode zum Importieren in den Apple-Kalender
