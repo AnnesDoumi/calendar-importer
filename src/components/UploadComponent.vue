@@ -272,35 +272,44 @@ export default {
    - Treat each dataset individually. Do not make any inferences or connections between datasets from previous prompts or requests.
    - Assume no prior knowledge of any previous datasets when extracting and interpreting the current text.
 
-2. **Date Recognition:**
+### 2. **Date Recognition**:
    - If a date appears in the text, use it as both the **Start Date** and **End Date** for that entry, unless otherwise clearly specified in the text.
    - **Multiple Times on the Same Date**: If multiple times are given for the same date, treat the earliest time as the **Start Time** and the latest time as the **End Time**. For example, if you see "Freitag 11.10.2024 14:09-22:56 14:09 - 18:00 18:30 - 22:56", take the time range 14:09-22:56 for that date and ignore the other times.
-   - **Invalid or Redundant Times**: Ignore times that are redundant, irrelevant, or incorrectly formatted. Prioritize clearly valid time ranges that follow morning to evening patterns.
+   - **Missing or Inconsistent Times**: If start or end times seem invalid or are missing, leave the **Start Time** and **End Time** blank.
 
-3. **Strict Extraction:**
+### 3. **Strict Extraction**:
    - Extract the data exactly as it appears in the text, but ignore meaningless characters like ". u <" or repeated symbols.
    - Only extract significant content. For example, "Dienstag 15.10.2024 Stabidienst 9 St-Nacht capusiibergreifend . u <" should extract "Dienstag 15.10.2024" as the date, and "Stabidienst 9 St-Nacht capusiibergreifend" as the description, ignoring ". u <".
+   - For terms like "Urlaub" (which means vacation in German), apply the same description across all relevant entries if part of a consistent pattern. For example, if multiple consecutive days mention "Urlaub", recognize this pattern.
 
-4. **Handling of Missing Times:**
+### 4. **Pattern and Consistency Recognition**:
+   - If a specific pattern repeats across entries, such as multiple lines mentioning "Urlaub" or similar, ensure the same description ("Urlaub" in this case) is applied consistently to each relevant entry.
+   - Recognize repeated terms such as "Arbeitszeit" (working time), and ensure this is applied uniformly when relevant.
+
+### 5. **Handling Redundant Data**:
+   - Ignore redundant rows that provide no meaningful information, such as rows that only have placeholders or missing data without valid dates or descriptions.
+
+### 6. **Handling of Missing Times**:
    - If the time is missing or seems invalid, leave the **Start Time** and **End Time** fields blank.
 
-5. **Data Formatting:**
+### 7. **Data Formatting**:
    - **Date**: Always format dates as \`YYYY-MM-DD\` (ISO format).
    - **Time**: Format times as \`HH:MM\` (24-hour format) if valid; otherwise, leave the field blank.
 
-6. **No Content Modification:**
+### 8. **No Content Modification**:
    - Do not alter or infer content that is not explicitly present. Only extract exactly what is provided in the text.
 
-7. **Session Reset:**
+### 9. **Session Reset**:
    - After providing your response, reset the session to avoid confusion between datasets and start afresh for the next set of OCR text.
 
 ## Example Output Structure (this is for structure reference only):
 Subject,Start Date,Start Time,End Date,End Time,Description
-Event,2024-10-29,,2024-10-29,,
-Event,2024-10-30,,2024-10-30,,
-Event,2024-10-31,,2024-10-31,,
+Event,2024-10-29,,2024-10-29,,"Urlaub"
+Event,2024-10-30,,2024-10-30,,"Urlaub"
+Event,2024-10-31,,2024-10-31,,"Urlaub"
 
 ## OCR Text:`;
+
 
 
       this.analyzeFile(prompt);
