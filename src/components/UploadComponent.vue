@@ -236,32 +236,37 @@ export default {
     importGoogleCalendar() {
       const prompt = `You are given text extracted from OCR. Your task is to extract only the data present in the text, interpreting dates and times as follows:
 
-## Important Instructions:
-1. **Date Recognition**:
-   - If a date appears, it should be used as both the **Start Date** and **End Date** for that entry, unless otherwise specified in the text.
-   - Ignore any irrelevant or clearly incorrect times if present (e.g., times that do not match realistic work hours or have formatting issues).
-2. **Strict Extraction**:
-   - Extract the data exactly as it appears in the text. Do not make any assumptions about missing fields unless clearly indicated.
-3. **Handling of Missing Times**:
+## Obligatory Important Instructions:
+
+1. **Date Recognition:**
+   - If a date appears in the text, use it as both the **Start Date** and **End Date** for that entry, unless otherwise clearly specified in the text.
+   - **Multiple Times on the Same Date**: If multiple times are given for the same date, treat the earliest time as the **Start Time** and the latest time as the **End Time**. If times seem irrelevant or invalid, leave them out.
+   - **Day-Dependent Time**: Ensure that times extracted are valid for the specific date. For instance, morning and afternoon times should follow logical order, and times that are clearly out of realistic work hours or incorrectly formatted should be ignored.
+
+2. **Strict Extraction:**
+   - Extract the data exactly as it appears in the text. Do not make assumptions about missing fields unless clearly indicated.
+
+3. **Handling of Missing Times:**
    - If the time is missing or seems invalid, leave the **Start Time** and **End Time** fields blank.
-4. **Data Formatting**:
+
+4. **Data Formatting:**
    - **Date**: Always format dates as \`YYYY-MM-DD\` (ISO format).
    - **Time**: Format times as \`HH:MM\` (24-hour format) if valid; otherwise, leave the field blank.
-5. **No Content Modification**:
-   - Do not alter or infer content. Only extract what is explicitly present in the text.
-6. **Session Reset**:
+
+5. **No Content Modification:**
+   - Do not alter or infer content that is not explicitly present. Only extract exactly what is provided in the text.
+
+6. **Session Reset:**
    - After providing your response, reset the session to avoid confusion between datasets and start afresh for the next set of OCR text.
 
 ## Example Output Structure (this is for structure reference only):
 Subject,Start Date,Start Time,End Date,End Time,Description
-Urlaub,2024-10-29,,2024-10-29,,
-Urlaub,2024-10-30,,2024-10-30,,
-Urlaub,2024-10-31,,2024-10-31,,
+Event,2024-10-29,,2024-10-29,,
+Event,2024-10-30,,2024-10-30,,
+Event,2024-10-31,,2024-10-31,,
 
-## OCR Text:
+## OCR Text:`;
 
-
-`;
       this.analyzeFile(prompt);
 
     },
