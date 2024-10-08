@@ -245,7 +245,7 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = `You are given data extracted from OCR. Your task is to extract every entry exactly as it appears in the OCR and format it into a CSV structure compatible with Google Calendar. Ensure that no entry is left out, and provide output for every line in the OCR, even if some fields (like Start Time or End Date) are missing.
+      const prompt = `You are given  text extracted from OCR. Your task is to extract every entry exactly as it appears in the OCR and format it into a CSV structure compatible with Google Calendar. Ensure that no entry is left out, and provide output for every line in the OCR, even if some fields (like Start Time or End Date) are missing.
 
 ### Important Rules:
 1. **Context reset**: Do not use any previous context or input. Treat this as a new and independent task. Ignore any information from previous prompts or interactions.
@@ -258,6 +258,8 @@ export default {
    - Description: Include any additional information such as shift details or remarks. If missing, leave blank.
 5. **Handle missing fields correctly**: If any field is missing in the OCR text (e.g., Start Date or Start Time), make sure it is reflected as a blank field in the CSV output, but do not skip that entry.
 6. **Do not modify the content**: Do not change, infer, or guess any information. Simply extract it as it appears.
+7. **Session Reset**: After you have sent your response, do a session reset!
+
 
 ### Example Output Structure (for structure reference only, do not use this data):
 Subject,Start Date,Start Time,End Date,End Time,Description
