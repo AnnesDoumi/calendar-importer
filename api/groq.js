@@ -1,5 +1,7 @@
 const Groq = require('groq-sdk');
+require('dotenv').config(); // Sicherstellen, dass Umgebungsvariablen geladen werden
 
+// Der API-Schlüssel wird jetzt korrekt aus den Umgebungsvariablen gelesen
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export default async function handler(req, res) {

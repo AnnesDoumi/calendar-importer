@@ -1,7 +1,7 @@
 // src/services/groqService.js
 import Groq from "groq-sdk";
 
-// Initialisiere die GROQ API mit dem API-Key aus der .env Datei
+// Initialisiere die GROQ API mit dem API-Key aus der .env.local Datei
 const groq = new Groq({ apiKey: process.env.VUE_APP_GROQ_API_KEY });
 
 async function sendToGroq(promptText) {

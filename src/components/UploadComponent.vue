@@ -245,7 +245,13 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = "Extract the following data into a clean CSV format with the columns: Subject, Start Date, Start Time, End Date, End Time, Description. Remove any headers, and only include the actual schedule data (Subject, Start Date, Start Time, End Date, End Time, Description). If there is too much data loss, only take a start date,start time, end date, end time and also think logically if there is one day with more than one start time and end time, take the earliest start time and the latest end time, and put them for this day. No assumptions and extra commenting ";
+      const prompt = "I need to create a .csv file for Google Calendar, adhering to the following format: Subject, Start Date, Start Time, End Date, End Time, Description. Please extract the schedule from the text provided, ensuring the following rules are strictly followed:\n" +
+          "\n" +
+          "For any given date, if multiple time entries exist due to breaks (e.g., 08:00-12:00 and 12:30-16:30 on the same day), only use the first start time and the final end time (e.g., 08:00 as the start time and 16:30 as the end time).\n" +
+          "\n" +
+          "If an event spans over two days (e.g., starting at 21:00 on 13.11.2024 and ending at 01:00 on 14.11.2024), ensure that the start date and time are 13.11.2024, 21:00 and the end date and time are 14.11.2024, 01:00. For any subsequent events on 14.11.2024 (e.g., 01:30-05:30), they should have their own separate entry with the correct start and end times.\n" +
+          "\n" +
+          "Ensure that the resulting data aligns with the format required for Google Calendar imports. No unnecessary information or extra columns should be included, and the final data should contain only the events with their proper dates and times as described.";
       this.analyzeFile(prompt);
     },
 
