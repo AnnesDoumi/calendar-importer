@@ -299,8 +299,8 @@ export default {
 
 ## Example Output Structure (for reference):
 Subject,Start Date,Start Time,End Date,End Time,Description
-Event,2024-10-29,,2024-10-29,,"Urlaub"
-Event,2024-10-21,06:24,2024-10-21,14:51,"Arbeitszeit"
+Event,2024-10-29,,2024-10-29,,"Here comes, whatever OCR gives Information for this date"
+Event,2024-10-21,06:24,2024-10-21,14:51,"Here comes, whatever OCR gives Information for this date"
 
 ## OCR Text:
 `;
