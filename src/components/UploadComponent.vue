@@ -146,7 +146,6 @@ export default {
       }
     }
     ,
-
     processApiResponse(apiResponse) {
       if (!apiResponse) {
         console.error("API response is missing");
@@ -157,28 +156,36 @@ export default {
       const rows = apiResponse.trim().split("\n");
       const dataWithoutHeaders = rows.slice(1); // Entferne die erste Zeile
 
-      const cleanedData = dataWithoutHeaders.map(entry => {
-        const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
+      const cleanedData = dataWithoutHeaders
+          .filter(entry => {
+            const [title] = entry.split(",");
+            // Filtere "No Title", "(Session Reset)" oder leere Zeilen heraus
+            return title.trim() !== "No Title" && title.trim() !== "(Session Reset)" && entry.trim().length > 0;
+          })
+          .map(entry => {
+            const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
 
-        // Daten validieren und formatieren
-        const formattedStartDate = this.formatDate(startDate);
-        const formattedEndDate = this.formatDate(endDate || startDate); // Enddatum = Startdatum, falls nicht angegeben
-        const formattedStartTime = this.formatTime(startTime);
-        const formattedEndTime = this.formatTime(endTime);
+            // Daten validieren und formatieren
+            const formattedStartDate = this.formatDate(startDate); // Hier wird `startDate` verwendet
+            const formattedEndDate = this.formatDate(endDate || startDate); // Enddatum = Startdatum, falls nicht angegeben
+            const formattedStartTime = this.formatTime(startTime);
+            const formattedEndTime = this.formatTime(endTime);
 
-        return {
-          title: title || "No Title",
-          startDate: formattedStartDate || "",
-          startTime: formattedStartTime || "",
-          endDate: formattedEndDate || "",
-          endTime: formattedEndTime || "",
-          location: "", // Leer lassen, da es von der API nicht geliefert wird
-          description: description || ""
-        };
-      });
+            return {
+              title: title.trim() || "No Title",
+              startDate: formattedStartDate || "",
+              startTime: formattedStartTime || "",
+              endDate: formattedEndDate || "",
+              endTime: formattedEndTime || "",
+              location: "", // Leer lassen, da es von der API nicht geliefert wird
+              description: description ? description.trim() : "" // Beschreibung aufräumen
+            };
+          });
 
       this.analysisData = cleanedData;
-    },
+    }
+
+    ,
 
 
     formatDate(date) {
