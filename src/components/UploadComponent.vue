@@ -158,9 +158,15 @@ export default {
 
       const cleanedData = dataWithoutHeaders
           .filter(entry => {
-            const [title] = entry.split(",");
-            // Filtere "No Title", "(Session Reset)" oder leere Zeilen heraus
-            return title.trim() !== "No Title" && title.trim() !== "(Session reset)" && entry.trim().length > 0;
+            // Teile den Eintrag in seine Bestandteile
+            const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
+
+            // Filtern von leeren Einträgen oder solchen mit unerwünschtem Text
+            const hasValidData = title.trim() !== "" || startDate.trim() !== "" || startTime.trim() !== "";
+            const isNotReset = title.trim() !== "(Session reset)" && title.trim() !== "No Title";
+
+            // Rückgabe nur gültiger Einträge, die Daten enthalten
+            return hasValidData && isNotReset;
           })
           .map(entry => {
             const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
@@ -172,18 +178,17 @@ export default {
             const formattedEndTime = this.formatTime(endTime);
 
             return {
-              title: title.trim() || "Work",
+              title: title.trim() || "Work", // Standardmäßig "Work" wenn leer
               startDate: formattedStartDate || "",
               startTime: formattedStartTime || "",
               endDate: formattedEndDate || "",
               endTime: formattedEndTime || "",
-              location: "",
-              description: description ? description.trim() : ""
+              location: "", // Leer lassen, da es von der API nicht geliefert wird
+              description: description ? description.trim() : "" // Beschreibung, falls vorhanden
             };
           });
 
-      // Zusätzliche Filterung von "(Session reset)"
-      this.analysisData = cleanedData.filter(row => row.title !== "(Session reset)");
+      this.analysisData = cleanedData; // Aktualisiere die analysierten Daten
     }
 
     ,
