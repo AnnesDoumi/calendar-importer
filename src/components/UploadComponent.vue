@@ -264,43 +264,51 @@ export default {
 
     // Methode zum Importieren in den Google-Kalender
     importGoogleCalendar() {
-      const prompt = `You are given text extracted from OCR. Your task is to accurately extract and format the data for CSV export to Google Calendar. The output must strictly adhere to the following rules to ensure all conditions are met, based on the patterns and contexts in the provided OCR text:
+      const prompt = `You are given text extracted from OCR. Your task is to extract the data present in the text and format it correctly for CSV export for Google Calendar. The output must strictly follow the rules below to ensure accurate interpretation and avoid errors.
 
 ## Obligatory Important Instructions:
 
 ### 1. **Dataset Independence**:
-   - Treat each dataset as independent. Do not infer or cross-reference from previous datasets when interpreting the current OCR data.
+   - Treat each dataset individually. Do not reference or infer from prior datasets when interpreting the current OCR text.
 
-### 2. **Time and Date Recognition**:
-   - **Start Date and End Date**: Always use the same date for both the **Start Date** and **End Date**, unless explicitly stated otherwise.
-   - **Consolidating Time Ranges**:
-     - If multiple overlapping or contiguous time ranges exist for the same date, consolidate them into a single, continuous time range. For example, if "14:09-18:00" and "18:30-22:56" are present, they should be combined into "14:09-22:56".
-     - If distinct, non-overlapping time ranges exist (e.g., "06:24-11:00" and "11:30-14:51"), treat them as separate entries for the same date.
-   - **Handling Invalid or Missing Times**: If a time is invalid, missing, or incorrectly formatted, leave the **Start Time** and **End Time** blank for that entry. Do not infer or guess missing times.
+### 2. **Date and Time Handling**:
+   - **Start Date and End Date**: Use the same date for both the **Start Date** and **End Date** unless explicitly stated otherwise.
+   - **Handling Overlapping or Redundant Time Ranges**:
+     - If multiple time ranges overlap or cover the same time period (e.g., "14:09-22:56" and "14:09-18:00" followed by "18:30-22:56"), merge them into a single time range (e.g., "14:09-22:56").
+     - Only create distinct entries if the time ranges do not overlap or are separated by breaks.
+   - **Handling Non-overlapping Time Ranges**: If there are multiple non-overlapping time ranges for the same date (e.g., "06:24-11:00" and "11:30-14:51"), treat them as separate entries.
+   - **Invalid or Missing Times**: If times are missing or invalid, leave the **Start Time** and **End Time** fields blank. Do not infer times that are not explicitly present in the text.
 
 ### 3. **Strict Time Consolidation**:
-   - **Single Time Range per Day**: Ensure that there is only one time range per day if the ranges overlap. Consolidate all overlapping time periods. Only create multiple entries for a day if the times are distinct and non-overlapping.
+   - Always consolidate overlapping or contiguous time periods for the same date. For example, if two periods such as "14:09-18:00" and "18:30-22:56" appear on the same day, merge them into a single period "14:09-22:56".
+   - Do not create multiple rows for the same date unless there are clearly distinct time periods that cannot be merged.
 
 ### 4. **Description Handling**:
-   - **Description Based on Context**: Use the descriptions provided in the OCR data (e.g., "Arbeitszeit", "Urlaub", "Stabidienst"). If "Urlaub" appears consistently for a date, apply it as the description for that date. Avoid defaulting to "Arbeitszeit" if "Urlaub" is explicitly mentioned in the text.
-   - **Avoid Incorrect Descriptions**: Do not apply descriptions like "Arbeitszeit" or "Stabidienst" unless they are explicitly present in the OCR data. Ensure "Stabidienst" is only applied where it is relevant, particularly when it only applies to the last date entry.
+   - **Contextual Descriptions**: Ensure the description reflects the actual context of the data. For example:
+     - If "Urlaub" appears for multiple consecutive days, assign "Urlaub" to the appropriate entries for each relevant day.
+     - If "Arbeitszeit" or "Stabidienst" is given, assign it correctly to those specific dates without overwriting other descriptions like "Urlaub."
+   - **Handling Incorrect Descriptions**: Avoid assigning incorrect descriptions. For example, "Stabidienst" should only be used where it is explicitly stated in the OCR text, and not repeated unnecessarily.
 
-### 5. **Handling Redundant or Duplicate Data**:
-   - **No Redundancies**: Avoid creating duplicate or redundant entries. Ensure that overlapping or contiguous times are consolidated into a single entry per day, unless they are explicitly distinct.
-   - **Ignore Rows with No Valid Data**: If rows contain no meaningful data (e.g., placeholders or empty dates/times), omit them from the output.
+### 5. **Avoiding Redundant or Duplicate Data**:
+   - Avoid duplicate entries or unnecessary rows for the same date unless multiple distinct non-overlapping times exist.
+   - If there are multiple identical entries for a date, only include one instance.
 
-### 6. **Handling Missing Years**:
-   - **Assume Current Year**: If the year is missing in the OCR data, use the current year when formatting dates. Ensure all dates follow the \`YYYY-MM-DD\` format.
+### 6. **Handling of Missing Years**:
+   - If a year is missing from the OCR data, assume the current year and format the date as \`YYYY-MM-DD\`.
 
-### 7. **Data Formatting**:
-   - **Date**: Format all dates in the \`YYYY-MM-DD\` (ISO) format. If the year is missing, assume the current year.
-   - **Time**: Format all times in the \`HH:MM\` (24-hour) format. If the time is missing or invalid, leave the field blank.
+### 7. **Handling of Missing or Partial Data**:
+   - If an entry contains a valid date but lacks valid times or descriptions, leave the time or description field blank. Do not infer missing information.
+   - If an entry has a valid description but no time, ensure the description is still recorded, but leave the times blank.
 
-### 8. **No Data Inference**:
-   - Extract and format only the information explicitly provided in the OCR text. Do not infer or guess missing data such as times or descriptions.
+### 8. **Data Formatting**:
+   - **Date**: Format all dates as \`YYYY-MM-DD\` (ISO format) for consistency.
+   - **Time**: Format all times as \`HH:MM\` (24-hour format). If times are missing or invalid, leave the time fields blank.
 
-### 9. **Session Reset**:
-   - After completing the task, reset the session to avoid confusion between datasets. Ensure that each dataset is processed independently with no carryover.
+### 9. **No Content Inference or Modification**:
+   - Do not modify, infer, or adjust content that is not explicitly present in the OCR text. Only extract and structure the data as it is given.
+
+### 10. **Session Reset**:
+   - After processing the OCR text and providing the output, reset the session to avoid confusion between different datasets and ensure clean processing of the next OCR text.
 
 ## Example Output Structure (for reference only):
 Subject,Start Date,Start Time,End Date,End Time,Description
@@ -309,6 +317,7 @@ Event,2024-10-30,,2024-10-30,,Urlaub
 Event,2024-10-31,,2024-10-31,,Urlaub
 
 ## OCR Text:`;
+
 
 
 
