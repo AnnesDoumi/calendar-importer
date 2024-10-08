@@ -230,12 +230,13 @@ export default {
     // Bereinigen des extrahierten Textes
     cleanExtractedText(extractedText) {
       return extractedText
-          .replace(/[‘@[\]m]|[\.\u2018\u2019]/g, "")  // Removes unwanted special characters, quotes, etc.
-          .replace(/[^a-zA-Z0-9äöüÄÖÜß\s:,-]/g, "")  // Removes any additional special characters (except times and letters)
+          .replace(/[‘@[\]m\u2018\u2019]/g, "")  // Removes unwanted special characters, quotes, etc.
+          .replace(/[^a-zA-Z0-9äöüÄÖÜß\s:,-]/g, "")  // Removes additional special characters (except times and letters)
           .replace(/\s+/g, " ")  // Collapses multiple spaces into a single space
           .trim();
     }
-,
+
+    ,
 
     // Methode zum Importieren in den Google-Kalender
     importGoogleCalendar() {
