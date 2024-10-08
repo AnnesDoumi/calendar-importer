@@ -269,44 +269,46 @@ export default {
 ## Obligatory Important Instructions:
 
 ### 1. **Dataset Independence**:
-   - Treat each dataset individually. Do not make any inferences or connections between datasets from previous prompts or requests.
-   - Assume no prior knowledge of any previous datasets when extracting and interpreting the current text.
+   - Treat each dataset individually. Do not infer or reference any prior datasets when extracting and interpreting the current text.
 
-### 2. **Date and Time Recognition**:
-   - **Start Date** and **End Date**: If a date appears in the text, use it as both the **Start Date** and **End Date** for that entry, unless otherwise specified.
-   - **Multiple Time Ranges**: If multiple valid time ranges exist for the same day, extract each range as a separate entry. For example, if a date shows both "06:24 - 11:00" and "11:30 - 14:51", create two separate rows for that date. Ensure that each row has distinct time ranges.
-   - **Redundant or Overlapping Times**: If multiple time ranges overlap or seem redundant, prioritize the longest and most inclusive range (e.g., "14:09 - 22:56" over "14:09 - 18:00").
-   - **Handling Invalid or Missing Times**: If the time is missing or seems invalid, leave the **Start Time** and **End Time** blank. Do not attempt to infer times.
+### 2. **Time and Date Recognition**:
+   - **Start Date and End Date**: Use the same date for both the **Start Date** and **End Date** unless explicitly stated otherwise.
+   - **Handling Multiple Time Ranges**: If multiple time ranges exist for the same date (e.g., 06:24-11:00 and 11:30-14:51), treat them as separate entries.
+   - **Consolidating Overlapping or Redundant Times**: If redundant or overlapping time ranges are found (e.g., "14:09-22:56" and "14:09-18:00"), prioritize the longest and most inclusive time range. Avoid creating multiple entries for the same date unless distinct and non-overlapping times are given.
+   - **Handling Invalid or Missing Times**: If a time is invalid or missing, leave the **Start Time** and **End Time** blank. Do not infer times.
 
-### 3. **Strict Segmentation by Date**:
-   - Process each date entry as a distinct block. For example, if the text mentions "Montag 21.10.2024", treat all time ranges and descriptions beneath this as relevant to that specific date.
-   - Ensure that **no information** is carried over between dates. Each date must be processed independently of the others.
+### 3. **Strict Date-Based Segmentation**:
+   - Treat each date as a separate block. All times and descriptions following a date apply only to that date. No data should carry over between dates.
+   - Ensure that for each date, the events and descriptions listed only apply to that specific date.
 
-### 4. **Pattern Recognition for Descriptions**:
-   - If specific terms like "Arbeitszeit" or "Stabidienst" repeat across a block, apply them only within the context of that specific block.
-   - **No Overwriting of Descriptions**: Do not overwrite descriptions unnecessarily. If a description like "Arbeitszeit" or "Stabidienst" appears, apply it once per relevant entry, but avoid overwriting if other specific descriptions (e.g., "Stabidienst") exist.
+### 4. **Pattern and Description Handling**:
+   - For entries with patterns like "Urlaub" or "Arbeitszeit", apply the same description across all relevant entries. If multiple consecutive entries mention the same description (e.g., "Urlaub" or "Arbeitszeit"), apply that description consistently.
+   - **Handling Repeated Terms**: If terms like "Arbeitszeit" or "Stabidienst" appear multiple times for the same date, ensure that they are not unnecessarily repeated. Apply descriptions logically without duplication.
 
 ### 5. **Handling Redundant Data**:
-   - Ignore rows that provide no meaningful information, such as rows with placeholders or missing data without valid times, descriptions, or dates.
-   - If a date entry has no valid time or description, omit it from the output.
+   - Ignore any rows that provide no meaningful information (e.g., rows with only placeholders or missing data). Focus only on entries with valid dates, times, or descriptions.
 
-### 6. **Data Formatting**:
+### 6. **Handling of Missing or Partial Data**:
+   - If an entry has a date but no valid time or description, omit it from the output or leave the time and description fields blank. Do not infer missing information.
+
+### 7. **Data Formatting**:
    - **Date**: Always format dates as \`YYYY-MM-DD\` (ISO format).
    - **Time**: Format times as \`HH:MM\` (24-hour format) if valid; otherwise, leave the field blank.
 
-### 7. **No Content Modification**:
-   - Do not alter or infer content that is not explicitly present. Only extract exactly what is provided in the text.
+### 8. **No Content Modification**:
+   - Do not alter or infer content that is not explicitly present in the text. Only extract exactly what is provided.
 
-### 8. **Session Reset**:
+### 9. **Session Reset**:
    - After providing your response, reset the session to avoid confusion between datasets and start afresh for the next set of OCR text.
 
-## Example Output Structure (this is for structure reference only):
+## Example Output Structure (for reference only):
 Subject,Start Date,Start Time,End Date,End Time,Description
-Event,2024-10-29,,2024-10-29,,"Arbeitszeit"
-Event,2024-10-30,,2024-10-30,,"Arbeitszeit"
+Event,2024-10-29,,2024-10-29,,"Urlaub"
+Event,2024-10-30,,2024-10-30,,"Urlaub"
 Event,2024-10-31,,2024-10-31,,"Urlaub"
 
 ## OCR Text:`;
+
 
 
 
