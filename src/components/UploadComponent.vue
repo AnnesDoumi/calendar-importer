@@ -154,25 +154,25 @@ export default {
 
       // Entferne die erste Zeile (Spaltennamen) aus der API-Antwort
       const rows = apiResponse.trim().split("\n");
-      const dataWithoutHeaders = rows.slice(1); // Entferne die erste Zeile
+      const dataWithoutHeaders = rows.slice(1); // Entferne die erste Zeile (die Header-Zeile)
 
       const cleanedData = dataWithoutHeaders
           .filter(entry => {
-            // Spalte trennen
             const entryFields = entry.split(",");
-
-            // Überprüfen, ob es mehr als ein leeres Feld gibt, wenn ja ignorieren
             const hasValidData = entryFields.some(field => field.trim() !== "");
 
-            // Falls nicht leer, den Titel extrahieren und überprüfen
+            // Überprüfe, ob der Eintrag (Session reset) oder leer ist
             const title = entryFields[0] ? entryFields[0].trim() : "";
-
-            // Entferne "No Title", "(Session Reset)" und leere Zeilen
             return hasValidData && title !== "(Session reset)" && title !== "No Title";
           })
           .map(entry => {
             // Spalten zuordnen und extrahieren
             const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
+
+            // Überprüfe auf (Session reset) und entferne es
+            if (title.trim() === "(Session reset)") {
+              return null; // Ignoriere diesen Eintrag
+            }
 
             // Daten validieren und formatieren
             const formattedStartDate = this.formatDate(startDate);
@@ -181,7 +181,7 @@ export default {
             const formattedEndTime = this.formatTime(endTime);
 
             return {
-              title: title.trim() || "Work", // Standardtitel "Work"
+              title: title.trim() || "Event", // Standardtitel "Event"
               startDate: formattedStartDate || "",
               startTime: formattedStartTime || "",
               endDate: formattedEndDate || "",
@@ -189,7 +189,8 @@ export default {
               location: "", // Leer lassen, da es von der API nicht geliefert wird
               description: description ? description.trim() : "" // Bereinige Beschreibung, falls vorhanden
             };
-          });
+          })
+          .filter(entry => entry !== null); // Entferne alle null-Einträge
 
       // Setze analysierte Daten
       this.analysisData = cleanedData;
