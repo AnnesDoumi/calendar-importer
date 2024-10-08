@@ -245,7 +245,7 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = "Extract the following schedule data in CSV format with the columns: Subject, Start Date, Start Time, End Date, End Time, and Description. Ensure that for each day, only the first start time and the last end time are used to cover the full period without breaks in between. If a shift spans multiple days (for example, from 22:00 to 06:00 the next day), ensure that the start and end dates are correctly reflected. Ignore headers and any extra information not relevant to the schedule. Ensure the extracted data is ready for a clean Google Calendar CSV import without overlapping times";
+      const prompt = "Extract the data into CSV format with the columns: Subject, Start Date, Start Time, End Date, End Time, Description. For each date, use only the first start time and the last end time of the day to avoid overlapping entries. In cases where shifts span across multiple days, ensure the correct start and end date is provided. Ignore irrelevant information, and if a description is provided, include it; otherwise, leave it blank.";
       this.analyzeFile(prompt);
     },
 
