@@ -273,13 +273,12 @@ export default {
 
 ### 2. **Time and Date Recognition**:
    - **Start Date and End Date**: Use the same date for both the **Start Date** and **End Date** unless explicitly stated otherwise.
-   - **Handling Multiple Time Ranges**: If multiple time ranges exist for the same date, treat them as a single entry only if they overlap or are redundant. For example, combine "14:09-22:56" with "14:09-18:00 and 18:30-22:56" to a single "14:09-22:56" entry. Do not create redundant entries for the same date.
-   - **Consolidating Overlapping Times**: If overlapping or redundant time ranges exist (e.g., "14:09-22:56" and "14:09-18:00"), consolidate them into one entry representing the full range ("14:09-22:56"). Only create separate entries if time periods are distinct and non-overlapping.
-   - **Inferring the Year**: If a date is provided without a year, assume the current year when formatting the date.
+   - **Handling Multiple Time Ranges**: If multiple distinct time ranges exist for the same date (e.g., "06:24-11:00" and "11:30-14:51"), treat them as separate entries. However, ensure that each time range is entered correctly in the **Start Time** and **End Time** fields.
+   - **Consolidating Overlapping or Redundant Times**: If redundant or overlapping time ranges exist (e.g., "14:09-22:56" and "14:09-18:00 followed by 18:30-22:56"), combine the times to reflect the full range (e.g., "14:09-22:56") but still make sure that **Start Time** and **End Time** are split into their appropriate fields. Avoid creating multiple entries for the same date unless time periods are distinct and non-overlapping.
+   - **Ensure Separation of Start and End Times**: Make sure that **Start Time** contains the starting time of the range, and **End Time** contains the ending time. For example, if the time range is "14:09-22:56," then **Start Time** should be "14:09" and **End Time** should be "22:56."
 
 ### 3. **Strict Date-Based Segmentation**:
-   - Treat each date as a separate block. All times and descriptions following a date apply only to that specific date.
-   - Ensure that each date only contains the relevant times and descriptions; avoid times or descriptions carrying over to other dates.
+   - Treat each date as a separate block. All times and descriptions following a date apply only to that specific date. Ensure that times and descriptions are applied to the correct date and do not carry over between dates.
 
 ### 4. **Pattern and Description Handling**:
    - **Consistent Description Assignment**: Apply descriptions logically based on the context. For example, if "Urlaub" (vacation) appears multiple times, consistently assign "Urlaub" to those dates. Similarly, if "Arbeitszeit" (working time) is mentioned for a series of times, apply "Arbeitszeit" as the description for those entries.
@@ -295,7 +294,7 @@ export default {
 
 ### 7. **Data Formatting**:
    - **Date**: Format all dates as \`YYYY-MM-DD\` (ISO format) to maintain consistency. If the year is missing, use the current year.
-   - **Time**: Format all times as \`HH:MM\` (24-hour format) if valid. If times are invalid or missing, leave the field blank.
+   - **Time**: Format all times as \`HH:MM\` (24-hour format) if they are valid. If times are invalid or missing, leave the field blank. Ensure that **Start Time** and **End Time** are split into their respective fields.
 
 ### 8. **No Content Modification**:
    - Extract the content exactly as it appears in the text. Do not modify, infer, or alter the content beyond the instructions provided. Focus solely on accurate extraction of dates, times, and descriptions.
@@ -305,11 +304,12 @@ export default {
 
 ## Example Output Structure (for reference only):
 Subject,Start Date,Start Time,End Date,End Time,Description
-Event,2024-10-29,,2024-10-29,,"Urlaub"
-Event,2024-10-30,,2024-10-30,,"Urlaub"
-Event,2024-10-31,,2024-10-31,,"Urlaub"
+Event,2024-10-29,15:00,2024-10-29,20:00,"Barista"
+Event,2024-10-30,15:00,2024-10-30,20:00,"Barista"
+Event,2024-10-31,15:00,2024-10-31,20:00,"Barista"
 
 ## OCR Text:`;
+
 
 
 
