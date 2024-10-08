@@ -162,6 +162,8 @@ export default {
         return;
       }
 
+      this.analysisData = [];
+
       // Entferne die erste Zeile (Spaltennamen) aus der API-Antwort
       const rows = apiResponse.trim().split("\n");
       const dataWithoutHeaders = rows.slice(1); // Entferne die Header-Zeile
@@ -266,36 +268,39 @@ export default {
 
 ## Obligatory Important Instructions:
 
-1. **Date Recognition:**
+### 1. **Dataset Independence**:
+   - Treat each dataset individually. Do not make any inferences or connections between datasets from previous prompts or requests.
+   - Assume no prior knowledge of any previous datasets when extracting and interpreting the current text.
+
+### 2. **Date Recognition**:
    - If a date appears in the text, use it as both the **Start Date** and **End Date** for that entry, unless otherwise clearly specified in the text.
    - **Multiple Times on the Same Date**: If multiple times are given for the same date, treat the earliest time as the **Start Time** and the latest time as the **End Time**. For example, if you see "Freitag 11.10.2024 14:09-22:56 14:09 - 18:00 18:30 - 22:56", take the time range 14:09-22:56 for that date and ignore the other times.
-   - **Invalid or Redundant Times**: Ignore times that are redundant, irrelevant, or incorrectly formatted. Prioritize clearly valid time ranges that follow morning to evening patterns.
+   - **Invalid or Redundant Times**: Ignore times that are redundant, irrelevant, or incorrectly formatted. Prioritize clearly valid time ranges that follow logical morning-to-evening patterns.
 
-2. **Strict Extraction:**
-   - Extract the data exactly as it appears in the text, but ignore meaningless characters like ". u <" or repeated symbols.
-   - Only extract significant content. For example, "Dienstag 15.10.2024 Stabidienst 9 St-Nacht capusiibergreifend . u <" should extract "Dienstag 15.10.2024" as the date, and "Stabidienst 9 St-Nacht capusiibergreifend" as the description, ignoring ". u <".
+### 3. **Strict Extraction**:
+   - Extract the data exactly as it appears in the text. Do not alter or infer information that is not explicitly present in the text.
+   - Ignore meaningless characters like ". u <" or repeated symbols that are clearly not part of the relevant data.
+   - Only extract significant content. For example, "Dienstag 15.10.2024 Stabidienst 9 St-Nacht capusiibergreifend . u <" should extract "Dienstag 15.10.2024" as the **Start Date**, and "Stabidienst 9 St-Nacht capusiibergreifend" as the **Description**, ignoring characters like ". u <".
 
-3. **Handling of Missing Times:**
+### 4. **Handling of Missing Times**:
    - If the time is missing or seems invalid, leave the **Start Time** and **End Time** fields blank.
 
-4. **Data Formatting:**
+### 5. **Data Formatting**:
    - **Date**: Always format dates as \`YYYY-MM-DD\` (ISO format).
    - **Time**: Format times as \`HH:MM\` (24-hour format) if valid; otherwise, leave the field blank.
 
-5. **No Content Modification:**
-   - Do not alter or infer content that is not explicitly present. Only extract exactly what is provided in the text.
+### 6. **Session Reset**:
+   - After providing your response, reset the session to avoid confusion between datasets and start afresh for the next set of OCR text. Ensure that no data from the previous dataset is carried over to the next.
 
-6. **Session Reset:**
-   - After providing your response, reset the session to avoid confusion between datasets and start afresh for the next set of OCR text.
-
-## Example Output Structure (this is for structure reference only):
+### Example Output Structure (this is for structure reference only):
 Subject,Start Date,Start Time,End Date,End Time,Description
 Event,2024-10-29,,2024-10-29,,
 Event,2024-10-30,,2024-10-30,,
-Event,2024-10-31,,2024-10-31,,`
+Event,2024-10-31,,2024-10-31,,`;
 
       this.analyzeFile(prompt);
     },
+
 
     // Methode zum Importieren in den Apple-Kalender
     importAppleCalendar() {
