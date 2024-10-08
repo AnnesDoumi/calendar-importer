@@ -402,9 +402,9 @@ input[type="file"] {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 20px;
+  width: 25px;
+  height: 25px;
+  font-size: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -417,9 +417,9 @@ input[type="file"] {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
+  width: 25px;
+  height: 25px;
+  font-size: 15px;
   position: fixed;
   bottom: 20px;
   left: 20px;
