@@ -402,8 +402,8 @@ input[type="file"] {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 25px;
-  height: 25px;
+  width: 15px;
+  height: 15px;
   font-size: 15px;
   display: flex;
   justify-content: center;
@@ -417,8 +417,8 @@ input[type="file"] {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 25px;
-  height: 25px;
+  width: 15px;
+  height: 15px;
   font-size: 15px;
   position: fixed;
   bottom: 20px;
