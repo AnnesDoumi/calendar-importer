@@ -161,18 +161,13 @@ export default {
             const entryFields = entry.split(",");
             const hasValidData = entryFields.some(field => field.trim() !== "");
 
-            // Überprüfe, ob der Eintrag (Session reset) oder leer ist
+            // Überprüfe, ob der Eintrag (Session reset) oder Variationen davon (z.B. mit Text danach) vorhanden sind
             const title = entryFields[0] ? entryFields[0].trim() : "";
-            return hasValidData && title !== "(Session reset)" && title !== "No Title";
+            return hasValidData && !title.toLowerCase().includes("session reset");
           })
           .map(entry => {
             // Spalten zuordnen und extrahieren
             const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
-
-            // Überprüfe auf (Session reset) und entferne es
-            if (title.trim() === "(Session reset)") {
-              return null; // Ignoriere diesen Eintrag
-            }
 
             // Daten validieren und formatieren
             const formattedStartDate = this.formatDate(startDate);
@@ -190,12 +185,11 @@ export default {
               description: description ? description.trim() : "" // Bereinige Beschreibung, falls vorhanden
             };
           })
-          .filter(entry => entry !== null); // Entferne alle null-Einträge
+          .filter(entry => entry !== null && entry.title !== "(Session reset)"); // Entferne leere oder "Session reset"-Einträge
 
       // Setze analysierte Daten
       this.analysisData = cleanedData;
     }
-
 
 
     ,
