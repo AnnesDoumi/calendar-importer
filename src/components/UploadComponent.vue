@@ -245,29 +245,26 @@ export default {
 
     // Methoden zum Import in Kalender (Google/Apple)
     importGoogleCalendar() {
-      const prompt = `You are given  text extracted from OCR. Your task is to extract every entry exactly as it appears in the OCR and format it into a CSV structure compatible with Google Calendar. Ensure that no entry is left out, and provide output for every line in the OCR, even if some fields (like Start Time or End Date) are missing.
+      const prompt = `You are given text extracted from OCR. Your task is to extract only the data present in the text, interpreting dates and times as follows:
 
-### Important Rules:
-1. **Context reset**: Do not use any previous context or input. Treat this as a new and independent task. Ignore any information from previous prompts or interactions.
-2. **No missing entries**: Every entry in the OCR must appear in the output, even if some fields are incomplete. Do not skip any lines or entries.
-3. **Extract data exactly as it appears**: Extract each field exactly as it is in the OCR. Do not infer or guess any missing data. If a field is missing, leave it blank.
-4. **Ensure correct formatting**:
-   - Subject: If the role (e.g., "Barista") is missing or unclear, leave it blank.
-   - Start Date and End Date: Format as YYYY-MM-DD. If missing, leave the field blank.
-   - Start Time and End Time: Format as HH:MM. If missing, leave the field blank.
-   - Description: Include any additional information such as shift details or remarks. If missing, leave blank.
-5. **Handle missing fields correctly**: If any field is missing in the OCR text (e.g., Start Date or Start Time), make sure it is reflected as a blank field in the CSV output, but do not skip that entry.
-6. **Do not modify the content**: Do not change, infer, or guess any information. Simply extract it as it appears.
-7. **Session Reset**: After you have sent your response, do a session reset!
+## Important Instructions:
+1. **Date Recognition**: If a date appears and is followed by one or more time entries, treat this as the **Start Date** and **End Date** for those times, unless otherwise specified. If only one date is present, assume the **Start Date** and **End Date** are the same.
+2. **Start and End Time Handling**: Use the earliest time as the **Start Time** and the latest time as the **End Time** for each date. If only one time is present, treat it as both the **Start Time** and **End Time**.
+3. **Strict Extraction**: Extract the data exactly as it appears without making assumptions about missing fields unless clearly indicated in the text.
+4. **Missing Dates**: If no date is provided but there is a time, leave the date field blank.
+5. **Format**:
+   - **Date**: Extract in \`YYYY-MM-DD\` format.
+   - **Time**: Extract in \`HH:MM\` format.
+6. **No Content Modification**: Do not alter or infer content that is not explicitly present in the text. Only extract exactly what is given, with the interpretation rules for dates and times as explained.
+7. **Session Reset**: After you have given your response, I want you to do a session reset, so there is no confusion between different datasets.
 
-
-### Example Output Structure (for structure reference only, do not use this data):
+## Example Output Structure (this is for structure reference only):
 Subject,Start Date,Start Time,End Date,End Time,Description
-Barista,2024-10-31,15:00,2024-10-31,20:00,
-Barista,2024-10-30,15:00,2024-10-30,20:00,
-Montag,2024-10-21,06:24,2024-10-21,14:51,F
+Event,2024-10-31,15:00,2024-10-31,20:00,Description (if applicable)
+Event,2024-10-21,06:24,2024-10-21,14:51,F
 
-###  OCR Text:
+## OCR Text:
+
 `;
 
       this.analyzeFile(prompt);
