@@ -160,30 +160,30 @@ export default {
           .filter(entry => {
             const [title] = entry.split(",");
             // Filtere "No Title", "(Session Reset)" oder leere Zeilen heraus
-            return title.trim() !== "No Title" && title.trim() !== "(Session Reset)" && entry.trim().length > 0;
+            return title.trim() !== "No Title" && title.trim() !== "(Session reset)" && entry.trim().length > 0;
           })
           .map(entry => {
             const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
 
             // Daten validieren und formatieren
-            const formattedStartDate = this.formatDate(startDate); // Hier wird `startDate` verwendet
-            const formattedEndDate = this.formatDate(endDate || startDate); // Enddatum = Startdatum, falls nicht angegeben
+            const formattedStartDate = this.formatDate(startDate);
+            const formattedEndDate = this.formatDate(endDate || startDate);
             const formattedStartTime = this.formatTime(startTime);
             const formattedEndTime = this.formatTime(endTime);
 
             return {
-              title: title.trim() || "Work", // Setze Titel auf "Work" falls leer
+              title: title.trim() || "Work",
               startDate: formattedStartDate || "",
               startTime: formattedStartTime || "",
               endDate: formattedEndDate || "",
               endTime: formattedEndTime || "",
-              location: "", // Leer lassen, da es von der API nicht geliefert wird
-              description: description ? description.trim() : "" // Beschreibung aufräumen
+              location: "",
+              description: description ? description.trim() : ""
             };
           });
 
-      // Filtere nochmals alle unerwünschten Einträge wie "(Session Reset)" aus der Datenstruktur
-      this.analysisData = cleanedData.filter(row => row.title !== "(Session Reset)");
+      // Zusätzliche Filterung von "(Session reset)"
+      this.analysisData = cleanedData.filter(row => row.title !== "(Session reset)");
     }
 
     ,
