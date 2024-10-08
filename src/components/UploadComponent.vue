@@ -156,18 +156,19 @@ export default {
 
       // Entferne die erste Zeile (Spaltennamen) aus der API-Antwort
       const rows = apiResponse.trim().split("\n");
-      const dataWithoutHeaders = rows.slice(1); // Entferne die erste Zeile (die Header-Zeile)
+      const dataWithoutHeaders = rows.slice(1); // Entferne die Header-Zeile
 
       const cleanedData = dataWithoutHeaders
-          .filter((entry) => {
+          .filter(entry => {
             const entryFields = entry.split(",");
-            const hasValidData = entryFields.some((field) => field.trim() !== "");
+            const hasValidDate = entryFields[1] && entryFields[1].trim() !== ""; // Prüfen, ob Start Date vorhanden ist
+            const hasValidData = entryFields.some(field => field.trim() !== "");  // Überprüfen, ob irgendein Feld nicht leer ist
 
-            // Überprüfe, ob der Eintrag (Session reset) oder Variationen davon vorhanden sind
+            // Überprüfe, ob der Eintrag "(Session reset)" oder eine Variation davon vorhanden ist
             const title = entryFields[0] ? entryFields[0].trim() : "";
-            return hasValidData && !title.toLowerCase().includes("session reset");
+            return hasValidDate && hasValidData && !title.toLowerCase().includes("session reset");
           })
-          .map((entry) => {
+          .map(entry => {
             // Spalten zuordnen und extrahieren
             const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
 
@@ -184,14 +185,14 @@ export default {
               endDate: formattedEndDate || "",
               endTime: formattedEndTime || "",
               location: "", // Leer lassen, da es von der API nicht geliefert wird
-              description: description ? description.trim() : "", // Bereinige Beschreibung, falls vorhanden
+              description: description ? description.trim() : "" // Bereinige Beschreibung, falls vorhanden
             };
-          })
-          .filter((entry) => entry !== null && entry.title !== "(Session reset)"); // Entferne leere oder "Session reset"-Einträge
+          });
 
-      // Setze analysierte Daten
-      this.analysisData = cleanedData;
-    },
+      // Setze analysierte Daten, nur Zeilen mit einem Startdatum werden übernommen
+      this.analysisData = cleanedData.filter(entry => entry.startDate);
+    }
+    ,
 
     // Datum formatieren
     formatDate(date) {
