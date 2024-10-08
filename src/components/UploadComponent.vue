@@ -158,16 +158,20 @@ export default {
 
       const cleanedData = dataWithoutHeaders
           .filter(entry => {
+            // Spalte trennen
             const entryFields = entry.split(",");
 
-            // Überprüfen, ob alle relevanten Felder existieren
-            const hasValidData = entryFields.some(field => field.trim() !== ""); // Prüfe auf Nicht-Leerzeichen
+            // Überprüfen, ob es mehr als ein leeres Feld gibt, wenn ja ignorieren
+            const hasValidData = entryFields.some(field => field.trim() !== "");
+
+            // Falls nicht leer, den Titel extrahieren und überprüfen
             const title = entryFields[0] ? entryFields[0].trim() : "";
 
-            // Rückgabe nur gültiger Einträge, die Daten enthalten und keinen Reset darstellen
+            // Entferne "No Title", "(Session Reset)" und leere Zeilen
             return hasValidData && title !== "(Session reset)" && title !== "No Title";
           })
           .map(entry => {
+            // Spalten zuordnen und extrahieren
             const [title, startDate, startTime, endDate, endTime, description] = entry.split(",");
 
             // Daten validieren und formatieren
@@ -177,18 +181,20 @@ export default {
             const formattedEndTime = this.formatTime(endTime);
 
             return {
-              title: title.trim() || "Work", // Standardmäßig "Work" wenn leer
+              title: title.trim() || "Work", // Standardtitel "Work"
               startDate: formattedStartDate || "",
               startTime: formattedStartTime || "",
               endDate: formattedEndDate || "",
               endTime: formattedEndTime || "",
               location: "", // Leer lassen, da es von der API nicht geliefert wird
-              description: description ? description.trim() : "" // Beschreibung, falls vorhanden
+              description: description ? description.trim() : "" // Bereinige Beschreibung, falls vorhanden
             };
           });
 
-      this.analysisData = cleanedData; // Aktualisiere die analysierten Daten
+      // Setze analysierte Daten
+      this.analysisData = cleanedData;
     }
+
 
 
     ,
