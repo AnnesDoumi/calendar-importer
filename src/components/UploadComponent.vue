@@ -299,7 +299,7 @@ export default {
 ## Key Rules:
 
 ### 1. **Date and Time Formatting**:
-   - Do not forget, to take every date into account.
+   - **Dates** with their **Times** found in the OCR Text you get, should all be represented at least once in the table.
    - **Start Time** and **End Time** should be analyzed from the OCR Text, recognizing the pattern of how the times are assigned to the dates in the data. In the most cases, the times will appear on the right side of a date until the next date starts.
    - **Dates** should be formatted as \`YYYY-MM-DD\` (ISO format).
    - **Times** should be formatted as \`HH:MM\` (24-hour format). If times are missing or invalid, leave the field blank.
@@ -322,7 +322,7 @@ export default {
    - Use text that appears on the right side of a date, until the next date starts, as the subject.
 
 ### 6. **Handling Invalid or Missing Times**:
-   - If time declarations on the right side of a date are missing, leave the Start Time and End Time fields blank.
+   - If time declarations of a date are totally missing, leave the Start Time and End Time fields blank.
    - Do **not** infer times that are not explicitly present in the text.
 
 ### 7. **Session Reset**:
