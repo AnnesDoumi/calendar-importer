@@ -275,19 +275,19 @@ export default {
 
 ### 2. **Eliminating Unnecessary Duplicate Entries**:
    - Ensure that each date is represented **once** with the consolidated time range, without unnecessary repetitions.
-   - Avoid creating separate entries for the same time period (e.g., do **not** list "06:24-14:51" and then "11:00-14:51").
+   - Avoid creating separate entries for the same time period in a date (e.g.if there are time declarations "06:30-10:30" and "11:00-15:00" and "06:30-15:00"  for a single date,  only use "6:30" as Start Time, and "15:00" as End Time).
 
-### 3. **Description Assignment Based on Context**:
-   - Ensure that the description is assigned correctly. For example, if the OCR states a date, the structure of the whole OCR should be analyzed and the text assigned to the date, should be put as description.
-    - Use descriptions like "Arbeitszeit", "Stabidienst", or "Urlaub" only when they are explicitly stated.
+### 3. **Subject Assignment Based on Context**:
+   - Ensure that the description is assigned correctly. For example, if the OCR states a date, the structure of the whole OCR should be analyzed and the text(except of the times), assigned to the date, should be put as subject.
+    - Use texts which are stated the right side of a date, until the next date starts, as Subject.
 
 
 ### 4. **Handling Invalid or Missing Times**:
-   - If time stamps for a date is missing, leave the Start Time and End Time fields blank.
+   - If time declerations on the right side of a date is missing, leave the Start Time and End Time fields blank.
    - Do **not** infer times that are not explicitly present in the text.
 
 ### 5. **Date and Time Formatting**:
-   - **Start Time** and **End Time** should be analyzed from the OCR, recognize the pattern how the times are assigned to the dates.
+   - **Start Time** and **End Time** should be analyzed from the OCR, recognize the pattern how the times are assigned to the dates, in the most cases, the times will be on the right side of a date.
    - **Dates** should be formatted as \`YYYY-MM-DD\` (ISO format).
    - **Times** should be formatted as \`HH:MM\` (24-hour format). If times are missing or invalid, leave the field blank.
 
@@ -300,8 +300,8 @@ export default {
 
 ## Example Output Structure (for reference):
 Subject,Start Date,Start Time,End Date,End Time,Description
-Event,2024-10-29,,2024-10-29,,"Here comes, whatever OCR gives Information after a date is given ,for this date"
-Event,2024-10-21,06:24,2024-10-21,14:51,"Here comes, whatever OCR gives Information after a date is given ,for this date"
+(insert assigned Subject here),YYYY-MM-DD,,YYYY-MM-DD,,"Event"
+(insert assigned Subject here),2024-10-21,06:24,2024-10-21,14:51,"Event"
 
 ## OCR Text:
 `;
