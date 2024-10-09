@@ -254,7 +254,6 @@ export default {
       window.URL.revokeObjectURL(url);
     },
 
-    // Bereinigen des extrahierten Textes
     cleanExtractedText(extractedText) {
       // Regex for recognizing a URL (starts with http://, https://, or www)
       const urlPattern = /(?:https?:\/\/|www\.)\S+/i;
@@ -284,14 +283,15 @@ export default {
 
       // Continue with further cleaning after the cut
       return extractedText
-          .replace(/[^\w\säöüÄÖÜß:,-./]/g, "")   // Remove unwanted special characters but keep dates, times, and letters
+          .replace(/[^\w\säöüÄÖÜß:,-./]/g, "")  // Remove unwanted special characters but keep dates, times, and letters
+          .replace(/\s+/g, " ")  // Collapse multiple spaces into a single space
           .replace(/(\d+)[.,](\d+)/g, "$1:$2")  // Correct time format errors (e.g., 14.09 -> 14:09)
           .replace(/(\d+)\s*-\s*(\d+)/g, "$1-$2")  // Normalize hyphen between time ranges
-          .replace(/(\s){2,}/g, " ")  // Collapse multiple spaces into a single space
           .replace(/\s*([:,-])\s*/g, "$1")  // Remove unnecessary spaces around colons, hyphens, commas
-          .trim();  // Trim any leading or trailing spaces
+          .trim();  // Trim any extra spaces at the start and end
     }
-,
+
+    ,
     // Methode zum Importieren in den Google-Kalender
     importGoogleCalendar() {
       const prompt = `You are given text extracted from OCR. Your task is to extract only the data present in the text and format it for CSV export for Google Calendar, following the rules strictly.
