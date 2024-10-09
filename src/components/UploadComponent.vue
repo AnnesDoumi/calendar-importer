@@ -255,40 +255,29 @@ export default {
     },
 
     cleanExtractedText(extractedText) {
-      // Regex for recognizing a URL (starts with http://, https://, or www)
-      const urlPattern = /(?:https?:\/\/|www\.)\S+/i;
+      // Schritt 1: Finde den Link relativ am Anfang des Textes (regex für Links).
+      const linkPattern = /https?:\/\/[^\s]+|[\w\-]+(\.[\w\-]+)+[^\s]*/;
+      const linkMatch = extractedText.match(linkPattern);
 
-      // Regex for recognizing days of the week in English or German
-      const weekdayPattern = /\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag)\b/i;
+      if (linkMatch) {
+        // Finde die Position des ersten Links.
+        const linkPosition = linkMatch.index;
 
-      // Regex for recognizing dates in common formats (e.g., 08.10.2024 or 08/10/2024)
-      const datePattern = /\b\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\b/;
+        // Schritt 2: Finde die Position des ersten Wochentags oder Datums nach dem Link.
+        const datePattern = /\b(?:Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|(\d{1,2}\.\d{1,2}\.\d{4}))\b/;
+        const dateMatch = extractedText.match(datePattern);
 
-      // Find position of the first link, weekday, or date
-      const linkMatch = extractedText.match(urlPattern);
-      const weekdayMatch = extractedText.match(weekdayPattern);
-      const dateMatch = extractedText.match(datePattern);
-
-      // Find the earliest occurrence between link, weekday, and date
-      const firstOccurrence = Math.min(
-          linkMatch ? linkMatch.index : Infinity,
-          weekdayMatch ? weekdayMatch.index : Infinity,
-          dateMatch ? dateMatch.index : Infinity
-      );
-
-      // If there is a link and a valid occurrence of weekday or date, cut everything before it
-      if (linkMatch && firstOccurrence < Infinity) {
-        extractedText = extractedText.substring(firstOccurrence);
+        if (dateMatch && dateMatch.index > linkPosition) {
+          // Entferne alles bis zur ersten Wochentags- oder Datumsangabe.
+          extractedText = extractedText.substring(dateMatch.index);
+        }
       }
 
-      // Continue with further cleaning after the cut
+      // Schritt 3: Entferne unerwünschte Sonderzeichen, und trimme den Text.
       return extractedText
-          .replace(/[^\w\säöüÄÖÜß:,-./]/g, "")  // Remove unwanted special characters but keep dates, times, and letters
-          .replace(/\s+/g, " ")  // Collapse multiple spaces into a single space
-          .replace(/(\d+)[.,](\d+)/g, "$1:$2")  // Correct time format errors (e.g., 14.09 -> 14:09)
-          .replace(/(\d+)\s*-\s*(\d+)/g, "$1-$2")  // Normalize hyphen between time ranges
-          .replace(/\s*([:,-])\s*/g, "$1")  // Remove unnecessary spaces around colons, hyphens, commas
-          .trim();  // Trim any extra spaces at the start and end
+          .replace(/[^\w\säöüÄÖÜß:,-.]/g, "")  // Entferne unerwünschte Sonderzeichen, behalte aber Daten- und Zeitzeichen
+          .replace(/\s+/g, " ")  // Mehrfache Leerzeichen zusammenführen
+          .trim();  // Zusätzliche Leerzeichen am Anfang und Ende entfernen
     }
 
     ,
