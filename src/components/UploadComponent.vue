@@ -256,12 +256,42 @@ export default {
 
     // Bereinigen des extrahierten Textes
     cleanExtractedText(extractedText) {
-      return extractedText
-          .replace(/[^\w\säöüÄÖÜß:,-.]/g, "")  // Remove only unwanted special characters but keep dates, times, and letters
-          .replace(/\s+/g, " ")  // Collapse multiple spaces into a single space
-          .trim();  // Trim any extra spaces at the start and end
-    },
+      // Regex for recognizing a URL (starts with http://, https://, or www)
+      const urlPattern = /(?:https?:\/\/|www\.)\S+/i;
 
+      // Regex for recognizing days of the week in English or German
+      const weekdayPattern = /\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag)\b/i;
+
+      // Regex for recognizing dates in common formats (e.g., 08.10.2024 or 08/10/2024)
+      const datePattern = /\b\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\b/;
+
+      // Find position of the first link, weekday, or date
+      const linkMatch = extractedText.match(urlPattern);
+      const weekdayMatch = extractedText.match(weekdayPattern);
+      const dateMatch = extractedText.match(datePattern);
+
+      // Find the earliest occurrence between link, weekday, and date
+      const firstOccurrence = Math.min(
+          linkMatch ? linkMatch.index : Infinity,
+          weekdayMatch ? weekdayMatch.index : Infinity,
+          dateMatch ? dateMatch.index : Infinity
+      );
+
+      // If there is a link and a valid occurrence of weekday or date, cut everything before it
+      if (linkMatch && firstOccurrence < Infinity) {
+        extractedText = extractedText.substring(firstOccurrence);
+      }
+
+      // Continue with further cleaning after the cut
+      return extractedText
+          .replace(/[^\w\säöüÄÖÜß:,-./]/g, "")   // Remove unwanted special characters but keep dates, times, and letters
+          .replace(/(\d+)[.,](\d+)/g, "$1:$2")  // Correct time format errors (e.g., 14.09 -> 14:09)
+          .replace(/(\d+)\s*-\s*(\d+)/g, "$1-$2")  // Normalize hyphen between time ranges
+          .replace(/(\s){2,}/g, " ")  // Collapse multiple spaces into a single space
+          .replace(/\s*([:,-])\s*/g, "$1")  // Remove unnecessary spaces around colons, hyphens, commas
+          .trim();  // Trim any leading or trailing spaces
+    }
+,
     // Methode zum Importieren in den Google-Kalender
     importGoogleCalendar() {
       const prompt = `You are given text extracted from OCR. Your task is to extract only the data present in the text and format it for CSV export for Google Calendar, following the rules strictly.
