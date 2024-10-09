@@ -318,19 +318,20 @@ export default {
    - Avoid creating separate entries for the same time period in a date (e.g., if there are time declarations "06:30-10:30" and "11:00-15:00" and "06:30-15:00" for a single date, only use "06:30" as Start Time, and "15:00" as End Time).
 
 ### 5. **Subject Assignment Based on Context**:
-   - Ensure that the description is assigned correctly. For example, if the OCR states a date, the structure of the whole OCR should be analyzed, and the text (except the times) assigned to the date should be used as the subject.
+   - Ensure that the subject is assigned correctly. For example, if the OCR states a date, the structure of the whole OCR should be analyzed, and the text (except for the times) found in the text for the date, should be used as the subject [see Example Output Structure(for reference) below].
    - Use text that appears on the right side of a date, until the next date starts, as the subject.
 
 ### 6. **Handling Invalid or Missing Times**:
-   - If time declarations of a date are totally missing, leave the Start Time and End Time fields blank.
+   - If time declarations in the OCR text for a date are totally missing, leave the Start Time and End Time fields blank.
    - Do **not** infer times that are not explicitly present in the text.
+   - Do not mistake a missing Times for a date, as a missing times for another date, therefore recognize how the information is put in the OCR TEXT.
 
 ### 7. **Session Reset**:
    - After processing the OCR text, reset the session to ensure no confusion or data overlap occurs between different datasets.
 
 ## Example Output Structure (for reference):
 Subject,Start Date,Start Time,End Date,End Time,Description
-(insert assigned Subject here),YYYY-MM-DD,,YYYY-MM-DD,,"Event"
+Subject,YYYY-MM-DD,,YYYY-MM-DD,,"Event"
 (insert assigned Subject here),2024-10-21,06:24,2024-10-21,14:51,"Event"
 
 ## OCR Text:
