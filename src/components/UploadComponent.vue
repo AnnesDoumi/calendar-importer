@@ -304,6 +304,7 @@ export default {
    - **Times** should be formatted as \`HH:MM\` (24-hour format). If times are missing or invalid, leave the field blank.
 
 ### 2. **Handling Overlapping or Redundant Time Ranges**:
+   - Do not forget, to take every date into account.
    - If a date has multiple overlapping or contiguous time periods (e.g., "06:24-11:00" and "11:30-14:51"), merge them into a single entry covering the full range (e.g., "06:24-14:51").
    - Do **not** create multiple entries for the same date if the time periods can be merged.
    - If there are **distinct non-overlapping time ranges**, such as separate shifts on the same day, treat them as separate entries (e.g., "06:24-11:00" and "15:00-18:00").
