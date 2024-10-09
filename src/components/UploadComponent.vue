@@ -309,7 +309,7 @@ export default {
 
 ### 3. **Subject Assignment Based on Context**:
    - Ensure that the description is assigned correctly. For example, if the OCR states a date, the structure of the whole OCR should be analyzed and the text(except of the times), assigned to the date, should be put as subject.
-    - Use texts which are stated the right side or under a date, until the next date starts, as Subject.
+    - Use texts which are stated the right side of a date, until the next date starts, as Subject.
 
 
 ### 4. **Handling Invalid or Missing Times**:
@@ -317,7 +317,7 @@ export default {
    - Do **not** infer times that are not explicitly present in the text.
 
 ### 5. **Date and Time Formatting**:
-   - **Start Time** and **End Time** should be analyzed from the OCR, recognize the pattern how the times are assigned to the dates, in the most cases, the times will be on the right side or under a date until the next date starts.
+   - **Start Time** and **End Time** should be analyzed from the OCR, recognize the pattern how the times are assigned to the dates, in the most cases, the times will be on the right side of a date until the next date starts.
    - **Dates** should be formatted as \`YYYY-MM-DD\` (ISO format).
    - **Times** should be formatted as \`HH:MM\` (24-hour format). If times are missing or invalid, leave the field blank.
 
