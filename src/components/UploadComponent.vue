@@ -298,32 +298,31 @@ export default {
 
 ## Key Rules:
 
-### 1. **Handling Overlapping or Redundant Time Ranges**:
-   - If a date has multiple overlapping or contiguous time periods (e.g., "06:24-11:00" and "11:30-14:51"), merge them into a single entry covering the full range (e.g., "06:24-14:51").
-   - Do **not** create multiple entries for the same date if the time periods can be merged.
-   - If there are **distinct non-overlapping time ranges**, such as separate shifts on the same day, they should be treated as separate entries (e.g., "06:24-11:00" and "15:00-18:00").
-
-### 2. **Eliminating Unnecessary Duplicate Entries**:
-   - Ensure that each date is represented **once** with the consolidated time range, without unnecessary repetitions.
-   - Avoid creating separate entries for the same time period in a date (e.g.if there are time declarations "06:30-10:30" and "11:00-15:00" and "06:30-15:00"  for a single date,  only use "6:30" as Start Time, and "15:00" as End Time).
-
-### 3. **Subject Assignment Based on Context**:
-   - Ensure that the description is assigned correctly. For example, if the OCR states a date, the structure of the whole OCR should be analyzed and the text(except of the times), assigned to the date, should be put as subject.
-    - Use texts which are stated the right side of a date, until the next date starts, as Subject.
-
-
-### 4. **Handling Invalid or Missing Times**:
-   - If time declerations on the right side of a date is missing, leave the Start Time and End Time fields blank.
-   - Do **not** infer times that are not explicitly present in the text.
-
-### 5. **Date and Time Formatting**:
-   - **Start Time** and **End Time** should be analyzed from the OCR, recognize the pattern how the times are assigned to the dates, in the most cases, the times will be on the right side of a date until the next date starts.
+### 1. **Date and Time Formatting**:
+   - **Start Time** and **End Time** should be analyzed from the OCR, recognizing the pattern of how times are assigned to dates. In most cases, times will appear on the right side of a date until the next date starts.
    - **Dates** should be formatted as \`YYYY-MM-DD\` (ISO format).
    - **Times** should be formatted as \`HH:MM\` (24-hour format). If times are missing or invalid, leave the field blank.
 
-### 6. **Consolidation of Entries**:
+### 2. **Handling Overlapping or Redundant Time Ranges**:
+   - If a date has multiple overlapping or contiguous time periods (e.g., "06:24-11:00" and "11:30-14:51"), merge them into a single entry covering the full range (e.g., "06:24-14:51").
+   - Do **not** create multiple entries for the same date if the time periods can be merged.
+   - If there are **distinct non-overlapping time ranges**, such as separate shifts on the same day, treat them as separate entries (e.g., "06:24-11:00" and "15:00-18:00").
+
+### 3. **Consolidation of Entries**:
    - Each entry should contain one distinct time range for a given date, consolidating any overlapping or contiguous time ranges.
    - **Do not split** or create separate rows for time ranges that can be merged into one.
+
+### 4. **Eliminating Unnecessary Duplicate Entries**:
+   - Ensure that each date is represented **once** with the consolidated time range, without unnecessary repetitions.
+   - Avoid creating separate entries for the same time period in a date (e.g., if there are time declarations "06:30-10:30" and "11:00-15:00" and "06:30-15:00" for a single date, only use "06:30" as Start Time, and "15:00" as End Time).
+
+### 5. **Subject Assignment Based on Context**:
+   - Ensure that the description is assigned correctly. For example, if the OCR states a date, the structure of the whole OCR should be analyzed, and the text (except the times) assigned to the date should be used as the subject.
+   - Use text that appears on the right side of a date, until the next date starts, as the subject.
+
+### 6. **Handling Invalid or Missing Times**:
+   - If time declarations on the right side of a date are missing, leave the Start Time and End Time fields blank.
+   - Do **not** infer times that are not explicitly present in the text.
 
 ### 7. **Session Reset**:
    - After processing the OCR text, reset the session to ensure no confusion or data overlap occurs between different datasets.
@@ -335,18 +334,6 @@ Subject,Start Date,Start Time,End Date,End Time,Description
 
 ## OCR Text:
 `;
-
-
-
-
-
-
-
-
-
-
-
-
 
 
       this.analyzeFile(prompt);
