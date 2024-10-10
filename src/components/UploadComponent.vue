@@ -4,8 +4,8 @@
     <!-- Logo hinzufügen -->
     <img src="../assets/logo.png" alt="Logo" class="logo" />
     <h1>Calendar Importer</h1>
-    <i>Upload a Screenshot of your Schedule, it will get analyzed and put in to a table.
-    Correct it if needed, then create an Import File for your Calendar, or import it directly.</i>
+    <i>Upload a screenshot of your schedule, it will get analyzed and put in to a table.
+    Correct the data if needed, then create an import file for your calendar, or import it directly.</i>
 
     <div class="upload-section">
       <h2>Upload a screenshot of your Schedule</h2>
