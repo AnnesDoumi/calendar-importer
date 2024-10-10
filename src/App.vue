@@ -23,12 +23,12 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 
 header {
   background-color: #f3f3f3;
-  padding: 20px;
+  padding: 0px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 </style>

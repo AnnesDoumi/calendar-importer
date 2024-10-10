@@ -389,15 +389,6 @@ Subject,YYYY-MM-DD,,YYYY-MM-DD,,"Event"
   margin-bottom: 20px;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-}
-
-
 h1 {
   color: #ffffff; /* Haupttext in Weiß */
 }
@@ -552,6 +543,13 @@ input[type="file"] {
 .delete-button:hover {
   opacity: 0.8;
   box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.3);
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
 }
 
 
