@@ -21,3 +21,14 @@ module.exports = defineConfig({
     },
   },
 });
+
+module.exports = {
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000', // Dein Express-Server
+        changeOrigin: true,
+      },
+    },
+  },
+};

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { google } = require('googleapis');
+
 const fs = require('fs');
 const Groq = require("groq-sdk");
 const app = express();
@@ -74,48 +75,27 @@ app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
 
+
 /** Google Calendar Endpunkt **/
+
+// Importiere den Google Calendar Service
+const { importCSVToGoogleCalendar } = require('./src/services/googleCalendarService');
 
 // Endpunkt für den Import in den Google Kalender
 app.post('/api/google-calendar-import', async (req, res) => {
     try {
-        const { events, timeZone } = req.body; // Zeitdaten und Events vom Client
+        const { events } = req.body;
         const token = req.headers.authorization; // Google OAuth2 Token des Benutzers
 
         if (!token) {
             return res.status(401).json({ error: 'Authorization token missing' });
         }
 
-        // Initialisiere den OAuth2 Client
-        const oauth2Client = new google.auth.OAuth2();
-        oauth2Client.setCredentials({ access_token: token });
-
-        const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-
-        // Loop durch Events und füge sie in Google Calendar hinzu
-        for (const event of events) {
-            const eventBody = {
-                summary: event.title,
-                start: {
-                    dateTime: `${event.startDate}T${event.startTime}:00`,
-                    timeZone: timeZone || 'UTC', // Verwende die vom Benutzer übergebene Zeitzone oder UTC als Fallback
-                },
-                end: {
-                    dateTime: `${event.endDate}T${event.endTime}:00`,
-                    timeZone: timeZone || 'UTC',
-                },
-                description: event.description,
-            };
-
-            await calendar.events.insert({
-                calendarId: 'primary', // Kalender des Benutzers
-                resource: eventBody,
-            });
-        }
-
-        res.status(200).json({ message: 'Events successfully added to Google Calendar' });
+        // Importiere die CSV-Daten in den Google Kalender
+        await importCSVToGoogleCalendar(token, events);
+        res.status(200).json({ message: 'Events successfully imported to Google Calendar' });
     } catch (error) {
-        console.error('Error inserting events into Google Calendar:', error);
-        res.status(500).json({ error: 'Failed to import events into Google Calendar' });
+        console.error('Error importing to Google Calendar:', error);
+        res.status(500).json({ error: error.message });
     }
 });
