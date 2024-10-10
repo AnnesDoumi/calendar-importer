@@ -12,13 +12,13 @@
       <input type="file" accept="image/*" @change="handleFileUpload"/>
 
       <!-- Kamera Foto aufnehmen -->
-      <button @click="openCameraModal">Take Photo</button>
+    <!--  <button @click="openCameraModal">Take Photo</button>  -->
 
       <!-- Modal für die Kamera -->
       <div v-if="showCamera" class="modal">
         <div class="modal-content">
           <video ref="video" width="320" height="240" autoplay></video>
-           <!-- <button @click="takePhoto">Capture Photo</button> -->
+            <button @click="takePhoto">Capture Photo</button>
           <button @click="closeCameraModal">Close</button>
         </div>
       </div>
