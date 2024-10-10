@@ -380,9 +380,10 @@ Subject,YYYY-MM-DD,,YYYY-MM-DD,,"Event"
   font-family: Arial, sans-serif;
   text-align: center;
   margin: 0px;
+  width: 100vw;
+  height: 100vh;
   background-color: #1e1e2e; /* Dunkler Hintergrund */
   color: #ffffff; /* Weißer Text */
-  min-height: 100vh;
   padding: 0px;
 }
 
