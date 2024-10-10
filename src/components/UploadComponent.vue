@@ -2,7 +2,7 @@
   <div id="app">
 
     <!-- Logo hinzufügen -->
-    <img src="@/assets/logo.png" alt="Logo" class="logo" />
+    <img src="../assets/logo.png" alt="Logo" class="logo" />
     <h1>Calendar Importer</h1>
 
     <div class="upload-section">
