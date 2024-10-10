@@ -6,7 +6,7 @@
       <h2>Upload a file or take a photo</h2>
 
       <!-- Datei-Upload -->
-      <input type="file" accept="image/*" @change="handleFileUpload" />
+      <input type="file" accept="image/*" @change="handleFileUpload"/>
 
       <!-- Kamera Foto aufnehmen -->
       <button @click="openCameraModal">Take Photo</button>
@@ -23,16 +23,11 @@
       <!-- Kalender Optionen -->
       <div class="calendar-buttons">
         <!-- Google Calendar Import -->
-        <button @click="importToGoogleCalendar" class="google-button">
-          Import to Google Calendar
+        <button @click="analyzeFile" class="google-button">
+          Analyze File
         </button>
+        
 
-        <!-- Download Google Import CSV -->
-        <button @click="generateCSV(analysisData)">Download Google Import CSV</button>
-        <!-- Apple Calendar Import -->
-        <button @click="importAppleCalendar" class="apple-button">
-          Import to Apple Calendar
-        </button>
       </div>
     </div>
 
@@ -52,23 +47,28 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(entry, index) in analysisData" :key="index" @mouseover="entry.showDelete = true" @mouseleave="entry.showDelete = false">
+        <tr v-for="(entry, index) in analysisData" :key="index" @mouseover="entry.showDelete = true"
+            @mouseleave="entry.showDelete = false">
           <td>
             <div class="row">
               <button v-if="entry.showDelete" class="delete-button" @click="removeRow(index)">-</button>
-              <input v-model="entry.title" class="centered-input" />
+              <input v-model="entry.title" class="centered-input"/>
             </div>
           </td>
-          <td><input v-model="entry.startDate" /></td>
-          <td><input v-model="entry.startTime" /></td>
-          <td><input v-model="entry.endDate" /></td>
-          <td><input v-model="entry.endTime" /></td>
-          <td><input v-model="entry.location" /></td>
-          <td><input v-model="entry.description" /></td>
+          <td><input v-model="entry.startDate"/></td>
+          <td><input v-model="entry.startTime"/></td>
+          <td><input v-model="entry.endDate"/></td>
+          <td><input v-model="entry.endTime"/></td>
+          <td><input v-model="entry.location"/></td>
+          <td><input v-model="entry.description"/></td>
         </tr>
         </tbody>
       </table>
       <div>
+        <!-- Google Calendar Import -->
+        <button @click="importToGoogleCalendar" class="google-button">
+          Import to Google Calendar
+        </button>
         <button @click="generateCSV(analysisData)">Export to Google Calendar CSV</button>
       </div>
 
