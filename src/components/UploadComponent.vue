@@ -6,7 +6,7 @@
     <h1>Calendar Importer</h1>
 
     <div class="upload-section">
-      <h2>Upload a file or take a photo</h2>
+      <h2>Upload a screenshot of your Schedule</h2>
 
       <!-- Datei-Upload -->
       <input type="file" accept="image/*" @change="handleFileUpload"/>
@@ -18,7 +18,7 @@
       <div v-if="showCamera" class="modal">
         <div class="modal-content">
           <video ref="video" width="320" height="240" autoplay></video>
-          <button @click="takePhoto">Capture Photo</button>
+           <!-- <button @click="takePhoto">Capture Photo</button> -->
           <button @click="closeCameraModal">Close</button>
         </div>
       </div>
