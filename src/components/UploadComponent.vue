@@ -378,7 +378,7 @@ Subject,YYYY-MM-DD,,YYYY-MM-DD,,"Event"
 #app {
   font-family: Arial, sans-serif;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 0px;
   background-color: #1e1e2e; /* Dunkler Hintergrund */
   color: #ffffff; /* Weißer Text */
   min-height: 100vh;
@@ -544,14 +544,6 @@ input[type="file"] {
   opacity: 0.8;
   box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.3);
 }
-html, body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-}
-
 
 
 </style>
