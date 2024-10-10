@@ -23,9 +23,12 @@
       <!-- Kalender Optionen -->
       <div class="calendar-buttons">
         <!-- Google Calendar Import -->
-        <button @click="importGoogleCalendar" class="google-button">
+        <button @click="importToGoogleCalendar" class="google-button">
           Import to Google Calendar
         </button>
+
+        <!-- Download Google Import CSV -->
+        <button @click="generateCSV(analysisData)">Download Google Import CSV</button>
         <!-- Apple Calendar Import -->
         <button @click="importAppleCalendar" class="apple-button">
           Import to Apple Calendar
@@ -235,6 +238,21 @@ export default {
       return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}`; // Formatiere die Zeit richtig
     },
 
+    async importToGoogleCalendar() {
+      try {
+        const response = await axios.post("/api/google-calendar-import", {
+          events: this.analysisData, // Die analysierten und bereinigten CSV-Daten
+        });
+        if (response.status === 200) {
+          alert("Events successfully imported to Google Calendar!");
+        }
+      } catch (error) {
+        console.error("Error importing to Google Calendar", error);
+        alert("Failed to import events. Please try again.");
+      }
+    },
+
+
     // CSV für Google Calendar generieren
     generateCSV(analysisData) {
       const csvContent =
@@ -255,29 +273,40 @@ export default {
     },
 
     cleanExtractedText(extractedText) {
-      // Schritt 1: Finde den Link relativ am Anfang des Textes (regex für Links).
-      const linkPattern = /https?:\/\/[^\s]+|[\w\-]+(\.[\w\-]+)+[^\s]*/;
-      const linkMatch = extractedText.match(linkPattern);
+      // Regex for recognizing a URL (starts with http://, https://, or www)
+      const urlPattern = /(?:https?:\/\/|www\.)\S+/i;
 
-      if (linkMatch) {
-        // Finde die Position des ersten Links.
-        const linkPosition = linkMatch.index;
+      // Regex for recognizing days of the week in English or German
+      const weekdayPattern = /\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag)\b/i;
 
-        // Schritt 2: Finde die Position des ersten Wochentags oder Datums nach dem Link.
-        const datePattern = /\b(?:Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|(\d{1,2}\.\d{1,2}\.\d{4}))\b/;
-        const dateMatch = extractedText.match(datePattern);
+      // Regex for recognizing dates in common formats (e.g., 08.10.2024 or 08/10/2024)
+      const datePattern = /\b\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\b/;
 
-        if (dateMatch && dateMatch.index > linkPosition) {
-          // Entferne alles bis zur ersten Wochentags- oder Datumsangabe.
-          extractedText = extractedText.substring(dateMatch.index);
-        }
+      // Find position of the first link, weekday, or date
+      const linkMatch = extractedText.match(urlPattern);
+      const weekdayMatch = extractedText.match(weekdayPattern);
+      const dateMatch = extractedText.match(datePattern);
+
+      // Find the earliest occurrence between link, weekday, and date
+      const firstOccurrence = Math.min(
+          linkMatch ? linkMatch.index : Infinity,
+          weekdayMatch ? weekdayMatch.index : Infinity,
+          dateMatch ? dateMatch.index : Infinity
+      );
+
+      // If there is a link and a valid occurrence of weekday or date, cut everything before it
+      if (linkMatch && firstOccurrence < Infinity) {
+        extractedText = extractedText.substring(firstOccurrence);
       }
 
-      // Schritt 3: Entferne unerwünschte Sonderzeichen, und trimme den Text.
+      // Continue with further cleaning after the cut
       return extractedText
-          .replace(/[^\w\säöüÄÖÜß:,-.]/g, "")  // Entferne unerwünschte Sonderzeichen, behalte aber Daten- und Zeitzeichen
-          .replace(/\s+/g, " ")  // Mehrfache Leerzeichen zusammenführen
-          .trim();  // Zusätzliche Leerzeichen am Anfang und Ende entfernen
+          .replace(/[^\w\säöüÄÖÜß:,-./]/g, "")  // Remove unwanted special characters but keep dates, times, and letters
+          .replace(/\s+/g, " ")  // Collapse multiple spaces into a single space
+          .replace(/(\d+)[.,](\d+)/g, "$1:$2")  // Correct time format errors (e.g., 14.09 -> 14:09)
+          .replace(/(\d+)\s*-\s*(\d+)/g, "$1-$2")  // Normalize hyphen between time ranges
+          .replace(/\s*([:,-])\s*/g, "$1")  // Remove unnecessary spaces around colons, hyphens, commas
+          .trim();  // Trim any extra spaces at the start and end
     }
 
     ,

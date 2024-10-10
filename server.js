@@ -72,3 +72,28 @@ function formatDateTime(date, time) {
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
+
+
+/** Google Calendar Endpunkt **/
+
+// Importiere den Google Calendar Service
+const { importCSVToGoogleCalendar } = require('./src/services/googleCalendarService');
+
+// Endpunkt für den Import in den Google Kalender
+app.post('/api/google-calendar-import', async (req, res) => {
+    try {
+        const { events } = req.body;
+        const token = req.headers.authorization; // Google OAuth2 Token des Benutzers
+
+        if (!token) {
+            return res.status(401).json({ error: 'Authorization token missing' });
+        }
+
+        // Importiere die CSV-Daten in den Google Kalender
+        await importCSVToGoogleCalendar(token, events);
+        res.status(200).json({ message: 'Events successfully imported to Google Calendar' });
+    } catch (error) {
+        console.error('Error importing to Google Calendar:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
