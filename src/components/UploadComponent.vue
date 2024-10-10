@@ -7,6 +7,7 @@
     <i>Upload a screenshot of your schedule, it will get analyzed and put in to a table.
     Correct the data if needed, then create an import file for your calendar, or import it directly.</i>
 
+
     <div class="upload-section">
       <h2>Upload a screenshot of your Schedule</h2>
 
@@ -378,10 +379,11 @@ Subject,YYYY-MM-DD,,YYYY-MM-DD,,"Event"
 #app {
   font-family: Arial, sans-serif;
   text-align: center;
-  margin-top: 0px;
+  margin: 0px;
   background-color: #1e1e2e; /* Dunkler Hintergrund */
   color: #ffffff; /* Weißer Text */
   min-height: 100vh;
+  padding: 0px;
 }
 
 .logo {
@@ -399,7 +401,7 @@ i {
 
 .upload-section {
   background-color: #28293e; /* Etwas helleres Dunkelgrau */
-  padding: 20px;
+  padding: 0px;
   border-radius: 8px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   max-width: 600px;
@@ -482,6 +484,7 @@ input[type="file"] {
 .data-table th {
   background-color: #1e1e2e;
   font-weight: bold;
+
 }
 
 .data-table td input {
