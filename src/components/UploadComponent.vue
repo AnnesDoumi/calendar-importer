@@ -379,14 +379,30 @@ Subject,YYYY-MM-DD,,YYYY-MM-DD,,"Event"
   font-family: Arial, sans-serif;
   text-align: center;
   margin-top: 40px;
+  background-color: #1e1e2e; /* Dunkler Hintergrund */
+  color: #ffffff; /* Weißer Text */
+  min-height: 100vh;
+}
+
+.logo {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: #ffffff; /* Haupttext in Weiß */
+}
+
+i {
+  color: #b2b2b2; /* Leichter Sekundärtext */
 }
 
 .upload-section {
-  background-color: #f9f9f9;
+  background-color: #28293e; /* Etwas helleres Dunkelgrau */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -394,20 +410,24 @@ button {
   margin: 10px;
   padding: 10px 20px;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 8px; /* Runde Ecken für modernen Look */
   cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  box-shadow: 0px 0px 12px rgba(78, 157, 255, 0.5);
 }
 
 .google-button {
-  background-color: #4285f4;
+  background-color: #4e9dff; /* Blaue Akzentfarbe */
   color: white;
-  border: none;
 }
 
 .apple-button {
-  background-color: #000;
+  background-color: #000; /* Schwarze Akzentfarbe */
   color: white;
-  border: none;
 }
 
 .modal {
@@ -416,14 +436,14 @@ button {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6); /* Transparenter schwarzer Hintergrund */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
-  background-color: white;
+  background-color: #28293e;
   padding: 20px;
   border-radius: 8px;
 }
@@ -431,6 +451,11 @@ button {
 input[type="file"] {
   display: block;
   margin: 10px auto;
+  background-color: #28293e;
+  color: #b2b2b2;
+  border: 2px solid #4e9dff;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .data-table {
@@ -441,17 +466,34 @@ input[type="file"] {
   width: 100%;
   margin: 0 auto;
   border-collapse: collapse;
+  background-color: #28293e;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .data-table th,
 .data-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 1px solid #4e9dff;
+  padding: 12px;
+  text-align: center;
+  color: #ffffff;
 }
 
 .data-table th {
-  background-color: #f2f2f2;
+  background-color: #1e1e2e;
   font-weight: bold;
+}
+
+.data-table td input {
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+}
+
+.data-table td input:focus {
+  outline: none;
+  border-bottom: 2px solid #4e9dff; /* Akzentfarbe beim Fokus */
 }
 
 .row {
@@ -470,13 +512,12 @@ input[type="file"] {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  font-size: 15px;
+  width: 25px;
+  height: 25px;
+  font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
   cursor: pointer;
 }
 
@@ -485,9 +526,9 @@ input[type="file"] {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  font-size: 15px;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
   position: fixed;
   bottom: 20px;
   left: 20px;
@@ -495,10 +536,13 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .add-button:hover,
 .delete-button:hover {
   opacity: 0.8;
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.3);
 }
+
 </style>
