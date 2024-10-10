@@ -23,10 +23,10 @@
       <!-- Kalender Optionen -->
       <div class="calendar-buttons">
         <!-- Google Calendar Import -->
-        <button @click="analyzeFile" class="google-button">
+        <button @click="importGoogleCalendar" class="google-button">
           Analyze File
         </button>
-        
+
 
       </div>
     </div>
