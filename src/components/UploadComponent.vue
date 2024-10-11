@@ -389,6 +389,7 @@ Subject,YYYY-MM-DD,,YYYY-MM-DD,,"Event"
   height: 100vh;
   background-color: #1e1e2e; /* Dunkler Hintergrund */
   color: #ffffff; /* Weißer Text */
+  overflow-x: hidden; /* Verhindert horizontales Scrollen */
 }
 
 .logo {
@@ -467,9 +468,9 @@ input[type="file"] {
 
 /* Stile für die Tabelle */
 .data-table {
-  margin-top: 30px;
+  margin-top: 20px; /* Etwas Platz über der Tabelle */
   max-width: 80%; /* Begrenze die maximale Breite der Tabelle auf 80% des Bildschirms */
-  margin: 20px auto;
+  margin: 0 auto;
   background-color: #28293e;
   border-radius: 8px;
   padding: 10px;
@@ -486,8 +487,9 @@ input[type="file"] {
 .data-table th,
 .data-table td {
   border: 1px solid #4e9dff;
-  padding: 12px 8px; /* Reduziertes Padding, um den Platz in der Tabelle zu verringern */
+  padding: 8px 4px; /* Verringere das Padding, damit die Tabelle kompakter wird */
   text-align: center;
+  font-size: 14px; /* Verkleinere die Schriftgröße */
   color: #ffffff;
 }
 
@@ -501,6 +503,7 @@ input[type="file"] {
   border: none;
   color: #ffffff;
   text-align: center;
+  font-size: 14px;
 }
 
 .data-table td input:focus {
@@ -543,12 +546,13 @@ input[type="file"] {
   font-size: 30px;
   position: fixed;
   bottom: 20px;
-  left: 20px;
+  right: 20px; /* Platzierung auf der rechten Seite */
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000; /* Damit der Button immer über der Tabelle bleibt */
 }
 
 .add-button:hover,
@@ -563,7 +567,7 @@ html, body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Nur vertikales Scrollen erlauben */
 }
 
 * {
@@ -575,6 +579,5 @@ html, body {
 body {
   overflow-x: hidden;
 }
-
 
 </style>
