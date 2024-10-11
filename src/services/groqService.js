@@ -1,26 +1,21 @@
-// src/services/groqService.js
-import Groq from "groq-sdk";
-
-// Initialisiere die GROQ API mit dem API-Key aus der .env.local Datei
-const groq = new Groq({ apiKey: process.env.VUE_APP_GROQ_API_KEY });
-
 async function sendToGroq(promptText) {
     try {
-        // Verwende den API-Call zur Modellgenerierung
-        const completion = await groq.chat.completions.create({
-            messages: [
-                {
-                    role: "user",
-                    content: promptText,  // Verwende den vom Benutzer eingegebenen Text
-                },
-            ],
-            model: "mixtral-8x7b-32768",  // Beispielmodell, ändere es nach Bedarf
+        const response = await fetch('/api/groq', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ prompt: promptText }),
         });
 
-        // Rückgabe des Inhalts der Antwort
-        return completion.choices[0]?.message?.content || "";
+        if (!response.ok) {
+            throw new Error('Failed to send request to Groq API');
+        }
+
+        const data = await response.json();
+        return data.completion || '';
     } catch (error) {
-        console.error("Error sending data to GROQ:", error);
+        console.error('Error sending data to Groq:', error);
         return null;
     }
 }
