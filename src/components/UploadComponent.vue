@@ -380,11 +380,12 @@ Subject,YYYY-MM-DD,,YYYY-MM-DD,,"Event"
   font-family: Arial, sans-serif;
   text-align: center;
   margin: 0px;
+  padding: 0px;
   width: 100vw;
   height: 100vh;
   background-color: #1e1e2e; /* Dunkler Hintergrund */
   color: #ffffff; /* Weißer Text */
-  padding: 0px;
+
 }
 
 .logo {
@@ -555,8 +556,19 @@ html, body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  overflow-x: hidden;
+
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
 
 
 </style>
