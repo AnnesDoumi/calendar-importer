@@ -549,5 +549,14 @@ input[type="file"] {
   box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.3);
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+
 
 </style>
