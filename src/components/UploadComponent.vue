@@ -4,12 +4,11 @@
     <!-- Logo hinzufügen -->
     <img src="../assets/logo.png" alt="Logo" class="logo" />
     <h1>Calendar Importer</h1>
-    <i>Upload a screenshot of your schedule, it will get analyzed and put in to a table.
-    Correct the data if needed, then create an import file for your calendar, or import it directly.</i>
-
-
+    <h2>Upload a screenshot of your Schedule</h2>
+    <br>
+    <br>
     <div class="upload-section">
-      <h2>Upload a screenshot of your Schedule</h2>
+
 
       <!-- Datei-Upload -->
       <input type="file" accept="image/*" @change="handleFileUpload"/>
@@ -36,6 +35,11 @@
 
       </div>
     </div>
+    <br>
+    <br>
+    <i>Upload a screenshot of your schedule, it will get analyzed and put in to a table.
+      Correct the data if needed, then create an import file for your calendar, or import it directly.</i>
+
 
     <!-- Analyzierte Daten anzeigen -->
     <div v-if="analysisData.length > 0" class="data-table">
@@ -385,7 +389,6 @@ Subject,YYYY-MM-DD,,YYYY-MM-DD,,"Event"
   height: 100vh;
   background-color: #1e1e2e; /* Dunkler Hintergrund */
   color: #ffffff; /* Weißer Text */
-
 }
 
 .logo {
@@ -462,14 +465,19 @@ input[type="file"] {
   padding: 10px;
 }
 
+/* Stile für die Tabelle */
 .data-table {
   margin-top: 30px;
+  max-width: 80%; /* Begrenze die maximale Breite der Tabelle auf 80% des Bildschirms */
+  margin: 20px auto;
+  background-color: #28293e;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .data-table table {
-  width: 100%;
-  margin: 0 auto;
-  border-collapse: collapse;
+  width: 100%; /* Volle Breite innerhalb des Containers */
+  border-collapse: collapse; /* Entfernt doppelte Linien */
   background-color: #28293e;
   border-radius: 8px;
   overflow: hidden;
@@ -478,7 +486,7 @@ input[type="file"] {
 .data-table th,
 .data-table td {
   border: 1px solid #4e9dff;
-  padding: 12px;
+  padding: 12px 8px; /* Reduziertes Padding, um den Platz in der Tabelle zu verringern */
   text-align: center;
   color: #ffffff;
 }
@@ -486,7 +494,6 @@ input[type="file"] {
 .data-table th {
   background-color: #1e1e2e;
   font-weight: bold;
-
 }
 
 .data-table td input {
@@ -557,7 +564,6 @@ html, body {
   height: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
-
 }
 
 * {
