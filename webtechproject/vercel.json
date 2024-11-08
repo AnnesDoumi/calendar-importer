@@ -12,26 +12,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.html",
-      "status": 200
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "redirects": [],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "max-age=0, no-cache, no-store, must-revalidate"
-        }
-      ]
+      "dest": "/index.html"
     }
   ]
 }
