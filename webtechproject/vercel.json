@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "framework": "vue",
   "builds": [
     {
-      "src": "package.json",
+      "src": "./package.json",
       "use": "@vercel/static-build",
       "config": {
+        "distDir": "dist",
         "includeDevDependencies": true
       }
     }
