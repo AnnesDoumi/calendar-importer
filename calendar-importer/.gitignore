@@ -1,25 +1,134 @@
+# Betriebssystem- und Editor-Dateien
 .DS_Store
-node_modules
-/dist
+Thumbs.db
+desktop.ini
+.viminfo
+.bash_history
+.lesshst
+.vuerc
+*.swp
+*.lock
+*.tmp
+*.log
+*.bak
+*.old
 
+# Benutzerprofile und Konfigurationsdateien
+/.ssh/
+/.gradle/
+/.m2/
+/.nuget/
+/gnupg/
+/.ganttproject.d/
+.gitconfig
 
-# local env files
-.env.local
-.env.*.local
+# Android und Java spezifisch
+/.android/
+/.jdks/
+/gradle-*/
 
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# Temporäre oder Cache-Dateien
+.pdfbox.cache
+.emulator_console_auth_token
+.ganttproject
+.ntuser.*
+NTUSER.DAT*
+*.blf
+*.regtrans-ms
 
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Windows spezifische Ordner
+/AppData/
+/Contacts/
+/Desktop/
+/Documents/
+/Downloads/
+/Favorites/
+/Music/
+/OneDrive/
+/Pictures/
+/Saved Games/
+/Searches/
+/Videos/
 
-.vercel
+# Node.js und npm spezifisch
+/node_modules/
+/package-lock.json
+.npm
+
+# IDEs und Editoren spezifische Dateien
+/.idea/
+/.vscode/
+/AndroidStudioProjects/
+/IntelliJIdea/
+/WebStormProjects/
+/*.iml
+
+# Dateien und Projekte aus persönlichen Ordnern
+/3D Objects/
+/Primzahl/
+/ProbeklausurHA2.zip
+/ProbeklausurHA2/
+/calendarproject/
+/doumi/
+/doumi2/
+/filmundserien/
+/klausur-pz1-AnnesDoumi/
+/klausur-pz1-Cedric-CJ-main/
+/spoticlone/
+/Webtech404/
+/WebtechProjekt/
+/ha1/
+/ha2/
+/ha3-AnnesDoumi/
+/ha4-AnnesDoumi/
+/ha5-AnnesDoumi/
+
+# Spezifische Dateien von deinem Desktop
+/Desktop/*.mp4
+/Desktop/*.pdf
+/Desktop/*.docx
+/Desktop/*.xlsx
+/Desktop/*.jpg
+/Desktop/*.png
+/Desktop/*.ico
+/Desktop/*.lnk
+/Desktop/*.sql
+/Desktop/*.txt
+/Desktop/neueslogo.png
+/Desktop/neuuuu/
+
+# Ausschließen von Mac- und Windows- spezifischen Ordnern
+.DS_Store
+.DS_Store?
+Icon?
+Thumbs.db
+._*
+*.crdownload
+*.tmp
+
+# Temporäre oder generierte Dateien
+*.class
+*.jar
+*.war
+*.ear
+*.obj
+*.o
+*.dll
+*.pyc
+*.pyo
+*.log
+*.csv
+*.ics
+*.exe
+*.app
+*.out
+*.pid
+*.tar.gz
+
+# Dateien für spezifische Tools
+*.sqlite
+*.sql
+*.db
+*.cache
+*.gz
+
